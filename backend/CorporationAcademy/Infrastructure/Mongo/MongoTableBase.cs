@@ -22,6 +22,8 @@ internal abstract class MongoTableBase<T>(IMongoClientProvider mongoClientProvid
                 Builders<T>.Update.Set(update, updateValue));
     }
 
+    protected async Task<bool> Exists(Expression<Func<T, bool>> predicate) => await Table.AnyAsync(predicate);
+
     protected IMongoQueryable<T> Table => GetCollection().AsQueryable();
 
     private IMongoCollection<T> GetCollection()

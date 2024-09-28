@@ -1,4 +1,6 @@
+using CorporationAcademy.Features.CreateCategory;
 using CorporationAcademy.Features.GenerateSentences;
+using CorporationAcademy.Features.GetCategories;
 using CorporationAcademy.Features.SaveLearningWord;
 using CorporationAcademy.Infrastructure;
 
@@ -22,6 +24,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.MapGenerateSentencesEndpoint();
 app.MapSaveLearningWordEnpoint();
+app.MapCreateCategoryEndpoint();
+app.MapGetCategoriesEndpoint();
 
 
 app.Run();

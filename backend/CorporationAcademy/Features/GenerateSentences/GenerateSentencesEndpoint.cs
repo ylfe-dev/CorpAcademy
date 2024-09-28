@@ -2,13 +2,12 @@
 using CorporationAcademy.Features.GenerateSentences.Models;
 using CorporationAcademy.Features.Shared;
 using CorporationAcademy.Features.Shared.Clients;
-using Microsoft.AspNetCore.Mvc;
 
 namespace CorporationAcademy.Features.GenerateSentences;
 
 public static class GenerateSentencesEndpoint
 {
-    public record Response(List<Sentence> Sentences);
+    private record GenerateSentencesResponse(List<Sentence> Sentences);
 
     public static void MapGenerateSentencesEndpoint(this IEndpointRouteBuilder endpointRouteBuilder)
     {
@@ -22,7 +21,7 @@ public static class GenerateSentencesEndpoint
                 var learningWords = await wordsClient.GetLearningWords(userAccessor.UserId);
                 var sentences = await sentencesGenerator.Generate(learningWords);
 
-                return Results.Ok(new Response(sentences));
+                return Results.Ok(new GenerateSentencesResponse(sentences));
             });
     }
 }
