@@ -1,5 +1,5 @@
 import Hint from '../../components/Hint/hint'
-import { useContext } from 'react';
+import { useContext, useMemo } from 'react';
 import { Link } from "react-router-dom";
 import Scene from '../../components/Scene/scene';
 import { SummaryContext } from '../../contexts/SummaryContext';
@@ -9,6 +9,9 @@ function Summary() {
     //{ wordsMistakes, words, sentenceMistakes, sentence, sentenceTime }
 
     const summaryContext = useContext(SummaryContext);
+    const accuracy = useMemo(() => {
+        return ~~((summaryContext.mistakesInWords / summaryContext.sentenceCount) * 100)
+    }, [summaryContext]);
 
     //const categories = useAPI({url:"categories"})
 
@@ -18,6 +21,9 @@ function Summary() {
         <Scene type="basic">
 
             <section className='info'>
+                {summaryContext.sentence}
+
+                Dokładność: {accuracy}%
             </section>
 
             <section className='content'>

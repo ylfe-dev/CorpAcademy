@@ -30,9 +30,10 @@ function Game() {
     }, [])
 
     useEffect(() => {
-        summaryContext.wordCount += 1;
+        summaryContext.sentenceCount += 1;
 
         if (sentences.sentences && game == sentences.sentences.length - 1) {
+            summaryContext.sentence = sentences.sentences[game].content;
 
             navigate('/summary');
         }
