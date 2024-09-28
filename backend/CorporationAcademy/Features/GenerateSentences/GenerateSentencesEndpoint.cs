@@ -15,14 +15,31 @@ public static class GenerateSentencesEndpoint
         endpointRouteBuilder.MapGet(
             "/api/generate-sentences",
             async (
+                [FromQuery]
+                string categoryName,
                 IUserAccessor userAccessor,
                 ISentencesGenerator sentencesGenerator,
                 IWordsClient wordsClient) =>
             {
                 var learningWords = await wordsClient.GetLearningWords(userAccessor.UserId);
-                var sentences = await sentencesGenerator.Generate(learningWords);
+                var sentences = await sentencesGenerator.Generate(
+                    learningWords,
+                    "polski",
+                    "angielski",
+                    categoryName
+                    );
 
-                return Results.Ok(new Response(sentences));
+                var convertedSentences = sentences.Sentences.Select(sentence =>
+                    new Sentence(
+                        sentence.Content,
+                        sentence.WordsToAsk.Select(word =>
+                            new Word(
+                                word.NativeLanguage,
+                                word.TargetLanguage
+                            )).ToList()
+                    )).ToList();
+
+                return Results.Ok(new Response(convertedSentences));
             });
     }
 }
