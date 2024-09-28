@@ -1,4 +1,4 @@
-﻿using CorporationAcademy.Features.GenerateSentences.Clients;
+using CorporationAcademy.Features.GenerateSentences.Clients;
 using CorporationAcademy.Features.GenerateSentences.Models;
 using CorporationAcademy.Features.Shared;
 using CorporationAcademy.Features.Shared.Clients;
@@ -8,21 +8,28 @@ namespace CorporationAcademy.Features.GenerateSentences;
 
 public static class GenerateSentencesEndpoint
 {
-    public record Response(List<Sentence> Sentences);
+    private record GenerateSentencesResponse(List<Sentence> Sentences);
 
     public static void MapGenerateSentencesEndpoint(this IEndpointRouteBuilder endpointRouteBuilder)
     {
         endpointRouteBuilder.MapGet(
             "/api/generate-sentences",
             async (
+                [FromQuery] string categoryName,
                 IUserAccessor userAccessor,
                 ISentencesGenerator sentencesGenerator,
                 IWordsClient wordsClient) =>
             {
-                var learningWords = await wordsClient.GetLearningWords(userAccessor.UserId);
-                var sentences = await sentencesGenerator.Generate(learningWords);
+                userAccessor.ThrowIfNotAuthenticated();
 
-                return Results.Ok(new Response(sentences));
+                var learningWords = await wordsClient.GetLearningWords(userAccessor.UserId);
+                var sentences = await sentencesGenerator.Generate(
+                    learningWords,
+                    "polski",
+                    "angielski",
+                    categoryName);
+
+                return Results.Ok(new GenerateSentencesResponse(sentences));
             });
     }
 }
