@@ -1,4 +1,5 @@
 ﻿using CorporationAcademy.Features.GenerateSentences.Clients;
+using CorporationAcademy.Features.GenerateSentences.Models;
 using CorporationAcademy.Infrastructure.OpenAi.DataStructures;
 using OpenAI.Chat;
 using System.Text.Json;
@@ -14,7 +15,7 @@ public class OpenAiSentencesGenerator : ISentencesGenerator
         _openAiKey = configuration["OpenAI_Key"] ?? throw new ArgumentNullException("OpenAI_Key");
     }
 
-    public async Task<GeneratedSentences> Generate(
+    public async Task<List<Sentence>> Generate(
         List<string> learningWords,
         string sourceLanguage,
         string targetLanguage,
@@ -29,14 +30,14 @@ public class OpenAiSentencesGenerator : ISentencesGenerator
                 ),
         ]);
 
-        string? content = chatCompletion.Content[0].Text;
+        var content = chatCompletion.Content[0].Text;
 
         GeneratedSentences? result = JsonSerializer.Deserialize<GeneratedSentences>(content);
 
         if (result == null)
             throw new Exception("Failed to deserialize generated sentences");
 
-        return result;
+        return result.Sentences;
     }
 
     private string GetPrompt(
