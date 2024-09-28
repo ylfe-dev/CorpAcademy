@@ -6,6 +6,8 @@
     height: 100vh;
     box-sizing: border-box;
     max-width: 980px;
+    width: 100%;
+    box-sizing: border-box;
 
     .info {
     }
@@ -16,6 +18,10 @@
         gap: 1rem;
         justify-content: center;
         align-items: center;
+<<<<<<< HEAD
+=======
+
+>>>>>>> bbbb90aed799859e05b70db2932cbed95f8bffb7
         flex: 1;
     }
 

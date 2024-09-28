@@ -1,17 +1,25 @@
 import { useEffect, useState } from 'react';
 import './hint.scss'
 
-function Hint ({text, character}){
+function Hint ({text, character, delay}){
+    const [show, setShow] = useState(delay == undefined);
+
+    useEffect(()=>{
+        if(delay){
+            const timeout = setTimeout(()=>setShow(true), delay * 1000)
+            return () => clearTimeout(timeout)
+        }
+    }, [])
 
     return (
-        <div className={"hint " + (character == "cat" ? "" : "hint--reverse" )}>
+        show && (<div className={"hint " + (character == "cat" ? "" : "hint--reverse" )}>
             <div className={characteData(character).class}>
                 <img src={characteData(character).src} alt={characteData(character).alt} />
                     <b noise={characteData(character).noise}></b>
                 </div>
                 <div className='hint__text'><span>{text}</span>
             </div>
-        </div>
+        </div>)
     )
 }
 

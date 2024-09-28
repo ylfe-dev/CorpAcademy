@@ -9,9 +9,20 @@ import useAPI from '/src/useAPI';
 
 
 function Game() {
+<<<<<<< HEAD
     const { categoryId } = useParams();
     const sentences = useAPI({url: "generate-sentences?categoryId="+categoryId});
     const [game, setGame] = useState(0);
+=======
+  const [lesson, setLesson] = useState(); //{sentence: "This", words: "this for"});
+  const [progress, setProgress] = useState(50);
+  const [game, setGame] = useState(0);
+  //const games = 
+
+
+
+
+>>>>>>> bbbb90aed799859e05b70db2932cbed95f8bffb7
   
 
   useEffect(()=>{
@@ -40,23 +51,43 @@ function Game() {
     <Scene type="typ">
       
         <section className='info'>
-          <progress id="file" value="32" max="100"> 32% </progress>
+          <progress id="file"  className="reverse" value={progress} max="100"> 32% </progress>
+        
         </section>
         
         <section className='content'>
           {
+<<<<<<< HEAD
             sentences.sentences ? 
             <>
               <LetterBoxInput sentence={sentences.sentences[game].content} words={sentences.sentences[game].words} onSuccess={successHandler} onFailure={errorHandler}/>
               <span>{sentences.sentences[game].content}</span>
+=======
+            lesson ?  
+            <>
+              <LetterBoxInput sentence={lesson.sentence} words={lesson.words} onSuccess={successHandler} onError={errorHandler}/>
+              <div className="translate-section"><span>{lesson.sentence}</span></div>
+>>>>>>> bbbb90aed799859e05b70db2932cbed95f8bffb7
             </>
             : <span className="loader loader--medium"></span> 
           }
         </section>
         
         <section className='action'>
-          <Hint text="Nakurwiaj szybko!" character="rat" />
+          {/* {<Hint text="Nakurwiaj szybko!" character="rat" />} */}
         </section>
+
+        <div className='background'>
+          <div className="fat-cat shadow">
+            <img src="img/fat cat.png" alt="fat cat"/>
+            <b noise="tap"></b>
+            <b noise="bam"></b>
+          </div>
+          <div className="smart-rat shadow">
+              <img src="img/smart rat.png" alt="smart rat"/>
+              <b noise="click"></b>
+          </div>
+        </div>
 
     </Scene>
   )

@@ -4,9 +4,11 @@
     color: $black;
     position: relative;
     transition: all .2s;
+    box-sizing: border-box;
     
     &.wrong {
         animation: wrong .5s forwards;
+        background-color: $red;
     }
 
     &__inner {
@@ -45,12 +47,12 @@
                 display: block;
                 position: absolute;
                 bottom:15%;
-                left:14%;
-                width: 74%;
+                left:50%;
+                transform: translateX(-50%);
                 height: 6%;
                 border-radius:50px;
                 background-color: $primary;
-                animation: scalein .1s forwards ;
+                animation: scalein .5s forwards;
             }
         
 
@@ -67,12 +69,13 @@
 }
 
 @keyframes scalein {
-    from{ transform: scale(0);}
-    to{transform: scale(1);}
+    from{ width: 0;}
+    to{ width: 74%; }
 }
 
 @keyframes wrong {
-    0%{ transform: rotate(-20deg);}
+    0%{ transform: rotate(0deg);}
+    33%{ transform: rotate(-20deg);}
     66%{ transform: rotate(20deg);}
     100%{transform: srotate(0deg);}
 }

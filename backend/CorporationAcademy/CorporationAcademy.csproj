@@ -4,10 +4,11 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-	  <UserSecretsId>b48d13c3-c899-49cc-a0c0-cfe14a8ed77b</UserSecretsId>
-  </PropertyGroup>
+		<UserSecretsId>b48d13c3-c899-49cc-a0c0-cfe14a8ed77b</UserSecretsId>
+	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.8" />
 		<PackageReference Include="OpenAI" Version="2.0.0-beta.13" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
