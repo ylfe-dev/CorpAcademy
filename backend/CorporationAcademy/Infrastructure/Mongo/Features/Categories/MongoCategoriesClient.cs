@@ -31,7 +31,7 @@ internal class MongoCategoriesClient(IMongoClientProvider mongoClientProvider) :
         await Exists(x => x.Id == categoryId && (!x.UserId.HasValue || x.UserId == userId));
 
     public async Task<bool> Exists(string categoryName, Guid? userId) =>
-        await Exists(x => x.Name == categoryName && x.UserId == userId);
+        await Exists(x => x.Name == categoryName && (!x.UserId.HasValue || x.UserId == userId));
 
     public async Task<bool> Exists(Guid categoryId) => await Exists(x => x.Id == categoryId);
 
