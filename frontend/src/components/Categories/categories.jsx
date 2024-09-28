@@ -1,7 +1,7 @@
 import "./categories.scss";
 import { Link } from "react-router-dom";
 
-function Categories({ categories, onCategoryDelete }) {
+function Categories({ title = "Kategorie", categories, onCategoryDelete }) {
   function deleteCategory(e, id) {
     e.preventDefault();
     onCategoryDelete(id);
@@ -10,7 +10,7 @@ function Categories({ categories, onCategoryDelete }) {
   return (
     <>
       <div className="categories">
-        <h2 class="title">Kategorie</h2>
+        <h2 className="title">{title}</h2>
         <ul className="categories__list">
           {categories
             ? categories.map((category) => (

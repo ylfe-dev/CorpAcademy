@@ -43,7 +43,7 @@ public static class GetCategoriesEndpoint
                         categoryLearningWords.TryGetValue(x.Id, out var count) ? count : 0,
                         levels.TryGetValue(x.Id, out var level) ? level : 1,
                         x.IsUserDefinedCategory))
-                    .OrderBy(x => !x.IsUserDefinedCategory)
+                    .OrderBy(x => x.IsUserDefinedCategory)
                     .ToList();
 
                 return Results.Ok(new GetCategoriesResponse(result));

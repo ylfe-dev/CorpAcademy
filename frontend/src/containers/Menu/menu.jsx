@@ -20,7 +20,8 @@ function Menu() {
     const categoryName = prompt("Podaj nazwę kategorii");
 
     if (!categoryName) {
-        console.log("❌ no category name provided");
+      console.log("❌ no category name provided");
+      return;
     }
 
     await fetchFromApi({
@@ -32,6 +33,14 @@ function Menu() {
     window.location.reload();
   }
 
+  const predefinedCategories = categories.categories?.filter(
+    (c) => !c.isUserDefinedCategory
+  ) ?? [];
+
+  const userDefinedCategories = categories.categories?.filter(
+    (c) => c.isUserDefinedCategory
+  ) ?? [];
+
   return (
     <Scene type="basic">
       <section className="info"></section>
@@ -40,10 +49,21 @@ function Menu() {
         {categories.categories ? (
           <>
             <Categories
-              categories={categories.categories}
+              categories={predefinedCategories}
               onCategoryDelete={deleteCategory}
             />
-            <button className="button" onClick={() => addCategory()}>Create your own category</button>
+
+            {userDefinedCategories && (
+              <Categories
+                title={'Twoje kategorie'}
+                categories={userDefinedCategories}
+                onCategoryDelete={deleteCategory}
+              />
+            )}
+
+            <button className="button" onClick={() => addCategory()}>
+              Dodaj własną kategorie
+            </button>
           </>
         ) : (
           <span className="loader loader--medium"></span>
