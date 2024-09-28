@@ -11,7 +11,7 @@ function NotFound (){
         
             <section className='content'>
                 <Hint character="cat" text="Zgubiłeś się?"/>
-                <Hint character="rat" text="Wracaj do gry!" right/>
+                <Hint character="rat" delay="2" text="Wracaj do gry!" right/>
             </section>
             
             <section className='action'>
