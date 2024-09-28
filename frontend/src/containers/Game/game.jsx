@@ -67,7 +67,7 @@ function Game() {
                 onSuccess={successHandler}
                 onFailure={errorHandler}
                 onFinish={timeHandler} />
-              <span className="translate-section">{sentences.sentences[game].content}</span>
+              <span className="translate-section">{sentences.sentences[game].translatedContent}</span>
             </>
             : <span className="loader loader--medium"></span>
         }
