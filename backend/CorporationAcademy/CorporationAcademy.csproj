@@ -4,8 +4,8 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-	  <UserSecretsId>b48d13c3-c899-49cc-a0c0-cfe14a8ed77b</UserSecretsId>
-  </PropertyGroup>
+		<UserSecretsId>b48d13c3-c899-49cc-a0c0-cfe14a8ed77b</UserSecretsId>
+	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.8" />
