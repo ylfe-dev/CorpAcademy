@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CorporationAcademy.Features.DeleteLearningWord;
 
-public static class DeleteLearningWordEndpoint
+public static class DecreaseLearningWordDifficultyEndpoint
 {
     public static void MapDeleteLearningWordEndpoint(this IEndpointRouteBuilder endpointRouteBuilder)
     {
-        endpointRouteBuilder.MapDelete(
-            "/api/learning-word",
+        endpointRouteBuilder.MapPost(
+            "/api/decrease-learning-word-difficulty",
             async (
                 [FromQuery] Guid categoryId,
                 [FromQuery] string word,
@@ -18,7 +18,7 @@ public static class DeleteLearningWordEndpoint
             {
                 userAccessor.ThrowIfNotAuthenticated();
 
-                await wordsClient.DeleteLearningWord(userAccessor.UserId, categoryId, word);
+                await wordsClient.DecreaseLearningWordDifficulty(userAccessor.UserId, categoryId, word);
 
                 return Results.Ok();
             });
