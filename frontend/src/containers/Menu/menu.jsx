@@ -1,38 +1,63 @@
-import Hint from '../../components/Hint/hint'
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import {  Link } from "react-router-dom";
-import Scene from '../../components/Scene/scene';
-import Categories from '../../components/Categories/categories';
-import useAPI from '/src/useAPI';
+import Hint from "../../components/Hint/hint";
+import { Link } from "react-router-dom";
+import Scene from "../../components/Scene/scene";
+import Categories from "../../components/Categories/categories";
+import useAPI from "/src/useAPI";
+import { useContext } from "react";
+import { UserContext } from "../../UserContext";
+import { fetchFromApi } from "../../useAPI";
 
+function Menu() {
+  const categories = useAPI({ url: "categories" });
+  const user = useContext(UserContext);
 
-function Menu (){  
+  async function deleteCategory(id) {
+    await fetchFromApi({ url: "categories/" + id, user, method: "DELETE" });
+    window.location.reload();
+  }
 
-    const categories = useAPI({url:"categories"})
+  async function addCategory() {
+    const categoryName = prompt("Podaj nazwę kategorii");
 
-    return (
-        <Scene type="basic"> 
-            <section className='info'>
-            </section>
-        
-            <section className='content'>
-                {categories.categories ? <Categories categories={categories.categories}/>  
-                : <span className='loader loader--medium'></span>}
-                <Hint left character="cat" text="W co zagramy?"/>
-            </section>
-            
-            <section className='action'>
-                <Link className="button" to={'/game'}>Start Gry</Link>
-            </section>
+    if (!categoryName) {
+        console.log("❌ no category name provided");
+    }
 
-            <div className='background'>
-                <div className="pikarzyki shadow">
-                    <img src="/img/pikarzyki.png" alt="pikarzyki"/>
-                </div>
-            </div>
-        </Scene>      
-        )
+    await fetchFromApi({
+      url: "categories",
+      user,
+      method: "POST",
+      data: { name: categoryName },
+    });
+    window.location.reload();
+  }
+
+  return (
+    <Scene type="basic">
+      <section className="info"></section>
+
+      <section className="content">
+        {categories.categories ? (
+          <>
+            <Categories
+              categories={categories.categories}
+              onCategoryDelete={deleteCategory}
+            />
+            <button className="button" onClick={() => addCategory()}>Create your own category</button>
+          </>
+        ) : (
+          <span className="loader loader--medium"></span>
+        )}
+        <Hint left character="cat" text="W co zagramy?" />
+      </section>
+
+      <section className="action">
+        <Link className="button" to={"/game"}>
+          Start Gry
+        </Link>
+      </section>
+    </Scene>
+  );
 }
 
-export default Menu
+export default Menu;
