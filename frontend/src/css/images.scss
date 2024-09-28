@@ -17,8 +17,39 @@
     }
 }
 
+@keyframes scaling {
+    0% {
+        transform: scaleY(1);
+    }
+    50% {
+        transform: scaleY(.99);
+    }
+    100% {
+        transform: scaleY(1);
+    }
+}
+
+@keyframes shaking {
+    0% {
+        transform: rotate(0);
+    }
+    50% {
+        transform: rotate(2deg);
+    }
+    100% {
+        transform: rotate(0);
+    }
+    
+}
+
 .smart-rat-face {
+    padding-top: 2em;
     padding-right: 2em;
+
+    img {
+        animation: scaling .3s ease infinite;
+    }
+
     [noise="pi"] {
         transform: rotate(40deg);
         top: 6em;
@@ -27,10 +58,16 @@
 }
 
 .fat-cat-face {
+    padding-top: 2em;
     padding-left: 2em;
+
+    img {
+        animation: shaking 4s ease infinite;
+    }
+
     [noise="meow"] {
-        transform: rotate(-45deg);
-        top: 3em;
+        transform: rotate(-40deg);
+        top: 4em;
         left: -.5em;
         --delay: 3s;
     }
