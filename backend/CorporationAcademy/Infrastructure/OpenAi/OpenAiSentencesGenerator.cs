@@ -57,6 +57,8 @@ internal class OpenAiSentencesGenerator(IChatCompletionService chatCompletionSer
 
             W pięciostopniowej skali, trudność słow powinna być równa: {{level}}
 
+            Każde zdanie powinno zawierać conajmniej jedno słowo do nauki.
+
             Odpowiedź zwróć w formacie JSON. Format:
             ```
             {

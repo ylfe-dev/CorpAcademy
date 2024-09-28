@@ -18,13 +18,13 @@ internal class MongoCategoriesClient(IMongoClientProvider mongoClientProvider) :
     public async Task<List<Category>> GetCategories(Guid userId) =>
         await Table
             .Where(x => !x.UserId.HasValue || x.UserId.Value == userId)
-            .Select(x => new Category(x.Id, x.Name, x.Icon))
+            .Select(x => new Category(x.Id, x.Name, x.Icon, x.UserId.HasValue))
             .ToListAsync();
 
     public async Task<Category> GetCategory(Guid categoryId, Guid userId) =>
         await Table
             .Where(x => x.Id == categoryId && (!x.UserId.HasValue || x.UserId == userId))
-            .Select(x => new Category(x.Id, x.Name, x.Icon))
+            .Select(x => new Category(x.Id, x.Name, x.Icon, x.UserId.HasValue))
             .FirstOrDefaultAsync();
 
     public async Task<bool> Exists(Guid categoryId, Guid userId) =>

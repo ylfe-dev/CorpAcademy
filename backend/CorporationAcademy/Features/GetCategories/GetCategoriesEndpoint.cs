@@ -1,12 +1,11 @@
 ﻿using CorporationAcademy.Features.Shared;
 using CorporationAcademy.Features.Shared.Clients;
-using System.Linq;
 
 namespace CorporationAcademy.Features.GetCategories;
 
 public static class GetCategoriesEndpoint
 {
-    private record CategoryDetails(Guid Id, string Name, string Icon, int NumberOfLearningWords, int CurrentLevel);
+    private record CategoryDetails(Guid Id, string Name, string Icon, int NumberOfLearningWords, int CurrentLevel, bool IsUserDefinedCategory);
 
     private record GetCategoriesResponse(List<CategoryDetails> Categories);
 
@@ -42,7 +41,9 @@ public static class GetCategoriesEndpoint
                         x.Name,
                         x.Icon,
                         categoryLearningWords.TryGetValue(x.Id, out var count) ? count : 0,
-                        levels.TryGetValue(x.Id, out var level) ? level : 1))
+                        levels.TryGetValue(x.Id, out var level) ? level : 1,
+                        x.IsUserDefinedCategory))
+                    .OrderBy(x => x.IsUserDefinedCategory)
                     .ToList();
 
                 return Results.Ok(new GetCategoriesResponse(result));
