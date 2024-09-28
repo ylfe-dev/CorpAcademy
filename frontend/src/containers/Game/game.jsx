@@ -56,7 +56,7 @@ function Game() {
             sentences.sentences ? 
             <>
               <LetterBoxInput sentence={sentences.sentences[game].content} words={sentences.sentences[game].words} onSuccess={successHandler} onFailure={errorHandler}/>
-              <span>{sentences.sentences[game].content}</span>
+              <span className="translate-section">{sentences.sentences[game].content}</span>
             </>
             : <span className="loader loader--medium"></span> 
           }
