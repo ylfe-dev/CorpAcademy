@@ -30,6 +30,10 @@
         color: $gray;
         animation: wrong .5s forwards;
     }
+    &--win{
+        color: $green;
+        animation: win 1s forwards;
+    }
     &--blank {
         color: $gray;
     }
@@ -84,4 +88,11 @@
     0%{ transform: translateY(0) rotate(-20deg); opacity: 1}
     50%{ transform: translateY(-1rem) rotate(20deg); opacity: .5}
     100%{transform: translateY(-2rem) srotate(-20deg); opacity: 0}
+}
+
+@keyframes win {
+    0%{ transform: scale(1);}
+    33%{ transform: scale(.7);}
+    66%{ transform: scale(1); opacity:1}
+    100%{transform: scale(5); opacity:0}
 }

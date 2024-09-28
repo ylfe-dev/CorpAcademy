@@ -1,19 +1,16 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import './game.scss';
+import { useEffect, useState, useRef } from 'react';
 import LetterBoxInput from '../../components/LetterBoxInput/letterBoxInput';
 import Scene from '../../components/Scene/scene';
-import Hint from '../../components/Hint/hint'
-import { useParams } from 'react-router-dom';
 import useAPI from '/src/useAPI';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
+import './game.scss';
 function Game() {
     const { categoryId } = useParams();
     const sentences = useAPI({url: "generate-sentences?categoryId="+categoryId});
     const [game, setGame] = useState(0);
-
     const [progress, setProgress] = useState(0);
+    const score = useRef({wins: 0, time: 0, score: 0})
 
     const navigate = useNavigate();
 
@@ -32,12 +29,13 @@ function Game() {
 
   useEffect(()=>{
     if(sentences.sentences && game == sentences.sentences.length-1)
-        navigate('/summary');
+        navigate('/summary/');
     setProgress(game/5*100)
   },[game])
 
   const successHandler = () => {
-
+    score.current = {...score.current, wins: score.current.wins+1};
+    setGame(game+1)
   }
 
   const errorHandler = () => {

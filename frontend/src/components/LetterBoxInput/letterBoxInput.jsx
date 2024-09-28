@@ -6,6 +6,7 @@ function LetterBoxInput ({sentence, words, noMistakes=true, onSuccess, onFailure
     const [input, setInput] = useState("")
     const [mistakes, setMistakes] = useState(0)
     const isMistake = useRef(false);
+    const toInput = useRef("");
     
    
     useEffect(()=>{
@@ -21,15 +22,18 @@ function LetterBoxInput ({sentence, words, noMistakes=true, onSuccess, onFailure
         setInput("")
     }, [sentence])
 
+    useEffect(()=>{
+        if( input === toInput.current) {
+            console.log("win")
+            setTimeout(()=>onSuccess(), 1000)
+        }
+    }, [input])
 
 
 
     const max_height_vh = 8;
     const min_height_vh = 3;
-
-
     const font_size_ratio = 0.65;
-
 
     const max_width_vh = sentence.length * max_height_vh;
     const min_width_vh = sentence.length * min_height_vh;
@@ -40,6 +44,8 @@ function LetterBoxInput ({sentence, words, noMistakes=true, onSuccess, onFailure
     }
 
     const getLetterState = index => {
+        if(toInput.current.length && input === toInput.current)
+            return "win";
         if(noMistakes && mistakes>1)
             return "allwrong";
         if(index == input.length+1)
@@ -49,13 +55,31 @@ function LetterBoxInput ({sentence, words, noMistakes=true, onSuccess, onFailure
         return "blank"
     }
 
+    const handleInput = ev => {
+        ev.preventDefault()
+        setInput(ev.target.value);
+    }
+
+    const handleBeforeInput = ev => {
+        if(input == toInput.current){
+            ev.stopPropagation()
+            ev.preventDefault()
+        } else if(ev.data != toInput.current[input.length]){
+            setMistakes(mistakes+1)
+            isMistake.current = true;
+            ev.stopPropagation()
+            ev.preventDefault()
+        } else {
+            isMistake.current = false;
+            setMistakes(0)
+        }
+    }
     
     let sentence_words = filterString(sentence).toLowerCase().split(" ")
     let lesson_words = words.map(word => word.learnedLanguage.toLowerCase())
 
     let to_input = ""; 
     let index = 0;
-    
     sentence_words = sentence_words.map(word => {
         const is_lesson_word = lesson_words.includes(word);
         to_input += is_lesson_word ? word : "";
@@ -73,13 +97,8 @@ function LetterBoxInput ({sentence, words, noMistakes=true, onSuccess, onFailure
             }
         })
     })
+    toInput.current = to_input;
 
-
-    const handleInput = ev => {
-        ev.preventDefault()
-        setInput(ev.target.value);
-    }
-    
     return (
         <div className='letter-box-input'>
             <label htmlFor="LetterBoxInput">
@@ -91,19 +110,9 @@ function LetterBoxInput ({sentence, words, noMistakes=true, onSuccess, onFailure
                 id="LetterBoxInput"
                 type="text" 
                 className="letter-box-input" 
-                maxLength={to_input.length}
+                maxLength={toInput.current.length}
                 onChange={handleInput}
-                onBeforeInput={(ev)=> {
-                    console.log(ev)
-                    if(ev.data != to_input[input.length]){
-                        setMistakes(mistakes+1)
-                        isMistake.current = true;
-                        ev.stopPropagation()
-                        ev.preventDefault()
-                    } else {
-                        isMistake.current = false;
-                    }
-                }}
+                onBeforeInput={handleBeforeInput}
                 value={input} /> 
         </div>)
 }
