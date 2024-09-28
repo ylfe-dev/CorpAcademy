@@ -5,6 +5,7 @@ using CorporationAcademy.Features.GenerateSentences;
 using CorporationAcademy.Features.GetCategories;
 using CorporationAcademy.Features.SaveLearningWord;
 using CorporationAcademy.Features.SaveLevel;
+using CorporationAcademy.Features.Shared;
 using CorporationAcademy.Infrastructure;
 using CorporationAcademy.Infrastructure.Middleware;
 using CorporationAcademy.Swagger;

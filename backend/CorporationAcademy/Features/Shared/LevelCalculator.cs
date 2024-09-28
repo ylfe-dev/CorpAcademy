@@ -1,4 +1,4 @@
-﻿namespace CorporationAcademy.Features.GenerateSentences;
+﻿namespace CorporationAcademy.Features.Shared;
 
 internal interface ILevelCalculator
 {

@@ -15,7 +15,7 @@ public static class SaveLevelEndpoint
             async (
                 [FromBody] SaveLevelRequest request,
                 IUserAccessor userAccessor,
-                ILevelsClient levelsClient,
+                IExperiencesClient experiencesClient,
                 ICategoriesClient categoriesClient) =>
             {
                 userAccessor.ThrowIfNotAuthenticated();
@@ -25,7 +25,7 @@ public static class SaveLevelEndpoint
                     return Results.BadRequest("Category do not exists");
                 }
 
-                await levelsClient.IncreaseUserExperience(userAccessor.UserId, request.CategoryId, request.Experience);
+                await experiencesClient.IncreaseUserExperience(userAccessor.UserId, request.CategoryId, request.Experience);
                 return Results.Ok();
             });
     }

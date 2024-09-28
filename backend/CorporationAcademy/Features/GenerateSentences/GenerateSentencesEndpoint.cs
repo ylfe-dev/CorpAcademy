@@ -21,7 +21,7 @@ public static class GenerateSentencesEndpoint
                 ISentencesGenerator sentencesGenerator,
                 IWordsClient wordsClient,
                 ICategoriesClient categoriesClient,
-                ILevelsClient levelsClient,
+                IExperiencesClient experiencesClient,
                 ILevelCalculator levelCalculator) =>
             {
                 userAccessor.ThrowIfNotAuthenticated();
@@ -33,7 +33,7 @@ public static class GenerateSentencesEndpoint
                     return Results.NotFound();
                 }
 
-                var experience = await levelsClient.GetUserExperience(userAccessor.UserId, categoryId);
+                var experience = await experiencesClient.GetUserExperience(userAccessor.UserId, categoryId);
                 var level = levelCalculator.CalculateLevel(experience);
 
                 var learningWords = await wordsClient.GetLearningWords(
