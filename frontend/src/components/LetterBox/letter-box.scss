@@ -31,8 +31,7 @@
         animation: wrong .5s forwards;
     }
     &--win{
-        color: $green;
-        animation: win 1s forwards;
+        animation: win 1.5s cubic-bezier(.9,-0.4,.31,1) infinite;
     }
     &--blank {
         color: $gray;
@@ -92,8 +91,6 @@
 }
 
 @keyframes win {
-    0%{ transform: scale(1);}
-    33%{ transform: scale(.7);}
-    66%{ transform: scale(1); opacity:1}
-    100%{transform: scale(5); opacity:0}
+    from{ transform: scale(1);}
+    to{transform: scale(1.5); opacity:0}
 }
