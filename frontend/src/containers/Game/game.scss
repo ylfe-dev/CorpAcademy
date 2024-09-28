@@ -49,24 +49,37 @@ body {
   margin-bottom: 10rem;
 }
 
-progress {
-  border-radius: .5rem; 
-  width: 100%;
-  height: .5rem;
+.progress-section {
 
-  &.reverse {
-    transform: rotate(180deg);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  progress {
+    border-radius: .5rem; 
+    width: 100%;
+    height: .5rem;
+  
+    &.reverse {
+      transform: rotate(180deg);
+    }
+  }
+  progress::-webkit-progress-bar {
+    background-color: $gray-2;
+    border-radius: .5rem;
+  }
+  progress::-webkit-progress-value {
+    background-color: $primary;
+    border-radius: .5rem;
+  }
+  progress::-moz-progress-bar {
+    background-color: $primary;
+    border-radius: .5rem;
   }
 }
-progress::-webkit-progress-bar {
-  background-color: $gray-2;
-  border-radius: .5rem;
-}
-progress::-webkit-progress-value {
-  background-color: $primary;
-  border-radius: .5rem;
-}
-progress::-moz-progress-bar {
-  background-color: $primary;
-  border-radius: .5rem;
+
+
+@keyframes rotate {
+  from { transform: rotate(0deg) }
+  to { transform: rotate(360deg) }
 }

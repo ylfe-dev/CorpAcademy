@@ -149,6 +149,39 @@
     }
 }
 
+.clock {
+    position: relative;
+    img {
+        animation: rotate 1s linear infinite;
+    }
+    [noise="tic"] {
+        
+        left: 0em;
+        bottom: 1em;
+        transform: rotate(20deg);
+        &::after {
+            animation-duration: 1s;
+            transform: rotate(-40deg);
+            content: none;
+        }
+        &::before {
+            animation-duration: 1s;
+        }
+    }
+    [noise="tac"] {
+        right: 1em;
+        top: -1.5em;
+        transform: rotate(20deg);
+        &::after {
+            content: none;
+        }
+        &::before {
+            animation-duration: 1s;
+            animation-delay: .5s;
+        }
+    }
+}
+
 @keyframes noise {
     0% {
         opacity: 0;

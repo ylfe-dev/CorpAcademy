@@ -64,8 +64,14 @@ function Game() {
     <Scene type="typ" onClick={handleSceneClick}>
       
         <section className='info'>
-          <progress id="file"  className="reverse" value={progress} max="100"> 32% </progress>
-        
+          <div className="progress-section">
+            <progress id="file"  className="reverse" value={progress} max="100"> 32% </progress>
+            <div className="clock">
+              <img width="40" src="/img/clock.svg" alt="clock" />
+              <b noise="tic"></b>
+              <b noise="tac"></b>
+            </div>
+          </div>
         </section>
         
         <section className='content'>
