@@ -3,4 +3,5 @@
 public record Category(
     Guid Id,
     string Name,
-    string Icon);
+    string Icon,
+    bool IsUserDefinedCategory);
