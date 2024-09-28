@@ -1,6 +1,6 @@
 .letter-box{
     display: inline-block;
-    background-color: $dark;
+    background-color: $gray-2;
     color: $black;
     position: relative;
     transition: all .2s;
@@ -28,7 +28,7 @@
     }
     
     &--blank {
-        color: $grey;
+        color: $gray;
     }
     &--raw {
         color: $red;
@@ -37,7 +37,7 @@
         color: $black;
     }
     &--active{
-        color: $grey;
+        color: $gray;
         aspect-ratio: 0.8/1;
         
             &::after{

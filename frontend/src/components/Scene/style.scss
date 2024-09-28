@@ -18,7 +18,7 @@
     &--typ {
         .ciapka:nth-child(1){
             ellipse{
-                fill: $grey-1;
+                fill: $gray-1;
             }
             width:200%;
             height: 60%;
@@ -29,7 +29,7 @@
         .ciapka:nth-child(2){
 
             ellipse{
-                fill: $grey-2;
+                fill: $gray-2;
             }
             
             width:200%;
@@ -45,10 +45,10 @@
         bottom:-50%;
         left:-50%;
         right:-50%;
-        background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><text y="50%" font-size="50">🥪</text></svg>');
-        background-repeat: repeat;
-        background-size: 10%;
-        mix-blend-mode: luminosity;
+        // background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><text y="50%" font-size="50">🥪</text></svg>');
+        // background-repeat: repeat;
+        // background-size: 10%;
+        // mix-blend-mode: luminosity;
         //animation:rotate 50s infinite linear;
         opacity: .2;
         .ciapka {
