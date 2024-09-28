@@ -1,4 +1,5 @@
 ﻿using CorporationAcademy.Features.GenerateSentences.Clients;
+using CorporationAcademy.Features.GenerateSentences.Models;
 using CorporationAcademy.Infrastructure.OpenAi.DataStructures;
 using OpenAI.Chat;
 using System.Text.Json;
@@ -7,7 +8,7 @@ namespace CorporationAcademy.Infrastructure.OpenAi;
 
 internal class OpenAiSentencesGenerator : ISentencesGenerator
 {
-    public async Task<GeneratedSentences> Generate(
+    public async Task<List<Sentence>> Generate(
         List<string> learningWords,
         string sourceLanguage,
         string targetLanguage,
@@ -22,14 +23,14 @@ internal class OpenAiSentencesGenerator : ISentencesGenerator
                 ),
         ]);
 
-        string? content = chatCompletion.Content.ToString();
+        var content = chatCompletion.Content.ToString() ?? throw new ArgumentNullException("Body from openai");
 
         GeneratedSentences? result = JsonSerializer.Deserialize<GeneratedSentences>(content);
 
         if (result == null)
             throw new Exception("Failed to deserialize generated sentences");
 
-        return result;
+        return result.Sentences;
     }
 
     private string GetPrompt(

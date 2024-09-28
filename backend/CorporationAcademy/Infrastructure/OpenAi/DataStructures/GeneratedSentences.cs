@@ -1,6 +1,5 @@
-﻿namespace CorporationAcademy.Infrastructure.OpenAi.DataStructures;
+﻿using CorporationAcademy.Features.GenerateSentences.Models;
 
-public class GeneratedSentences
-{
-    public List<GeneratedSentence> Sentences { get; set; }
-}
+namespace CorporationAcademy.Infrastructure.OpenAi.DataStructures;
+
+public record GeneratedSentences(List<Sentence> Sentences);
