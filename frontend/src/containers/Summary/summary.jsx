@@ -1,31 +1,55 @@
-import Hint from '../../components/Hint/hint'
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import {  Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Scene from '../../components/Scene/scene';
-import Categories from '../../components/Categories/categories';
-import useAPI from '/src/useAPI';
+import './summary.scss';
 
+function Summary() {
 
-function Summary ({wordsMistakes, words, sentenceMistakes, sentence, sentenceTime}){  
+    const params = useParams();
+
+    console.log(params);
+
+    function formatTime(time) {
+        const minutes = Math.floor(time / 60);
+        const seconds = time % 60;
+        return `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`
+    }
 
     //const categories = useAPI({url:"categories"})
 
     return (
-        <Scene type="basic"> 
-            <section className='info'>
+        <Scene type="basic">
+            <section className='info flex flex-column items-center w-full'>
+                <div className='p-4 congratulations-text'>
+                    Wyzwanie ukończone!
+                </div>
+                <div className='flex justify-between w-full'>
+                    <fieldset className='result-box border-yellow flex-around'>
+                        <legend className='text-center'>
+                            Dokładność
+                        </legend>
+                        🎯{params.accuracy}
+                    </fieldset>
+                    <fieldset className='result-box border-blue flex-around'>
+                        <legend className='text-center'>Zegarek</legend>
+                        ⏰{formatTime(params.time)}
+                    </fieldset>
+                    <fieldset className='result-box border-green flex-around'>
+                        <legend className='text-center'>Punkty</legend>
+                        💯{params.points}%
+                    </fieldset>
+                </div>
             </section>
-        
-            <section className='content'>
-                
-                <Hint left character="cat" text="W co zagramy?"/>
-            </section>
-            
+
+            {/* <section className='content'>
+
+                <Hint left character="cat" text="W co zagramy?" />
+            </section> */}
+
             <section className='action'>
                 <Link className="button" to={'/game'}>koniec</Link>
             </section>
-        </Scene>      
-        )
+        </Scene>
+    )
 }
 
 export default Summary
