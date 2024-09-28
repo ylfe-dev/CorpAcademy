@@ -22,26 +22,22 @@ function Game() {
   },[])
 
   return (
-    <div className='app'>
+    <Scene type="typ">
+      
+        <section className='info'>
+          <progress id="file" value="32" max="100"> 32% </progress>
+        </section>
+        
+        <section className='content'>
+          <LetterBoxInput sentence={lesson.sentence} words={lesson.words}/>
+          <div><span className=''>{lesson.sentence}</span></div>
+        </section>
+        
+        <section className='action'>
+          <Hint text="Nakurwiaj szybko!" character="rat" />
+        </section>
 
-      <Scene type="typ"/>
-
-      <header className='app__header'>
-        <h1>CorpoRATion</h1>
-      </header>
-
-      <main>
-        <LetterBoxInput sentence={lesson.sentence} words={lesson.words}/>
-        <div><span className=''>{lesson.sentence}</span></div>
-        <Hint text="Nakurwiaj szybko!" character="rat" />
-      </main>
-
-
-
-      <span className='loader loader--small'></span>
-
-      <footer>Footer sratatata</footer>
-    </div>
+    </Scene>
   )
 }
 

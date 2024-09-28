@@ -9,12 +9,19 @@ function Start(){
     
 
     return (
-        <section className='center'> 
-            <Scene type="basic"/>
-            <Hint character="rat" text="Kosmiczna technologia zagraża światu. Ekrany dotykowe opanowały nasze umysły. Już teraz potrzebujemy nowego pokolenia, które będzie w stanie stawić czoła wyzwaniom przyszłości." />
-            <Hint character="cat" right text="Ja nazywam się Fat Cat, a ten wyżej to Smart Rat, wspólnie pomożemy Ci nauczyć się pisać na klawiaturze, korzystać z myszki, a nawet programować w Pythonie. Zostań mistrzem klawiatury i uratuj świat!"/>
-            <Link className="button" to={'/menu'}>Dalej</Link>
-        </section>
+        <Scene type="basic"> 
+            <section className='info'>
+            </section>
+        
+            <section className='content'>
+                <Hint character="rat" text="Kosmiczna technologia zagraża światu. Ekrany dotykowe opanowały nasze umysły. Już teraz potrzebujemy nowego pokolenia, które będzie w stanie stawić czoła wyzwaniom przyszłości." />
+                <Hint character="cat" right text="Ja nazywam się Fat Cat, a ten wyżej to Smart Rat, wspólnie pomożemy Ci nauczyć się pisać na klawiaturze, korzystać z myszki, a nawet programować w Pythonie. Zostań mistrzem klawiatury i uratuj świat!"/>
+            </section>
+            
+            <section className='action'>
+                <Link className="button" to={'/menu'}>Dalej</Link>
+            </section>
+        </Scene>
         )
        
 }
