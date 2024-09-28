@@ -25,6 +25,12 @@ function Menu (){
             <section className='action'>
                 <Link className="button" to={'/game'}>Start Gry</Link>
             </section>
+
+            <div className='background'>
+                <div className="pikarzyki shadow">
+                    <img src="/img/pikarzyki.png" alt="pikarzyki"/>
+                </div>
+            </div>
         </Scene>      
         )
 }

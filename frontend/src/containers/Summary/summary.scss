@@ -1,0 +1,25 @@
+.summary-table {
+
+    display: flex;
+    flex-direction: column;
+
+    h2 {
+        text-align: center;
+    }
+
+    @media screen and (min-width: 768px) {
+        flex-direction: row;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    &__item {
+        font-weight: 800;
+        font-size: 2rem;
+    }
+
+    &__title {
+        font-size: 1.3rem;
+        font-weight: 600;
+    }
+}
