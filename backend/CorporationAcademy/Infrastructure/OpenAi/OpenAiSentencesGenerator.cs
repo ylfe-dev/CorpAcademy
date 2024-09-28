@@ -60,6 +60,7 @@ internal class OpenAiSentencesGenerator(IChatCompletionService chatCompletionSer
                 "Sentences": [
                 {
                     "Content": "[treść zdania w języku '{{targetLanguage}}']",
+                    "TranslatedContent": "[zdanie przetłumaczone na język '{{sourceLanguage}}']",
                     "Words": [
                     {
                         "LearnedLanguage": "[słowo w języku '{{targetLanguage}}', które znajduje się w tym zdaniu]",
