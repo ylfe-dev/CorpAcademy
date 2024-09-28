@@ -31,7 +31,7 @@ function LetterBox ({letter, writable, written, cqSize, state}){
                 <span>{written ? written : letter}</span>
             </div>
         </div>
-    ) : <span class="non-writable" style={{fontSize: letter_style.fontSize}}>{letter}</span>
+    ) : <span className="non-writable" style={{fontSize: letter_style.fontSize}}>{letter}</span>
 }
 
 export default LetterBox

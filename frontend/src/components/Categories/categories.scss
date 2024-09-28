@@ -2,6 +2,10 @@
     h2 {
         text-align: center;
     }
+    
+    a {
+        text-decoration: none;
+    }
 
     &__list {
         display: flex;
@@ -23,7 +27,11 @@
         display: flex;
         align-items: center;
         justify-content: center;
+<<<<<<< HEAD
+        animation: fadein 1s forwards;
+=======
         animation: fly-in 0.5s ease-in-out;
+>>>>>>> bbbb90aed799859e05b70db2932cbed95f8bffb7
 
         &:hover {
             box-shadow: 0 5px 15px 0 $gray-2;
@@ -32,6 +40,11 @@
     } 
 }
 
+<<<<<<< HEAD
+@keyframes fadein {
+    from{ opacity:0;}
+    to{opacity: 1;}
+=======
 @keyframes fly-in {
     from {
         transform: scale(0);
@@ -42,4 +55,5 @@
         opacity: 1;
     }
     
+>>>>>>> bbbb90aed799859e05b70db2932cbed95f8bffb7
 }
