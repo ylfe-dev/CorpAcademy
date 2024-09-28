@@ -6,6 +6,6 @@ public interface ICategoriesClient
 {
     Task<bool> Exists(Guid categoryId);
     Task<bool> Exists(string categoryName);
-    Task<List<Category>> GetCategories();
-    Task CreateCategory(string name, string icon);
+    Task<List<Category>> GetCategories(Guid userId);
+    Task CreateCategory(string name, string icon, Guid userId);
 }

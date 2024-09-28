@@ -1,4 +1,5 @@
-﻿using CorporationAcademy.Features.Shared.Clients;
+﻿using CorporationAcademy.Features.Shared;
+using CorporationAcademy.Features.Shared.Clients;
 using CorporationAcademy.Features.Shared.Models;
 
 namespace CorporationAcademy.Features.GetCategories;
@@ -11,9 +12,9 @@ public static class GetCategoriesEndpoint
     {
         endpointRouteBuilder.MapGet(
             "/api/categories",
-            async (ICategoriesClient categoriesClient) =>
+            async (ICategoriesClient categoriesClient, IUserAccessor userAccessor) =>
             {
-                var categories = await categoriesClient.GetCategories();
+                var categories = await categoriesClient.GetCategories(userAccessor.UserId);
                 return Results.Ok(new GetCategoriesResponse(categories));
             });
     }

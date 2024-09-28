@@ -1,4 +1,5 @@
-﻿using CorporationAcademy.Features.Shared.Clients;
+﻿using CorporationAcademy.Features.Shared;
+using CorporationAcademy.Features.Shared.Clients;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CorporationAcademy.Features.CreateCategory;
@@ -13,14 +14,15 @@ public static class CreateCategoryEndpoint
             "/api/categories",
             async (
                 [FromBody] CreateCategoryRequest request,
-                ICategoriesClient categoriesClient) =>
+                ICategoriesClient categoriesClient,
+                IUserAccessor userAccessor) =>
             {
                 if (await categoriesClient.Exists(request.Name))
                 {
                     return Results.BadRequest("Category already exists.");
                 }
 
-                await categoriesClient.CreateCategory(request.Name, request.Icon);
+                await categoriesClient.CreateCategory(request.Name, request.Icon, userAccessor.UserId);
                 return Results.Ok();
             });
     }

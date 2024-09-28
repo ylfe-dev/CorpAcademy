@@ -2,5 +2,6 @@
 
 internal record CategoryEntity(
     Guid Id,
+    Guid? UserId,
     string Name,
     string Icon);
