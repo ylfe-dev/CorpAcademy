@@ -1,0 +1,32 @@
+.categories {
+    h2 {
+        text-align: center;
+    }
+
+    &__list {
+        display: flex;
+        list-style: none;
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+    }
+
+    &__item {
+        padding: .3rem .3rem;
+        border-radius: 0.6rem;
+        background-color: $contrast;
+        cursor: pointer;
+        transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+        font-size: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+            box-shadow: 0 5px 15px 0 $gray-2;
+            transform: scale(1.1);
+        }
+    } 
+}

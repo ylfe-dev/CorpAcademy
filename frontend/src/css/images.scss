@@ -126,10 +126,10 @@
         top: 1.5em;
         left: .5em;
 
-        animation: noise 10s var(--delay) infinite cubic-bezier(.53,.78,.12,1.2);
+        animation: noise 6s var(--delay) infinite cubic-bezier(.53,.78,.12,1.2);
     }
 
     &::before {
-        animation: noise 10s calc(var(--delay) + .5s) infinite cubic-bezier(.53,.78,.12,1.2);
+        animation: noise 6s calc(var(--delay) + .5s) infinite cubic-bezier(.53,.78,.12,1.2);
     }
 }
