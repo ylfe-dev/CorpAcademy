@@ -5,9 +5,9 @@ import './letter-box-input.scss'
 function LetterBoxInput ({sentence, words, noMistakes=true, onSuccess, onFailure}){ 
     const [input, setInput] = useState("")
     const [mistakes, setMistakes] = useState(0)
-    const isMistake = useRef(false)
-  
-
+    const isMistake = useRef(false);
+    
+   
     useEffect(()=>{
         if(noMistakes && mistakes>1){
             console.log("call api")
@@ -15,11 +15,18 @@ function LetterBoxInput ({sentence, words, noMistakes=true, onSuccess, onFailure
         }
     }, [mistakes])
 
+    useEffect(()=>{
+        isMistake.current = false;
+        setMistakes(0)
+        setInput("")
+    }, [sentence])
 
 
 
-    const max_height_vh = 15;
-    const min_height_vh = 8;
+
+    const max_height_vh = 25;
+    const min_height_vh = 6;
+
 
     const font_size_ratio = 0.65;
 
@@ -43,8 +50,8 @@ function LetterBoxInput ({sentence, words, noMistakes=true, onSuccess, onFailure
     }
 
     
-    let sentence_words = sentence.toLowerCase().split(" ")
-    let lesson_words = words.toLowerCase().split(" ")
+    let sentence_words = filterString(sentence).toLowerCase().split(" ")
+    let lesson_words = words.map(word => word.learnedLanguage.toLowerCase())
 
     let to_input = ""; 
     let index = 0;
@@ -122,3 +129,8 @@ function Word({word, cqSize}){
 
 
 const buildCssMin = (size, ratio=1) => "min("+(size.w/ratio)+"cqw, "+ (size.h /ratio)+"cqh)";
+
+function filterString(str) {
+    return str.replace(/[^a-zA-Z\s]/g, '');
+  }
+  

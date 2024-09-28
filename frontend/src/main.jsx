@@ -8,7 +8,7 @@ import Game from './containers/Game/game'
 import './index.css'
 import './shared.scss';
 
-
+import {UserContextProvider} from "./UserContext"
 
 const router = createBrowserRouter([
   {
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
     element: <Menu/>,
   },
   {
-    path: "/game",
+    path: "/game/:categoryId",
     element: <Game />,
   },
 ]);
@@ -29,7 +29,7 @@ const router = createBrowserRouter([
 
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>,
+    <UserContextProvider>
+      <RouterProvider router={router} />
+    </UserContextProvider>
 )

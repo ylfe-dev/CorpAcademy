@@ -39,7 +39,6 @@
     }
     &--active, &--wrong{
         color: $gray;
-        aspect-ratio: 0.8/1;
         
             &::after{
                 content: "";
