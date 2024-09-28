@@ -22,7 +22,9 @@ public static class InfrastructureModule
 
         services.AddTransient<IUserAccessor, HttpContextUserAccessor>();
 
+        services.AddTransient<IChatCompletionService, ChatCompletionService>();
         services.AddTransient<ISentencesGenerator, OpenAiSentencesGenerator>();
+        services.AddTransient<OpenAiIEmojiGenerator, OpenAiIEmojiGenerator>();
 
         services.AddTransient<UnauthorizedMiddleware>();
 
