@@ -12,7 +12,7 @@ function Game() {
     const { categoryId } = useParams();
     const sentences = useAPI({url: "generate-sentences?categoryId="+categoryId});
     const [game, setGame] = useState(0);
-    
+
     const [progress, setProgress] = useState(0);
 
     const navigate = useNavigate();
@@ -36,13 +36,18 @@ function Game() {
     setProgress(game/5*100)
   },[game])
 
-  const successHandler = score => {
+  const successHandler = () => {
 
   }
-  const errorHandler = score => {
+
+  const errorHandler = () => {
     setGame(game+1)
   }
 
+  const timeHandler = time => {
+
+  }
+  
   return (
     <Scene type="typ">
       
@@ -55,7 +60,12 @@ function Game() {
           {
             sentences.sentences ? 
             <>
-              <LetterBoxInput sentence={sentences.sentences[game].content} words={sentences.sentences[game].words} onSuccess={successHandler} onFailure={errorHandler}/>
+              <LetterBoxInput 
+                sentence={sentences.sentences[game].content} 
+                words={sentences.sentences[game].words} 
+                onSuccess={successHandler} 
+                onFailure={errorHandler}
+                onFinish={timeHandler}/>
               <span>{sentences.sentences[game].content}</span>
             </>
             : <span className="loader loader--medium"></span> 

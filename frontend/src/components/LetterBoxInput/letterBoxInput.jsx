@@ -112,7 +112,6 @@ export default LetterBoxInput
 
 
 function Word({word, cqSize}){
-
     return (
     <div className='word' style={{marginInline: buildCssMin(cqSize, 6)}}>
         {[...word].map( (box, index) => 
@@ -128,7 +127,7 @@ function Word({word, cqSize}){
 }
 
 
-const buildCssMin = (size, ratio=1) => "min("+(size.w/ratio)+"cqw, "+ (size.h /ratio)+"cqh)";
+const buildCssMin = (size, ratio=1) => "max("+(size.w/ratio)+"cqw, "+ (size.h /ratio)+"cqh)";
 
 function filterString(str) {
     return str.replace(/[^a-zA-Z\s]/g, '');
