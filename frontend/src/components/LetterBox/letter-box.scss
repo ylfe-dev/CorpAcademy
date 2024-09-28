@@ -22,6 +22,7 @@
         line-height: 1.1;
         text-transform: lowercase;
     }
+
     &--allwrong{
         color: $gray;
         animation: allwrong .4s forwards;
@@ -31,7 +32,7 @@
         animation: wrong .5s forwards;
     }
     &--win{
-        animation: win 1.5s cubic-bezier(.9,-0.4,.31,1) infinite;
+        animation: win 1.5s cubic-bezier(.9,-0.4,.31,1) forwards;
     }
     &--blank {
         color: $gray;
@@ -65,6 +66,10 @@
 
 .non-writable {
     color: $black;
+
+    &--win {
+        animation: win 1.5s cubic-bezier(.9,-0.4,.31,1) forwards;
+    }
 }
 
 @keyframes fadein {

@@ -49,6 +49,12 @@ function Game() {
     setGame(game + 1)
   }
 
+  const handleSceneClick = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
+
   const errorHandler = () => {
     setGame(game + 1)
   }
@@ -58,7 +64,7 @@ function Game() {
   }
 
   return (
-    <Scene type="typ">
+    <Scene type="typ" onClick={handleSceneClick}>
 
       <section className='info'>
         <progress id="file" className="reverse" value={progress} max="100"> 32% </progress>

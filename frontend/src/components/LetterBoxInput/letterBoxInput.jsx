@@ -24,8 +24,7 @@ function LetterBoxInput ({sentence, words, noMistakes=true, onSuccess, onFailure
 
     useEffect(()=>{
         if( input === toInput.current) {
-            console.log("win")
-            setTimeout(()=>onSuccess(), 1000)
+            setTimeout(()=>onSuccess(), 2000)
         }
     }, [input])
 
