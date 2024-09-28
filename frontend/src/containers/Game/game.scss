@@ -45,6 +45,8 @@ body {
   padding: 1rem;
   background-color: $gray-2;
   border-radius: .5rem;
+  z-index: 999;
+  margin-bottom: 10rem;
 }
 
 progress {

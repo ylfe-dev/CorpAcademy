@@ -83,7 +83,7 @@ function LetterBoxInput ({sentence, words, noMistakes=true, onSuccess, onFailure
     return (
         <div className='letter-box-input'>
             <label htmlFor="LetterBoxInput">
-                {sentence_words.map((word, index) => <Word key={index} word={word} cqSize={font_size} />)}
+                {sentence_words.map((word, index) => <Word key={index} word={word} cqSize={font_size} />)} 
             </label>
             <input 
                 autoFocus
