@@ -1,0 +1,135 @@
+.fat-cat, .smart-rat, .smart-rat-face, .fat-cat-face {
+    width: calc(20 * 1em);
+    min-width: calc(20 * 1em);
+    position: relative;
+
+    img {
+        max-width: 100%;
+    }
+}
+.smart-rat-face, .fat-cat-face {
+    font-size: .5em;
+
+    [noise] {
+        &::after, &::before {
+            font-size: 2em;
+       }
+    }
+}
+
+.smart-rat-face {
+    [noise="pi"] {
+        transform: rotate(40deg);
+        top: 6em;
+        right: 2em;
+    }
+}
+
+.fat-cat-face {
+    [noise="meow"] {
+        transform: rotate(-45deg);
+        top: 4em;
+        left: -4em;
+        --delay: 3s;
+    }
+}
+
+.shadow {
+    img {
+        z-index: 1;
+        position: relative;
+    }
+
+    &::before {
+        content: "";
+        display: block;
+        position: absolute;
+
+        z-index: 0;
+        background-color: gray;
+        border-radius: 50%;
+    }
+}
+
+.fat-cat {
+    font-size: 1.5em;
+
+    [noise="tap"] {
+        transform: rotate(45deg);
+        top: 1em;
+        right: 2em;
+        --delay: 6s;
+    }
+
+    [noise="bam"] {
+        transform: rotate(-45deg);
+        top: 1em;
+        left: 3em;
+        --delay: 3s;
+    }
+
+    &::before {
+        bottom: 1em;
+        left: 3em;
+        width: 15em;
+        height: 10em;
+    }
+}
+
+.smart-rat {
+    font-size: 1.3em;
+
+    [noise="click"] {
+        transform: rotate(-45deg);
+        top: 3em;
+        left: 4em;
+    }
+
+    &::before {
+        bottom: 1em;
+        left: 1.5em;
+        width: 16em;
+        height: 10em;
+    }
+}
+
+@keyframes noise {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    5%, 15% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    17%, 100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+}
+
+[noise]{
+    --delay: 0s;
+    font-weight: 900;
+    position: absolute;
+    font-size: 1em;
+
+    &::after, &::before {
+        content: attr(noise);
+        position: absolute;
+        top: 0;
+        left: 0;
+        text-transform: uppercase;
+    }
+
+    &::after {
+        top: 1.5em;
+        left: .5em;
+
+        animation: noise 10s var(--delay) infinite cubic-bezier(.53,.78,.12,1.2);
+    }
+
+    &::before {
+        animation: noise 10s calc(var(--delay) + .5s) infinite cubic-bezier(.53,.78,.12,1.2);
+    }
+}
