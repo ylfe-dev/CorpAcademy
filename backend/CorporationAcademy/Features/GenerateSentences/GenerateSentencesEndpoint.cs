@@ -22,7 +22,9 @@ public static class GenerateSentencesEndpoint
                 IWordsClient wordsClient,
                 ICategoriesClient categoriesClient,
                 IExperiencesClient experiencesClient,
-                ILevelCalculator levelCalculator) =>
+                ILevelCalculator levelCalculator,
+                [FromQuery] string nativeLanguage = "polski",
+                [FromQuery] string learningLanguage = "angielski") =>
             {
                 userAccessor.ThrowIfNotAuthenticated();
 
@@ -44,8 +46,8 @@ public static class GenerateSentencesEndpoint
 
                 var sentences = await sentencesGenerator.Generate(
                     learningWords,
-                    "polski",
-                    "angielski",
+                    nativeLanguage,
+                    learningLanguage,
                     category.Name,
                     level);
 
