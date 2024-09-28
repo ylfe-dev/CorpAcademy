@@ -1,11 +1,14 @@
 ﻿using CorporationAcademy.Features.Shared.Clients;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
+using System;
 
 namespace CorporationAcademy.Infrastructure.Mongo.Features.LearningWords;
 
 internal class MongoWordsClient(IMongoClientProvider mongoClientProvider) : MongoTableBase<LearningWord>(mongoClientProvider), IWordsClient
 {
+    private Random _random = new();
+
     public async Task DecreaseLearningWordDifficulty(Guid userId, Guid categoryId, string learningWord)
     {
         var existingEntity = await Table
@@ -36,11 +39,37 @@ internal class MongoWordsClient(IMongoClientProvider mongoClientProvider) : Mong
         }
     }
 
-    public async Task<List<string>> GetLearningWords(Guid userId, Guid categoryId) =>
-        await Table
+    public async Task<List<string>> GetLearningWords(Guid userId, Guid categoryId, int numberOfWords)
+    {
+        List<string> result = new();
+
+        var allAvailableWords = await Table
             .Where(e => e.UserId == userId && e.CategoryId == categoryId)
-            .Select(x => x.Word)
             .ToListAsync();
+
+        List<Guid> poolOfIdsToBeDrawn = new();
+        foreach (var word in allAvailableWords)
+        {
+            for (int i = 0; i < word.NumberOfMistakes + 1; i++)
+            {
+                poolOfIdsToBeDrawn.Add(word.Id);
+            }
+        }
+
+        var wordsById = allAvailableWords.ToDictionary(x => x.Id);
+
+        while (result.Count < numberOfWords && poolOfIdsToBeDrawn.Count > 0)
+        {
+            var randomIndex = _random.Next(poolOfIdsToBeDrawn.Count);
+            var randomId = poolOfIdsToBeDrawn[randomIndex];
+
+            result.Add(wordsById[randomId].Word);
+
+            poolOfIdsToBeDrawn.RemoveAll(id => id == randomId);
+        }
+
+        return result;
+    }
 
     public async Task<Dictionary<Guid, int>> GetNumberOfLearningWords(Guid userId, HashSet<Guid> categoryIds)
     {
