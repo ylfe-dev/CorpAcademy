@@ -8,6 +8,7 @@
     justify-items: start;
     z-index: 999;
     animation: show 1s ease forwards;
+    overflow: hidden;
 
     &--reverse {
         grid-template-columns:  1fr auto; 
@@ -33,11 +34,17 @@
 }
 
 @keyframes show {
-    from {
+    0% {
         opacity: 0;
+        max-height: 0;
     }
-    to {
+    99% {
         opacity: 1;
+        max-height: 500px;
+    }
+    100% {
+        opacity: 1;
+        max-height: 5000px;
     }
 }
 
