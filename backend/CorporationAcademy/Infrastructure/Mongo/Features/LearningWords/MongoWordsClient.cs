@@ -6,6 +6,13 @@ namespace CorporationAcademy.Infrastructure.Mongo.Features.LearningWords;
 
 internal class MongoWordsClient(IMongoClientProvider mongoClientProvider) : MongoTableBase<LearningWord>(mongoClientProvider), IWordsClient
 {
+    public async Task DeleteLearningWord(Guid userId, Guid categoryId, string learningWord) =>
+        await Collection.DeleteOneAsync(
+            Builders<LearningWord>.Filter.And(
+                UserIdFilter(userId),
+                CategoryIdFilter(categoryId),
+                WordFilter(learningWord)));
+
     public async Task<List<string>> GetLearningWords(Guid userId, Guid categoryId) =>
         await Table
             .Where(e => e.UserId == userId || e.CategoryId == categoryId)
@@ -53,6 +60,14 @@ internal class MongoWordsClient(IMongoClientProvider mongoClientProvider) : Mong
                 x => x.Id,
                 x => x.NumberOfMistakes);
         }
-
     }
+
+    private static FilterDefinition<LearningWord> CategoryIdFilter(Guid categoryId) =>
+        Builders<LearningWord>.Filter.Eq(x => x.Id, categoryId);
+
+    private static FilterDefinition<LearningWord> UserIdFilter(Guid userId) =>
+        Builders<LearningWord>.Filter.Eq(x => x.UserId, userId);
+
+    private static FilterDefinition<LearningWord> WordFilter(string learningWord) =>
+        Builders<LearningWord>.Filter.Eq(x => x.Word, learningWord);
 }
