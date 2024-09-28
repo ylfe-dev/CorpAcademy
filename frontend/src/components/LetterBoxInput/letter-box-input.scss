@@ -25,18 +25,5 @@
             height: 0;
             width:0;
         }
-
-        /*&:has(+:not(:focus)) .letter-box {
-            background-color: transparent;
-            aspect-ratio: 0.9/1;
-            
-            &--active span{
-                
-                &::after{
-                    content: none;
-                }
-            }
-        }*/
-    
     }
 }

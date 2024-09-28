@@ -1,10 +1,23 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import LetterBox from '../LetterBox/letterBox'
 import './letter-box-input.scss'
 
-function LetterBoxInput ({sentence, words, onSuccess, onFailure}){ 
+function LetterBoxInput ({sentence, words, noMistakes=true, onSuccess, onFailure}){ 
     const [input, setInput] = useState("")
-    
+    const [mistakes, setMistakes] = useState(0)
+    const isMistake = useRef(false)
+  
+
+    useEffect(()=>{
+        if(noMistakes && mistakes>1){
+            console.log("call api")
+            setTimeout(()=>onFailure(), 600)
+        }
+    }, [mistakes])
+
+
+
+
     const max_height_vh = 15;
     const min_height_vh = 15;
 
@@ -20,8 +33,10 @@ function LetterBoxInput ({sentence, words, onSuccess, onFailure}){
     }
 
     const getLetterState = index => {
+        if(noMistakes && mistakes>1)
+            return "allwrong";
         if(index == input.length+1)
-            return "active"
+            return isMistake.current ? "wrong" :"active";
         if(index < input.length+1)
             return "done"
         return "blank"
@@ -32,7 +47,6 @@ function LetterBoxInput ({sentence, words, onSuccess, onFailure}){
     let lesson_words = words.toLowerCase().split(" ")
 
     let to_input = ""; 
-    
     let index = 0;
     
     sentence_words = sentence_words.map(word => {
@@ -52,7 +66,12 @@ function LetterBoxInput ({sentence, words, onSuccess, onFailure}){
             }
         })
     })
-    console.log(sentence_words)
+
+
+    const handleInput = ev => {
+        ev.preventDefault()
+        setInput(ev.target.value);
+    }
     
     return (
         <div className='letter-box-input'>
@@ -60,12 +79,25 @@ function LetterBoxInput ({sentence, words, onSuccess, onFailure}){
                 {sentence_words.map((word, index) => <Word key={index} word={word} cqSize={font_size} />)}
             </label>
             <input 
+                autoFocus
                 autoComplete="off"
                 id="LetterBoxInput"
                 type="text" 
                 className="letter-box-input" 
                 maxLength={to_input.length}
-                onChange={e => setInput(e.target.value)} /> 
+                onChange={handleInput}
+                onBeforeInput={(ev)=> {
+                    console.log(ev)
+                    if(ev.data != to_input[input.length]){
+                        setMistakes(mistakes+1)
+                        isMistake.current = true;
+                        ev.stopPropagation()
+                        ev.preventDefault()
+                    } else {
+                        isMistake.current = false;
+                    }
+                }}
+                value={input} /> 
         </div>)
 }
 
