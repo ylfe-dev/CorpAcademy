@@ -1,4 +1,4 @@
-﻿using CorporationAcademy.Features.GenerateSentences.Clients;
+using CorporationAcademy.Features.GenerateSentences.Clients;
 using CorporationAcademy.Features.GenerateSentences.Models;
 using CorporationAcademy.Features.Shared;
 using CorporationAcademy.Features.Shared.Clients;
@@ -14,6 +14,8 @@ public static class GenerateSentencesEndpoint
         endpointRouteBuilder.MapGet(
             "/api/generate-sentences",
             async (
+                [FromQuery]
+                string categoryName,
                 IUserAccessor userAccessor,
                 ISentencesGenerator sentencesGenerator,
                 IWordsClient wordsClient) =>
@@ -21,9 +23,24 @@ public static class GenerateSentencesEndpoint
                 userAccessor.ThrowIfNotAuthenticated();
 
                 var learningWords = await wordsClient.GetLearningWords(userAccessor.UserId);
-                var sentences = await sentencesGenerator.Generate(learningWords);
+                var sentences = await sentencesGenerator.Generate(
+                    learningWords,
+                    "polski",
+                    "angielski",
+                    categoryName
+                    );
 
-                return Results.Ok(new GenerateSentencesResponse(sentences));
+                var convertedSentences = sentences.Sentences.Select(sentence =>
+                    new Sentence(
+                        sentence.Content,
+                        sentence.WordsToAsk.Select(word =>
+                            new Word(
+                                word.NativeLanguage,
+                                word.TargetLanguage
+                            )).ToList()
+                    )).ToList();
+
+                return Results.Ok(new GenerateSentencesResponse(convertedSentences));
             });
     }
 }

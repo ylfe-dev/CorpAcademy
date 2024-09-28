@@ -2,7 +2,7 @@
     display: grid;
     margin-inline: auto;
     grid-template-columns: auto 1fr;
-    grid-template-rows: 12vh;
+    min-height:12vh;
     width:100%;
     max-width:500px;
     box-sizing:border-box;

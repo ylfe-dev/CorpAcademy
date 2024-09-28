@@ -4,6 +4,7 @@ using CorporationAcademy.Features.GenerateSentences;
 using CorporationAcademy.Features.GetCategories;
 using CorporationAcademy.Features.SaveLearningWord;
 using CorporationAcademy.Infrastructure;
+using CorporationAcademy.Infrastructure.Middleware;
 using CorporationAcademy.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,5 +37,6 @@ app.MapCreateCategoryEndpoint();
 app.MapGetCategoriesEndpoint();
 app.MapDeleteCategoryEndpoint();
 
+app.UseMiddleware<UnauthorizedMiddleware>();
 
 app.Run();
