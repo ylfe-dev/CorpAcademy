@@ -63,7 +63,7 @@ internal class MongoWordsClient(IMongoClientProvider mongoClientProvider) : Mong
     }
 
     private static FilterDefinition<LearningWord> CategoryIdFilter(Guid categoryId) =>
-        Builders<LearningWord>.Filter.Eq(x => x.Id, categoryId);
+        Builders<LearningWord>.Filter.Eq(x => x.CategoryId, categoryId);
 
     private static FilterDefinition<LearningWord> UserIdFilter(Guid userId) =>
         Builders<LearningWord>.Filter.Eq(x => x.UserId, userId);
