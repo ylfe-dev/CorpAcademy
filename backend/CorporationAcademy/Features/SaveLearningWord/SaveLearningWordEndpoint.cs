@@ -6,18 +6,20 @@ namespace CorporationAcademy.Features.SaveLearningWord;
 
 public static class SaveLearningWordEndpoint
 {
-    public record Request(Guid CategoryId, string LearningWord);
+    private record SaveLearningWordRequest(Guid CategoryId, string LearningWord);
 
     public static void MapSaveLearningWordEnpoint(this IEndpointRouteBuilder endpointRouteBuilder)
     {
         endpointRouteBuilder.MapPost(
             "/api/learning-word",
             async (
-                [FromBody] Request request,
+                [FromBody] SaveLearningWordRequest request,
                 IUserAccessor userAccessor,
                 IWordsClient wordsClient,
                 ICategoriesClient categoriesClient) =>
             {
+                userAccessor.ThrowIfNotAuthenticated();
+
                 if (!await categoriesClient.Exists(request.CategoryId))
                 {
                     return Results.BadRequest("Category do not exists");

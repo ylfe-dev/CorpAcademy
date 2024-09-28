@@ -5,7 +5,7 @@ namespace CorporationAcademy.Features.GenerateSentences.Clients;
 
 public interface ISentencesGenerator
 {
-    Task<GeneratedSentences> Generate(
+    Task<List<Sentence>> Generate(
         List<string> learningWords,
         string sourceLanguage,
         string targetLanguage,

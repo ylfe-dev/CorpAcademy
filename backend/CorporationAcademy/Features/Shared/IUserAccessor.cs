@@ -3,4 +3,5 @@
 public interface IUserAccessor
 {
     public Guid UserId { get; }
+    void ThrowIfNotAuthenticated();
 }
