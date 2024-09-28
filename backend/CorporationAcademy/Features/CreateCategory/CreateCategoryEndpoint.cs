@@ -17,7 +17,7 @@ public static class CreateCategoryEndpoint
                 ICategoriesClient categoriesClient,
                 IUserAccessor userAccessor) =>
             {
-                if (await categoriesClient.Exists(request.Name))
+                if (await categoriesClient.Exists(request.Name, userAccessor.UserId))
                 {
                     return Results.BadRequest("Category already exists.");
                 }
