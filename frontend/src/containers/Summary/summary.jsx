@@ -25,7 +25,7 @@ function Summary() {
             </section>
 
             <section>
-                <h2 class="title">Wyzwanie ukończone!</h2>
+                <h2 className="title">Wyzwanie ukończone!</h2>
 
                 <div className='summary-table'>
                     
