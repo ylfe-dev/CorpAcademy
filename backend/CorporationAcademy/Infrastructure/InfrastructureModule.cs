@@ -24,7 +24,7 @@ public static class InfrastructureModule
 
         services.AddTransient<IChatCompletionService, ChatCompletionService>();
         services.AddTransient<ISentencesGenerator, OpenAiSentencesGenerator>();
-        services.AddTransient<OpenAiIEmojiGenerator, OpenAiIEmojiGenerator>();
+        services.AddTransient<OpenAiEmojiGenerator, OpenAiEmojiGenerator>();
 
         services.AddTransient<UnauthorizedMiddleware>();
 

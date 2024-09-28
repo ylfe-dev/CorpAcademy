@@ -3,7 +3,7 @@ using OpenAI.Chat;
 
 namespace CorporationAcademy.Infrastructure.OpenAi;
 
-internal class OpenAiIEmojiGenerator(IChatCompletionService chatCompletionService) : IEmojiGenerator
+internal class OpenAiEmojiGenerator(IChatCompletionService chatCompletionService) : IEmojiGenerator
 {
     public async Task<string> Generate(string categoryName)
     {

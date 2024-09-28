@@ -19,7 +19,7 @@ internal class ChatCompletionService(IConfiguration configuration) : IChatComple
 
         var chatCompletion = await client.CompleteChatAsync(messages);
 
-        return chatCompletion?.Value?.Content?.ToString()
+        return chatCompletion?.Value?.Content?[0]?.Text.ToString()
             ?? throw new ArgumentNullException("Body from openai");
     }
 }
