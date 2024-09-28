@@ -7,6 +7,7 @@ using CorporationAcademy.Infrastructure.Middleware;
 using CorporationAcademy.Infrastructure.Mongo;
 using CorporationAcademy.Infrastructure.Mongo.Features.Categories;
 using CorporationAcademy.Infrastructure.Mongo.Features.LearningWords;
+using CorporationAcademy.Infrastructure.Mongo.Features.Levels;
 using CorporationAcademy.Infrastructure.OpenAi;
 
 namespace CorporationAcademy.Infrastructure;
@@ -20,6 +21,7 @@ public static class InfrastructureModule
         services.AddTransient<IMongoClientProvider, MongoClientProvider>();
         services.AddTransient<IWordsClient, MongoWordsClient>();
         services.AddTransient<ICategoriesClient, MongoCategoriesClient>();
+        services.AddTransient<ILevelsClient, MongoLevelsClient>();
 
         services.AddTransient<IUserAccessor, HttpContextUserAccessor>();
 

@@ -20,7 +20,9 @@ public static class GenerateSentencesEndpoint
                 IUserAccessor userAccessor,
                 ISentencesGenerator sentencesGenerator,
                 IWordsClient wordsClient,
-                ICategoriesClient categoriesClient) =>
+                ICategoriesClient categoriesClient,
+                ILevelsClient levelsClient,
+                ILevelCalculator levelCalculator) =>
             {
                 userAccessor.ThrowIfNotAuthenticated();
 
@@ -30,6 +32,9 @@ public static class GenerateSentencesEndpoint
                 {
                     return Results.NotFound();
                 }
+
+                var experience = await levelsClient.GetUserExperience(userAccessor.UserId, categoryId);
+                var level = levelCalculator.CalculateLevel(experience);
 
                 var learningWords = await wordsClient.GetLearningWords(
                         userAccessor.UserId,
@@ -41,7 +46,8 @@ public static class GenerateSentencesEndpoint
                     learningWords,
                     "polski",
                     "angielski",
-                    category.Name);
+                    category.Name,
+                    level);
 
                 return Results.Ok(new GenerateSentencesResponse(sentences));
             });

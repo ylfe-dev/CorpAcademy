@@ -9,5 +9,6 @@ public interface ISentencesGenerator
         List<string> learningWords,
         string sourceLanguage,
         string targetLanguage,
-        string topic);
+        string topic,
+        int level);
 }

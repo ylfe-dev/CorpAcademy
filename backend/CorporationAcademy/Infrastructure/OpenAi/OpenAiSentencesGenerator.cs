@@ -12,11 +12,12 @@ internal class OpenAiSentencesGenerator(IChatCompletionService chatCompletionSer
         List<string> learningWords,
         string sourceLanguage,
         string targetLanguage,
-        string topic)
+        string topic,
+        int level)
     {
         var content = await chatCompletionService.CompleteChat(
         [
-            new UserChatMessage(GetPrompt(sourceLanguage, targetLanguage, topic, learningWords))
+            new UserChatMessage(GetPrompt(sourceLanguage, targetLanguage, topic, learningWords, level))
         ]);
 
         GeneratedSentences? result = JsonSerializer.Deserialize<GeneratedSentences>(content);
@@ -31,8 +32,8 @@ internal class OpenAiSentencesGenerator(IChatCompletionService chatCompletionSer
         string sourceLanguage,
         string targetLanguage,
         string topic,
-        List<string> wordsToLearn
-        )
+        List<string> wordsToLearn,
+        int level)
     {
         var jsonObject = new
         {
@@ -53,6 +54,8 @@ internal class OpenAiSentencesGenerator(IChatCompletionService chatCompletionSer
             ```
             {{jsonAsString}}
             ```
+
+            W pięciostopniowej skali, trudność słow powinna być równa: {{level}}
 
             Odpowiedź zwróć w formacie JSON. Format:
             ```

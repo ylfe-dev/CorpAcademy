@@ -25,7 +25,8 @@ public class PromptTesting
             new List<string> { "dog", "cat", "bird" },
             sourceLanguage: "Polish",
             targetLanguage: "English",
-            topic: "Animals"
+            topic: "Animals",
+            level: 5
         );
 
         Console.WriteLine(JsonSerializer.Serialize(result));
