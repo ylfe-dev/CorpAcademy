@@ -1,0 +1,17 @@
+.button {
+    padding:1rem 2rem;
+    box-sizing: border-box;
+    border-radius: 5rem;
+    background-color: $contrast;
+    font-size:1rem;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: $black;
+    display: inline-block;
+    margin-block: 1rem;
+
+    &:hover {
+        background-color: $light;
+    }
+}

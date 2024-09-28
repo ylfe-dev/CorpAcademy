@@ -1,0 +1,33 @@
+.loader {
+    display: block;
+    width:100%;
+    position: relative;
+    aspect-ratio: 1;
+    animation: loader 1s infinite alternate;
+
+    &::before, &::after{
+      content: "";
+      display: block;
+      position: absolute;
+      aspect-ratio: 1;
+      width:5px;
+      border-radius: 50%;
+      background-color:white;
+    }
+    &::after {
+      bottom:0;
+      right:0;
+    }
+    &--small{
+      width:1rem;
+      &::after, &::before { width: 4px }
+    }
+    &--medium{
+      width:2rem;
+      &::after, &::before { width: 6px }
+    }
+    &--medium{
+      width:4rem;
+      &::after, &::before { width: 8px }
+    }
+}
