@@ -15,17 +15,17 @@ public static class CreateCategoryEndpoint
             "/api/categories",
             async (
                 [FromBody] CreateCategoryRequest request,
-                [FromHeader] bool isAdmin,
+                [FromHeader] bool? isAdmin,
                 ICategoriesClient categoriesClient,
                 IUserAccessor userAccessor,
                 IEmojiGenerator emojiGenerator) =>
             {
-                if (!isAdmin)
+                if (!isAdmin.HasValue || !isAdmin.Value)
                 {
                     userAccessor.ThrowIfNotAuthenticated();
                 }
 
-                Guid? userId = isAdmin ? null : userAccessor.UserId;
+                Guid? userId = isAdmin.HasValue && isAdmin.Value ? null : userAccessor.UserId;
 
                 if (await categoriesClient.Exists(request.Name, userId))
                 {
