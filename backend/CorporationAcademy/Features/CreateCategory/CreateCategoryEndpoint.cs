@@ -1,6 +1,7 @@
 ﻿using CorporationAcademy.Features.CreateCategory.Clients;
 using CorporationAcademy.Features.Shared;
 using CorporationAcademy.Features.Shared.Clients;
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CorporationAcademy.Features.CreateCategory;
@@ -18,11 +19,16 @@ public static class CreateCategoryEndpoint
                 [FromHeader] bool? isAdmin,
                 ICategoriesClient categoriesClient,
                 IUserAccessor userAccessor,
-                IEmojiGenerator emojiGenerator) =>
+                IEmojiGenerator emojiGenerator,
+                TelemetryClient telemetryClient) =>
             {
                 if (!isAdmin.HasValue || !isAdmin.Value)
                 {
                     userAccessor.ThrowIfNotAuthenticated();
+                }
+                else
+                {
+                    telemetryClient.TrackEvent("Admin request detected");
                 }
 
                 Guid? userId = isAdmin.HasValue && isAdmin.Value ? null : userAccessor.UserId;

@@ -22,6 +22,7 @@ builder.Services.AddSwaggerGen(config =>
 builder.Services.AddCors();
 builder.Services.AddTransient<ILevelCalculator, LevelCalculator>();
 builder.Services.AddInfrastructureModule();
+builder.Services.AddApplicationInsightsTelemetry();
 
 var app = builder.Build();
 
