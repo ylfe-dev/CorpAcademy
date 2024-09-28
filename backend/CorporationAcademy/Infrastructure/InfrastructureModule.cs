@@ -1,4 +1,5 @@
-﻿using CorporationAcademy.Features.GenerateSentences.Clients;
+﻿using CorporationAcademy.Features.CreateCategory.Clients;
+using CorporationAcademy.Features.GenerateSentences.Clients;
 using CorporationAcademy.Features.Shared;
 using CorporationAcademy.Features.Shared.Clients;
 using CorporationAcademy.Infrastructure.Http;
@@ -24,7 +25,7 @@ public static class InfrastructureModule
 
         services.AddTransient<IChatCompletionService, ChatCompletionService>();
         services.AddTransient<ISentencesGenerator, OpenAiSentencesGenerator>();
-        services.AddTransient<OpenAiEmojiGenerator, OpenAiEmojiGenerator>();
+        services.AddTransient<IEmojiGenerator, OpenAiEmojiGenerator>();
 
         services.AddTransient<UnauthorizedMiddleware>();
 
