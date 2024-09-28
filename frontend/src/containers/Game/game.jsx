@@ -7,8 +7,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import './game.scss';
 function Game() {
     const { categoryId } = useParams();
-    const sentences = useAPI({url: "generate-sentences?categoryId="+categoryId});
+    const last_sentences = localStorage.getItem("sentences");
+    const sentences = (categoryId || !last_sentences) ? useAPI({url: "generate-sentences?categoryId="+categoryId}) : last_sentences;
     const [game, setGame] = useState(0);
+    const [stage, setStage] = useState()
     const [progress, setProgress] = useState(0);
     const score = useRef({wins: 0, time: 0, score: 0})
 
@@ -32,6 +34,12 @@ function Game() {
         navigate('/summary/');
     setProgress(game/5*100)
   },[game])
+
+  useEffect(()=>{
+    if(sentences.sentences){
+        localStorage.setItem("sentences", sentences)
+    }
+  },[sentences])
 
   const successHandler = () => {
     score.current = {...score.current, wins: score.current.wins+1};
