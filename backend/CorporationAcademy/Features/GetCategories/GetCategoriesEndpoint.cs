@@ -21,6 +21,8 @@ public static class GetCategoriesEndpoint
                 IExperiencesClient experiencesClient,
                 ILevelCalculator levelCalculator) =>
             {
+                userAccessor.ThrowIfNotAuthenticated();
+
                 var categories = await categoriesClient.GetCategories(userAccessor.UserId);
                 var categoryIds = categories.Select(x => x.Id).ToHashSet();
                 var categoryLearningWords = await wordsClient.GetNumberOfLearningWords(
