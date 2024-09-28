@@ -9,20 +9,20 @@ public static class DeleteCategoryEndpoint
     public static void MapDeleteCategoryEndpoint(this IEndpointRouteBuilder endpointRouteBuilder)
     {
         endpointRouteBuilder.MapDelete(
-            "/api/categories/{categoryName}",
+            "/api/categories/{categoryId}",
             async (
-                [FromRoute] string categoryName,
+                [FromRoute] Guid categoryId,
                 ICategoriesClient categoriesClient,
                 IUserAccessor userAccessor) =>
             {
                 userAccessor.ThrowIfNotAuthenticated();
 
-                if (!await categoriesClient.Exists(categoryName, userAccessor.UserId))
+                if (!await categoriesClient.Exists(categoryId, userAccessor.UserId))
                 {
                     return Results.NotFound();
                 }
 
-                await categoriesClient.DeleteCategory(categoryName, userAccessor.UserId);
+                await categoriesClient.DeleteCategory(categoryId, userAccessor.UserId);
                 return Results.Ok();
             });
     }
