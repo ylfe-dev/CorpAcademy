@@ -15,7 +15,6 @@ function Summary() {
         return `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`
     }
 
-    //const categories = useAPI({url:"categories"})
 
     return (
         <Scene type="basic">
