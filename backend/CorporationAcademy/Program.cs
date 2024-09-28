@@ -1,5 +1,6 @@
 using CorporationAcademy.Features.CreateCategory;
 using CorporationAcademy.Features.DeleteCategory;
+using CorporationAcademy.Features.DeleteLearningWord;
 using CorporationAcademy.Features.GenerateSentences;
 using CorporationAcademy.Features.GetCategories;
 using CorporationAcademy.Features.SaveLearningWord;
@@ -28,6 +29,7 @@ app.UseHttpsRedirection();
 app.MapGenerateSentencesEndpoint();
 
 app.MapSaveLearningWordEnpoint();
+app.MapDeleteLearningWordEndpoint();
 
 app.MapCreateCategoryEndpoint();
 app.MapGetCategoriesEndpoint();

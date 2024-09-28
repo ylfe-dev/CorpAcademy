@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import './hint.scss'
 
-function Hint ({text, character, right=false}){
+function Hint ({text, character}){
 
     return (
-        <div className={"hint " + (right ? "" : "hint--reverse" )}>
+        <div className={"hint " + (character == "cat" ? "" : "hint--reverse" )}>
             <div className={characteData(character).class}>
                 <img src={characteData(character).src} alt={characteData(character).alt} />
                     <b noise={characteData(character).noise}></b>

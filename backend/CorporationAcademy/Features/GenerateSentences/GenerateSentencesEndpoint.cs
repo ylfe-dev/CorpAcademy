@@ -9,25 +9,39 @@ namespace CorporationAcademy.Features.GenerateSentences;
 public static class GenerateSentencesEndpoint
 {
     private record GenerateSentencesResponse(List<Sentence> Sentences);
+    private const int NumberOfWordsInSingleLearningSession = 20;
 
     public static void MapGenerateSentencesEndpoint(this IEndpointRouteBuilder endpointRouteBuilder)
     {
         endpointRouteBuilder.MapGet(
             "/api/generate-sentences",
             async (
-                [FromQuery] string categoryName,
+                [FromQuery] Guid categoryId,
                 IUserAccessor userAccessor,
                 ISentencesGenerator sentencesGenerator,
-                IWordsClient wordsClient) =>
+                IWordsClient wordsClient,
+                ICategoriesClient categoriesClient) =>
             {
                 userAccessor.ThrowIfNotAuthenticated();
 
-                var learningWords = await wordsClient.GetLearningWords(userAccessor.UserId);
+                var category = await categoriesClient.GetCategory(categoryId, userAccessor.UserId);
+
+                if (category is null)
+                {
+                    return Results.NotFound();
+                }
+
+                var learningWords = await wordsClient.GetLearningWords(
+                        userAccessor.UserId,
+                        categoryId,
+                        NumberOfWordsInSingleLearningSession
+                    );
+
                 var sentences = await sentencesGenerator.Generate(
                     learningWords,
                     "polski",
                     "angielski",
-                    categoryName);
+                    category.Name);
 
                 return Results.Ok(new GenerateSentencesResponse(sentences));
             });
