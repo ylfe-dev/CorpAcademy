@@ -6,9 +6,39 @@ namespace CorporationAcademy.Infrastructure.Mongo.Features.LearningWords;
 
 internal class MongoWordsClient(IMongoClientProvider mongoClientProvider) : MongoTableBase<LearningWord>(mongoClientProvider), IWordsClient
 {
+    public async Task DecreaseLearningWordDifficulty(Guid userId, Guid categoryId, string learningWord)
+    {
+        var existingEntity = await Table
+            .Where(x => x.UserId == userId
+                && x.CategoryId == categoryId
+                && x.Word == learningWord)
+            .SingleAsync();
+
+        if (existingEntity.NumberOfMistakes == 0)
+        {
+            await Collection.DeleteOneAsync(
+                Builders<LearningWord>.Filter.And(
+                    UserIdFilter(userId),
+                    CategoryIdFilter(categoryId),
+                    WordFilter(learningWord)));
+        }
+        else
+        {
+            var updatedEntity = existingEntity with
+            {
+                NumberOfMistakes = existingEntity.NumberOfMistakes - 1
+            };
+
+            await Update(
+                updatedEntity,
+                x => x.Id,
+                x => x.NumberOfMistakes);
+        }
+    }
+
     public async Task<List<string>> GetLearningWords(Guid userId, Guid categoryId) =>
         await Table
-            .Where(e => e.UserId == userId || e.CategoryId == categoryId)
+            .Where(e => e.UserId == userId && e.CategoryId == categoryId)
             .Select(x => x.Word)
             .ToListAsync();
 
@@ -53,6 +83,14 @@ internal class MongoWordsClient(IMongoClientProvider mongoClientProvider) : Mong
                 x => x.Id,
                 x => x.NumberOfMistakes);
         }
-
     }
+
+    private static FilterDefinition<LearningWord> CategoryIdFilter(Guid categoryId) =>
+        Builders<LearningWord>.Filter.Eq(x => x.CategoryId, categoryId);
+
+    private static FilterDefinition<LearningWord> UserIdFilter(Guid userId) =>
+        Builders<LearningWord>.Filter.Eq(x => x.UserId, userId);
+
+    private static FilterDefinition<LearningWord> WordFilter(string learningWord) =>
+        Builders<LearningWord>.Filter.Eq(x => x.Word, learningWord);
 }
