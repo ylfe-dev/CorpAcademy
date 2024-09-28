@@ -5,6 +5,8 @@ import NotFound from './containers/NotFound/notFound'
 import Start from './containers/Start/start'
 import Menu from './containers/Menu/menu'
 import Game from './containers/Game/game'
+import Summary from './containers/Summary/summary'
+
 import './index.css'
 import './shared.scss';
 
@@ -19,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: "/menu",
     element: <Menu/>,
+  },
+  {
+    path: "/summary",
+    element: <Summary/>,
   },
   {
     path: "/game/:categoryId",

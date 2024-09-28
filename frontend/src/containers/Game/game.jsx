@@ -6,27 +6,16 @@ import Scene from '../../components/Scene/scene';
 import Hint from '../../components/Hint/hint'
 import { useParams } from 'react-router-dom';
 import useAPI from '/src/useAPI';
-
+import { useNavigate } from "react-router-dom";
 
 function Game() {
-<<<<<<< HEAD
     const { categoryId } = useParams();
     const sentences = useAPI({url: "generate-sentences?categoryId="+categoryId});
     const [game, setGame] = useState(0);
-=======
-  const [lesson, setLesson] = useState(); //{sentence: "This", words: "this for"});
-  const [progress, setProgress] = useState(50);
-  const [game, setGame] = useState(0);
-  //const games = 
-
-
-
-
->>>>>>> bbbb90aed799859e05b70db2932cbed95f8bffb7
-  
+    const [progress, setProgress] = useState(0);  
+    const navigate = useNavigate();
 
   useEffect(()=>{
-     
     let audio = new Audio('/Onion.mp3');
     audio.loop = true;
     audio.play();
@@ -39,6 +28,11 @@ function Game() {
     }
   },[])
 
+  useEffect(()=>{
+    if(sentences.sentences && game == sentences.sentences.length-1)
+        navigate('/summary');
+    setProgress(game/5*100)
+  },[game])
 
   const successHandler = score => {
 
@@ -57,17 +51,10 @@ function Game() {
         
         <section className='content'>
           {
-<<<<<<< HEAD
             sentences.sentences ? 
             <>
               <LetterBoxInput sentence={sentences.sentences[game].content} words={sentences.sentences[game].words} onSuccess={successHandler} onFailure={errorHandler}/>
               <span>{sentences.sentences[game].content}</span>
-=======
-            lesson ?  
-            <>
-              <LetterBoxInput sentence={lesson.sentence} words={lesson.words} onSuccess={successHandler} onError={errorHandler}/>
-              <div className="translate-section"><span>{lesson.sentence}</span></div>
->>>>>>> bbbb90aed799859e05b70db2932cbed95f8bffb7
             </>
             : <span className="loader loader--medium"></span> 
           }
@@ -79,12 +66,12 @@ function Game() {
 
         <div className='background'>
           <div className="fat-cat shadow">
-            <img src="img/fat cat.png" alt="fat cat"/>
+            <img src="/img/fat%20cat.png" alt="fat cat"/>
             <b noise="tap"></b>
             <b noise="bam"></b>
           </div>
           <div className="smart-rat shadow">
-              <img src="img/smart rat.png" alt="smart rat"/>
+              <img src="/img/smart%20rat.png" alt="smart rat"/>
               <b noise="click"></b>
           </div>
         </div>
