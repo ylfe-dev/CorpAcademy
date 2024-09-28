@@ -9,6 +9,7 @@ namespace CorporationAcademy.Features.GenerateSentences;
 public static class GenerateSentencesEndpoint
 {
     private record GenerateSentencesResponse(List<Sentence> Sentences);
+    private const int NumberOfWordsInSingleLearningSession = 20;
 
     public static void MapGenerateSentencesEndpoint(this IEndpointRouteBuilder endpointRouteBuilder)
     {
@@ -30,7 +31,12 @@ public static class GenerateSentencesEndpoint
                     return Results.NotFound();
                 }
 
-                var learningWords = await wordsClient.GetLearningWords(userAccessor.UserId, categoryId);
+                var learningWords = await wordsClient.GetLearningWords(
+                        userAccessor.UserId,
+                        categoryId,
+                        NumberOfWordsInSingleLearningSession
+                    );
+
                 var sentences = await sentencesGenerator.Generate(
                     learningWords,
                     "polski",
