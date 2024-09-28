@@ -15,7 +15,7 @@ internal class MongoWordsClient(IMongoClientProvider mongoClientProvider) : Mong
 
     public async Task<List<string>> GetLearningWords(Guid userId, Guid categoryId) =>
         await Table
-            .Where(e => e.UserId == userId || e.CategoryId == categoryId)
+            .Where(e => e.UserId == userId && e.CategoryId == categoryId)
             .Select(x => x.Word)
             .ToListAsync();
 
