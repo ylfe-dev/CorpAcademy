@@ -21,4 +21,12 @@ internal class HttpContextUserAccessor(IHttpContextAccessor httpContextAccessor)
                 : Guid.Empty;
         }
     }
+
+    public void ThrowIfNotAuthenticated()
+    {
+        if (UserId == Guid.Empty)
+        {
+            throw new UnauthorizedAccessException();
+        }
+    }
 }

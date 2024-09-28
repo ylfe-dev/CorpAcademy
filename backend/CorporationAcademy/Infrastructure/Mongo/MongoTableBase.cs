@@ -9,14 +9,14 @@ internal abstract class MongoTableBase<T>(IMongoClientProvider mongoClientProvid
 {
     private const string DatabaseName = "CorporationAcademy";
 
-    protected Task Insert(T entity) => GetCollection().InsertOneAsync(entity);
+    protected Task Insert(T entity) => Collection.InsertOneAsync(entity);
 
     protected Task Update<TSearch, TValue>(T entity, Expression<Func<T, TSearch>> filter, Expression<Func<T, TValue>> update)
     {
         var filterValue = filter.Compile().Invoke(entity);
         var updateValue = update.Compile().Invoke(entity);
 
-        return GetCollection()
+        return Collection
             .UpdateOneAsync(
                 Builders<T>.Filter.Eq(filter, filterValue),
                 Builders<T>.Update.Set(update, updateValue));
@@ -24,11 +24,14 @@ internal abstract class MongoTableBase<T>(IMongoClientProvider mongoClientProvid
 
     protected async Task<bool> Exists(Expression<Func<T, bool>> predicate) => await Table.AnyAsync(predicate);
 
-    protected IMongoQueryable<T> Table => GetCollection().AsQueryable();
+    protected IMongoQueryable<T> Table => Collection.AsQueryable();
 
-    private IMongoCollection<T> GetCollection()
+    protected IMongoCollection<T> Collection
     {
-        var client = mongoClientProvider.GetClient();
-        return client.GetDatabase(DatabaseName).GetCollection<T>();
+        get
+        {
+            var client = mongoClientProvider.GetClient();
+            return client.GetDatabase(DatabaseName).GetCollection<T>();
+        }
     }
 }

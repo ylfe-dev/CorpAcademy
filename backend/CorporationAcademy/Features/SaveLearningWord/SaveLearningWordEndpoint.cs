@@ -18,6 +18,8 @@ public static class SaveLearningWordEndpoint
                 IWordsClient wordsClient,
                 ICategoriesClient categoriesClient) =>
             {
+                userAccessor.ThrowIfNotAuthenticated();
+
                 if (!await categoriesClient.Exists(request.CategoryId))
                 {
                     return Results.BadRequest("Category do not exists");

@@ -8,4 +8,5 @@ public interface ICategoriesClient
     Task<bool> Exists(string categoryName, Guid userId);
     Task<List<Category>> GetCategories(Guid userId);
     Task CreateCategory(string name, string icon, Guid userId);
+    Task DeleteCategory(string categoryName, Guid userId);
 }

@@ -18,6 +18,8 @@ public static class GenerateSentencesEndpoint
                 ISentencesGenerator sentencesGenerator,
                 IWordsClient wordsClient) =>
             {
+                userAccessor.ThrowIfNotAuthenticated();
+
                 var learningWords = await wordsClient.GetLearningWords(userAccessor.UserId);
                 var sentences = await sentencesGenerator.Generate(learningWords);
 

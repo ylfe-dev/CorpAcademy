@@ -2,6 +2,6 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ActiveDebugProfile>https</ActiveDebugProfile>
-    <NameOfLastUsedPublishProfile>C:\ceneopr\CorporationAcademy\backend\CorporationAcademy\Properties\PublishProfiles\corporationacademy - Zip Deploy.pubxml</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>C:\ceneopr\CorpAcademy\backend\CorporationAcademy\Properties\PublishProfiles\corporationacademy - Zip Deploy.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>

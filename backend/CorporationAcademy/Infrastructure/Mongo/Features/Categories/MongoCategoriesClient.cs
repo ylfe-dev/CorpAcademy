@@ -25,4 +25,16 @@ internal class MongoCategoriesClient(IMongoClientProvider mongoClientProvider) :
         await Exists(x => x.Name == categoryName && (!x.UserId.HasValue || x.UserId == userId));
 
     public async Task<bool> Exists(Guid categoryId) => await Exists(x => x.Id == categoryId);
+
+    public async Task DeleteCategory(string categoryName, Guid userId) =>
+        await Collection.DeleteOneAsync(
+            Builders<CategoryEntity>.Filter.And(
+                NameFilter(categoryName),
+                UserIdFilter(userId)));
+
+    private static FilterDefinition<CategoryEntity> NameFilter(string name) =>
+        Builders<CategoryEntity>.Filter.Eq(x => x.Name, name);
+
+    private static FilterDefinition<CategoryEntity> UserIdFilter(Guid userId) =>
+        Builders<CategoryEntity>.Filter.Eq(x => x.UserId, userId);
 }
