@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import Scene from '../../components/Scene/scene';
 import './summary.scss';
+import Hint from '../../components/Hint/hint'
 
 function Summary() {
 
@@ -18,6 +19,13 @@ function Summary() {
 
     return (
         <Scene type="basic">
+
+            <section className='content'>
+                <Hint character="cat" delay="4" text="To było szybkie" />
+                <Hint character="rat" text="Można lepiej" />
+
+            </section>
+
             <section className='info flex flex-column items-center w-full'>
                 <div className='p-4 congratulations-text'>
                     Wyzwanie ukończone!
