@@ -69,12 +69,12 @@ function Game() {
         </section>
 
         <div className='background'>
-          <div class="fat-cat shadow">
+          <div className="fat-cat shadow">
             <img src="img/fat cat.png" alt="fat cat"/>
             <b noise="tap"></b>
             <b noise="bam"></b>
           </div>
-          <div class="smart-rat shadow">
+          <div className="smart-rat shadow">
               <img src="img/smart rat.png" alt="smart rat"/>
               <b noise="click"></b>
           </div>
