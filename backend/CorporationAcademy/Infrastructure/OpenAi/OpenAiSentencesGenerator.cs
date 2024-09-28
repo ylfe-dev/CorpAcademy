@@ -6,31 +6,18 @@ using System.Text.Json;
 
 namespace CorporationAcademy.Infrastructure.OpenAi;
 
-public class OpenAiSentencesGenerator : ISentencesGenerator
+internal class OpenAiSentencesGenerator(IChatCompletionService chatCompletionService) : ISentencesGenerator
 {
-    private readonly string _openAiKey;
-
-    public OpenAiSentencesGenerator(IConfiguration configuration)
-    {
-        _openAiKey = configuration["OpenAI_Key"] ?? throw new ArgumentNullException("OpenAI_Key");
-    }
-
     public async Task<List<Sentence>> Generate(
         List<string> learningWords,
         string sourceLanguage,
         string targetLanguage,
         string topic)
     {
-        ChatClient client = new("gpt-4o-mini", _openAiKey);
-
-        ChatCompletion chatCompletion = await client.CompleteChatAsync(
+        var content = await chatCompletionService.CompleteChat(
         [
-            new UserChatMessage(
-                GetPrompt(sourceLanguage, targetLanguage, topic, learningWords)
-                ),
+            new UserChatMessage(GetPrompt(sourceLanguage, targetLanguage, topic, learningWords))
         ]);
-
-        var content = chatCompletion.Content[0].Text;
 
         GeneratedSentences? result = JsonSerializer.Deserialize<GeneratedSentences>(content);
 
@@ -73,13 +60,13 @@ public class OpenAiSentencesGenerator : ISentencesGenerator
                 "Sentences": [
                 {
                     "Content": "[treść zdania w języku '{{targetLanguage}}']",
-                    "WordsToAsk": [
+                    "Words": [
                     {
-                        "TargetLanguage": "[słowo w języku '{{targetLanguage}}', które znajduje się w tym zdaniu]",
+                        "LearnedLanguage": "[słowo w języku '{{targetLanguage}}', które znajduje się w tym zdaniu]",
                         "NativeLanguage": "[tłumaczenie słowa na język '{{sourceLanguage}}']"
                     },
                     {
-                        "TargetLanguage": "[słowo w języku '{{targetLanguage}}', które znajduje się w tym zdaniu]",
+                        "LearnedLanguage": "[słowo w języku '{{targetLanguage}}', które znajduje się w tym zdaniu]",
                         "NativeLanguage": "[tłumaczenie słowa na język '{{sourceLanguage}}']"
                     }
                     ]
