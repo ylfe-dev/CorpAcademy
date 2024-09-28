@@ -1,31 +1,35 @@
 import Hint from '../../components/Hint/hint'
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import {  Link } from "react-router-dom";
+import { useContext } from 'react';
+import { Link } from "react-router-dom";
 import Scene from '../../components/Scene/scene';
-import Categories from '../../components/Categories/categories';
-import useAPI from '/src/useAPI';
+import { SummaryContext } from '../../contexts/SummaryContext';
 
+function Summary() {
 
-function Summary ({wordsMistakes, words, sentenceMistakes, sentence, sentenceTime}){  
+    //{ wordsMistakes, words, sentenceMistakes, sentence, sentenceTime }
+
+    const summaryContext = useContext(SummaryContext);
 
     //const categories = useAPI({url:"categories"})
 
+    console.log(summaryContext)
+
     return (
-        <Scene type="basic"> 
+        <Scene type="basic">
+
             <section className='info'>
             </section>
-        
+
             <section className='content'>
-                
-                <Hint left character="cat" text="W co zagramy?"/>
+
+                <Hint left character="cat" text="W co zagramy?" />
             </section>
-            
+
             <section className='action'>
                 <Link className="button" to={'/game'}>koniec</Link>
             </section>
-        </Scene>      
-        )
+        </Scene>
+    )
 }
 
 export default Summary
