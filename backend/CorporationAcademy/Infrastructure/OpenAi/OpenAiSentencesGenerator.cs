@@ -5,15 +5,22 @@ using System.Text.Json;
 
 namespace CorporationAcademy.Infrastructure.OpenAi;
 
-internal class OpenAiSentencesGenerator : ISentencesGenerator
+public class OpenAiSentencesGenerator : ISentencesGenerator
 {
+    private readonly string _openAiKey;
+
+    public OpenAiSentencesGenerator(IConfiguration configuration)
+    {
+        _openAiKey = configuration["OpenAI_Key"] ?? throw new ArgumentNullException("OpenAI_Key");
+    }
+
     public async Task<GeneratedSentences> Generate(
         List<string> learningWords,
         string sourceLanguage,
         string targetLanguage,
         string topic)
     {
-        ChatClient client = new("gpt-4o-mini", Environment.GetEnvironmentVariable("OpenAi_Key"));
+        ChatClient client = new("gpt-4o-mini", _openAiKey);
 
         ChatCompletion chatCompletion = await client.CompleteChatAsync(
         [
@@ -22,7 +29,7 @@ internal class OpenAiSentencesGenerator : ISentencesGenerator
                 ),
         ]);
 
-        string? content = chatCompletion.Content.ToString();
+        string? content = chatCompletion.Content[0].Text;
 
         GeneratedSentences? result = JsonSerializer.Deserialize<GeneratedSentences>(content);
 
@@ -64,7 +71,7 @@ internal class OpenAiSentencesGenerator : ISentencesGenerator
             {
                 "Sentences": [
                 {
-                    "Content": "[treść zdania]",
+                    "Content": "[treść zdania w języku '{{targetLanguage}}']",
                     "WordsToAsk": [
                     {
                         "TargetLanguage": "[słowo w języku '{{targetLanguage}}', które znajduje się w tym zdaniu]",
@@ -79,6 +86,7 @@ internal class OpenAiSentencesGenerator : ISentencesGenerator
                 ]
             }
             ```
+            Zwróć tylko JSON, nie formatuj odpowiedzi używając Markdown.
             """;
     }
 }
