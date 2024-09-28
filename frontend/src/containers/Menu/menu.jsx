@@ -27,11 +27,10 @@ function Menu() {
                     <label htmlFor="language">Wybierz język: </label>
                     <select id="language" value={language} onChange={handleChange} >
                         <option value="">--Choose a language--</option>
-                        <option value="angielski">English</option>
-                        <option value="francuski">French</option>
-                        <option value="hiszpański">Spanish</option>
-                        <option value="niemiecki" selected="selected">German</option>
-                        <option value="język świra">Język świra</option>
+                        <option value="angielski">Angielski</option>
+                        <option value="francuski">Francuski</option>
+                        <option value="hiszpański">Hiszpański</option>
+                        <option value="niemiecki">Niemiecki</option>
                     </select>
                 </div>
             </section>
