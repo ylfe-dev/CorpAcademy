@@ -3,13 +3,20 @@ import { Link } from "react-router-dom";
 import Scene from "../../components/Scene/scene";
 import Categories from "../../components/Categories/categories";
 import useAPI from "/src/useAPI";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../../UserContext";
 import { fetchFromApi } from "../../useAPI";
 
 function Menu() {
   const categories = useAPI({ url: "categories" });
   const user = useContext(UserContext);
+  const [language, setLanguage] = useState(user.state.learnedLanguage);
+
+  const handleChange = (event) => {
+    setLanguage(event.target.value);
+
+    user.state.learnedLanguage = event.target.value;
+  };
 
   async function deleteCategory(id) {
     await fetchFromApi({ url: "categories/" + id, user, method: "DELETE" });
@@ -33,17 +40,26 @@ function Menu() {
     window.location.reload();
   }
 
-  const predefinedCategories = categories.categories?.filter(
-    (c) => !c.isUserDefinedCategory
-  ) ?? [];
+  const predefinedCategories =
+    categories.categories?.filter((c) => !c.isUserDefinedCategory) ?? [];
 
-  const userDefinedCategories = categories.categories?.filter(
-    (c) => c.isUserDefinedCategory
-  ) ?? [];
+  const userDefinedCategories =
+    categories.categories?.filter((c) => c.isUserDefinedCategory) ?? [];
 
   return (
     <Scene type="basic">
-      <section className="info"></section>
+      <section className="info">
+        <div>
+          <label htmlFor="language">Wybierz język: </label>
+          <select id="language" value={language} onChange={handleChange}>
+            <option value="">--Choose a language--</option>
+            <option value="angielski">Angielski</option>
+            <option value="francuski">Francuski</option>
+            <option value="hiszpański">Hiszpański</option>
+            <option value="niemiecki">Niemiecki</option>
+          </select>
+        </div>
+      </section>
 
       <section className="content">
         {categories.categories ? (
@@ -55,7 +71,7 @@ function Menu() {
 
             {userDefinedCategories && (
               <Categories
-                title={'Twoje kategorie'}
+                title={"Twoje kategorie"}
                 categories={userDefinedCategories}
                 onCategoryDelete={deleteCategory}
               />
