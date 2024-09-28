@@ -28,18 +28,18 @@ function LetterBoxInput ({sentence, words, onSuccess, onFailure}){
     }
 
     
-    let sentence_words = sentence.split(" ")
-    let lesson_words = words.split(" ")
+    let sentence_words = sentence.toLowerCase().split(" ")
+    let lesson_words = words.toLowerCase().split(" ")
 
     let to_input = ""; 
     
     let index = 0;
     
     sentence_words = sentence_words.map(word => {
-        is_lesson_word = 
-        [...word].map(letter => {
+        is_lesson_word = lesson_words.findFirst(word) ? true : false;
+        return [...word].map(letter => {
             ++index;
-            return {letter: letter, state: getLetterState(index)}
+            return {writable: is_lesson_word, letter: letter, state: getLetterState(index)}
         })
     })
     

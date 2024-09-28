@@ -15,6 +15,8 @@ section.center {
     text-align: center;
     text-decoration: none;
     color: $black;
+    display: inline-block;
+    margin-block: 1rem;
 
     &:hover {
         background-color: $light;
