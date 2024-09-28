@@ -40,13 +40,8 @@ function Summary() {
                 </div>
             </section>
 
-            {/* <section className='content'>
-
-                <Hint left character="cat" text="W co zagramy?" />
-            </section> */}
-
             <section className='action'>
-                <Link className="button" to={'/game'}>koniec</Link>
+                <Link className="button" to={'/game'}>Kontynuuj rozgrywkę</Link>
             </section>
         </Scene>
     )
