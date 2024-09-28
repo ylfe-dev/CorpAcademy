@@ -46,13 +46,14 @@
         position: absolute;
 
         z-index: 0;
-        background-color: gray;
+        background-color: $gray-2;
         border-radius: 50%;
+        // filter: blur(5px);
     }
 }
 
 .fat-cat {
-    font-size: 1.5em;
+    font-size: .7em;
 
     [noise="tap"] {
         transform: rotate(45deg);
@@ -69,7 +70,7 @@
     }
 
     &::before {
-        bottom: 1em;
+        bottom: 2em;
         left: 3em;
         width: 15em;
         height: 10em;
@@ -77,7 +78,7 @@
 }
 
 .smart-rat {
-    font-size: 1.3em;
+    font-size: .5em;
 
     [noise="click"] {
         transform: rotate(-45deg);
@@ -98,11 +99,11 @@
         opacity: 0;
         transform: scale(0);
     }
-    5%, 15% {
+    5%, 20% {
         opacity: 1;
         transform: scale(1);
     }
-    17%, 100% {
+    21%, 100% {
         opacity: 0;
         transform: scale(0);
     }

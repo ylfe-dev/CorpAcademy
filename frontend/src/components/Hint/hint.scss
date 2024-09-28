@@ -6,6 +6,7 @@
     box-sizing:border-box;
     align-items: center;
     justify-items: start;
+    z-index: 999;
 
     &--reverse {
         grid-template-columns:  1fr auto; 

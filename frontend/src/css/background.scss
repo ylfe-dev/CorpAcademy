@@ -1,0 +1,38 @@
+.background {
+    overflow: hidden;
+    width: 100%;
+
+    --padding: 3rem;
+    font-size: 1rem;
+
+    @media screen and (max-width: 320px) {
+        --padding: 0rem;
+        font-size: .6rem;
+    }
+
+    @media screen and (min-width: 321px) and (max-width: 768px) {
+        --padding: 2rem;
+        font-size: .7rem;
+    }
+
+    @media screen and (min-width: 769px) and (max-width: 1024px) {
+        --padding: 2rem;
+        font-size: 1rem;
+    }
+
+    // font-size: var(--font-size);
+
+    .smart-rat {
+        position: absolute;
+        right: calc(0rem + var(--padding));
+        bottom: 20%;
+        z-index: 0;
+    }
+
+    .fat-cat {
+        position: absolute;
+        left: calc(0rem + var(--padding));
+        bottom: 10%;
+        z-index: 1;
+    }
+}

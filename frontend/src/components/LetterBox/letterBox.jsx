@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './letter-box.scss'
 
 function LetterBox ({letter, writable, written, cqSize, state}){
-    const bottomPaddingRatio = state == "active" ? 4 : 6;
+    const bottomPaddingRatio = state == "active" ? 3 : 6;
    
 
     const letter_container_style = {

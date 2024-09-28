@@ -8,6 +8,7 @@ import Hint from '../../components/Hint/hint'
 
 function Game() {
   const [lesson, setLesson] = useState({sentence: "This", words: "this for"});
+  const [progress, setProgress] = useState(50);
 
   useEffect(()=>{
    /* let audio = new Audio('/Onion.mp3');
@@ -26,17 +27,30 @@ function Game() {
     <Scene type="typ">
       
         <section className='info'>
-          <progress id="file" value="32" max="100"> 32% </progress>
+          <progress id="file"  className="reverse" value={progress} max="100"> 32% </progress>
+        
         </section>
         
         <section className='content'>
           <LetterBoxInput sentence={lesson.sentence} words={lesson.words}/>
-          <div><span className=''>{lesson.sentence}</span></div>
+          <div className="translate-section"><span className=''>{lesson.sentence}</span></div>
         </section>
         
         <section className='action'>
-          <Hint text="Nakurwiaj szybko!" character="rat" />
+          {/* {<Hint text="Nakurwiaj szybko!" character="rat" />} */}
         </section>
+
+        <div className='background'>
+          <div class="fat-cat shadow">
+            <img src="img/fat cat.png" alt="fat cat"/>
+            <b noise="tap"></b>
+            <b noise="bam"></b>
+          </div>
+          <div class="smart-rat shadow">
+              <img src="img/smart rat.png" alt="smart rat"/>
+              <b noise="click"></b>
+          </div>
+        </div>
 
     </Scene>
   )

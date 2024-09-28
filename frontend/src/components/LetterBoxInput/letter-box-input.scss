@@ -1,6 +1,7 @@
 .letter-box-input {
     width:100%;
     overflow: hidden;
+    z-index: 999;
     
     label {
         display: block;
@@ -12,6 +13,10 @@
         .word {
             margin-block: 1%;
             display: inline-block;
+            flex-wrap: wrap;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         &+input {

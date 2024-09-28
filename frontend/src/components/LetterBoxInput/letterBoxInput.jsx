@@ -6,7 +6,7 @@ function LetterBoxInput ({sentence, words, onSuccess, onFailure}){
     const [input, setInput] = useState("")
     
     const max_height_vh = 15;
-    const min_height_vh = 8;
+    const min_height_vh = 15;
 
     const font_size_ratio = 0.65;
 
