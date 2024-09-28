@@ -10,6 +10,7 @@
     color: $black;
     display: inline-block;
     margin-block: 1rem;
+    cursor: pointer;
 
     &:hover {
         background-color: $light;
