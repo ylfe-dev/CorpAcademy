@@ -23,7 +23,7 @@ const router = createBrowserRouter([
     element: <Menu/>,
   },
   {
-    path: "/summary",
+    path: "/summary/:accuracy/:time/:points",
     element: <Summary/>,
   },
   {

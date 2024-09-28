@@ -37,4 +37,4 @@ function LetterBox ({letter, writable, written, cqSize, state}){
 export default LetterBox
 
 
-const buildCssMin = (size, ratio=1) => "min("+(size.w/ratio)+"cqw, "+ (size.h /ratio)+"cqh)";
+const buildCssMin = (size, ratio=1) => "max("+(size.w/ratio)+"cqw, "+ (size.h /ratio)+"cqh)";

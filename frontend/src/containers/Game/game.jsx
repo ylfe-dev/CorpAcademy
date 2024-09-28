@@ -12,7 +12,9 @@ function Game() {
     const { categoryId } = useParams();
     const sentences = useAPI({url: "generate-sentences?categoryId="+categoryId});
     const [game, setGame] = useState(0);
-    const [progress, setProgress] = useState(0);  
+    
+    const [progress, setProgress] = useState(0);
+
     const navigate = useNavigate();
 
   useEffect(()=>{

@@ -24,8 +24,8 @@ function LetterBoxInput ({sentence, words, noMistakes=true, onSuccess, onFailure
 
 
 
-    const max_height_vh = 25;
-    const min_height_vh = 6;
+    const max_height_vh = 8;
+    const min_height_vh = 3;
 
 
     const font_size_ratio = 0.65;
