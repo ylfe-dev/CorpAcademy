@@ -4,7 +4,6 @@
     grid-template-columns: auto 1fr;
     width:100%;
     box-sizing:border-box;
-    padding:1rem 2rem;
     align-items: center;
     justify-items: start;
 
@@ -17,7 +16,6 @@
         grid-area: 1/1/2/2;
     }
 
-
     &__text {
         text-align: left;
         padding: 1rem 2rem;
@@ -27,8 +25,17 @@
         span {
             display: inline-block;
             overflow: hidden;
-            animation: writing 5s ease infinite;
+            animation: writing 5s ease forwards;
         }
+    }
+}
+
+@keyframes show {
+    0% {
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
     }
 }
 

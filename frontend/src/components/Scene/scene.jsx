@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import './style.scss'
+import './scene.scss'
 
 function Scene ({type, children}){
     

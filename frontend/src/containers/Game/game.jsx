@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import './style.scss';
-import LetterBoxInput from '../../components/LetterBoxInput';
-import Scene from '../../components/Scene';
-import Hint from '../../components/Hint'
+import './game.scss';
+import LetterBoxInput from '../../components/LetterBoxInput/letterBoxInput';
+import Scene from '../../components/Scene/scene';
+import Hint from '../../components/Hint/hint'
 
 
 function Game() {
