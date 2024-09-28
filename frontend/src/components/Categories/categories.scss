@@ -23,10 +23,23 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        animation: fly-in 0.5s ease-in-out;
 
         &:hover {
             box-shadow: 0 5px 15px 0 $gray-2;
             transform: scale(1.1);
         }
     } 
+}
+
+@keyframes fly-in {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+    
 }
