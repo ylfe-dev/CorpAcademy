@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import './style.scss'
 
-function Scene ({type}){
-    const [input, setInput] = useState("")
+function Scene ({type, children}){
     
-    return <div className={'scene scene--' + type}>
-    </div> 
+    return <main className={'scene scene--' + type}>
+        {children}
+    </main> 
 }
 
 export default Scene
