@@ -81,9 +81,13 @@
     font-size: .5em;
 
     [noise="click"] {
-        transform: rotate(-45deg);
-        top: 3em;
+        transform: rotate(-60deg);
+        top: 3.5em;
         left: 4em;
+
+        &::after {
+            transform: rotate(20deg);
+        }
     }
 
     &::before {
@@ -92,20 +96,21 @@
         width: 16em;
         height: 10em;
     }
+
 }
 
 @keyframes noise {
     0% {
         opacity: 0;
-        transform: scale(0);
+        transform: scale(0), rotate(inherit);
     }
-    5%, 20% {
+    2%, 20% {
         opacity: 1;
-        transform: scale(1);
+        transform: scale(1), rotate(inherit);
     }
-    21%, 100% {
+    27%, 100% {
         opacity: 0;
-        transform: scale(0);
+        transform: scale(0), rotate(inherit);
     }
 }
 
@@ -114,6 +119,7 @@
     font-weight: 900;
     position: absolute;
     font-size: 1em;
+    z-index: 1;
 
     &::after, &::before {
         content: attr(noise);
@@ -127,10 +133,10 @@
         top: 1.5em;
         left: .5em;
 
-        animation: noise 6s var(--delay) infinite cubic-bezier(.53,.78,.12,1.2);
+        animation: noise 7s var(--delay) infinite cubic-bezier(.53,.78,.12,1.2);
     }
 
     &::before {
-        animation: noise 6s calc(var(--delay) + .5s) infinite cubic-bezier(.53,.78,.12,1.2);
+        animation: noise 7s calc(var(--delay) + .9s) infinite cubic-bezier(.53,.78,.12,1.2);
     }
 }

@@ -55,7 +55,7 @@ function Game() {
         
         <section className='content'>
           {
-            lesson ? 
+            lesson ?  
             <>
               <LetterBoxInput sentence={lesson.sentence} words={lesson.words} onSuccess={successHandler} onError={errorHandler}/>
               <div className="translate-section"><span>{lesson.sentence}</span></div>
