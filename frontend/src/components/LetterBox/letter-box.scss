@@ -20,7 +20,14 @@
         line-height: 1.1;
         text-transform: lowercase;
     }
-    
+    &--allwrong{
+        color: $gray;
+        animation: allwrong .4s forwards;
+    }
+    &--wrong{
+        color: $gray;
+        animation: wrong .5s forwards;
+    }
     &--blank {
         color: $gray;
     }
@@ -30,7 +37,7 @@
     &--done {
         color: $black;
     }
-    &--active{
+    &--active, &--wrong{
         color: $gray;
         aspect-ratio: 0.8/1;
         
@@ -69,4 +76,10 @@
     0%{ transform: rotate(-20deg);}
     66%{ transform: rotate(20deg);}
     100%{transform: srotate(0deg);}
+}
+
+@keyframes allwrong {
+    0%{ transform: translateY(0) rotate(-20deg); opacity: 1}
+    50%{ transform: translateY(-1rem) rotate(20deg); opacity: .5}
+    100%{transform: translateY(-2rem) srotate(-20deg); opacity: 0}
 }
