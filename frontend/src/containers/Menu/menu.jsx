@@ -48,7 +48,7 @@ function Menu() {
         ) : (
           <span className="loader loader--medium"></span>
         )}
-        <Hint left character="cat" text="W co zagramy?" />
+        <Hint delay="2" left character="cat" text="W co zagramy?" />
       </section>
 
       <section className="action">

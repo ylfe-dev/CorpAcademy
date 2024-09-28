@@ -10,7 +10,7 @@ function Categories({ categories, onCategoryDelete }) {
   return (
     <>
       <div className="categories">
-        <h2>Kategorie</h2>
+        <h2 class="title">Kategorie</h2>
         <ul className="categories__list">
           {categories
             ? categories.map((category) => (

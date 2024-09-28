@@ -30,6 +30,9 @@
         color: $gray;
         animation: wrong .5s forwards;
     }
+    &--win{
+        animation: win 1.5s cubic-bezier(.9,-0.4,.31,1) infinite;
+    }
     &--blank {
         color: $gray;
     }
@@ -85,4 +88,9 @@
     0%{ transform: translateY(0) rotate(-20deg); opacity: 1}
     50%{ transform: translateY(-1rem) rotate(20deg); opacity: .5}
     100%{transform: translateY(-2rem) srotate(-20deg); opacity: 0}
+}
+
+@keyframes win {
+    from{ transform: scale(1);}
+    to{transform: scale(1.5); opacity:0}
 }

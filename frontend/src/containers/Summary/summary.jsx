@@ -20,29 +20,28 @@ function Summary() {
         <Scene type="basic">
 
             <section className='content'>
-                <Hint character="cat" delay="4" text="To było szybkie" />
-                <Hint character="rat" text="Można lepiej" />
-
+                <Hint character="cat" text="To było szybkie" />
+                <Hint character="rat" delay="4" text="Można lepiej" />
             </section>
 
-            <section className='info flex flex-column items-center w-full'>
-                <div className='p-4 congratulations-text'>
-                    Wyzwanie ukończone!
-                </div>
-                <div className='flex justify-between w-full'>
-                    <fieldset className='result-box border-yellow flex-around'>
-                        <legend className='text-center'>
+            <section>
+                <h2 class="title">Wyzwanie ukończone!</h2>
+
+                <div className='summary-table'>
+                    
+                    <fieldset className='summary-table__item'>
+                        <legend className='summary-table__title'>
                             Dokładność
                         </legend>
                         🎯{params.accuracy}
                     </fieldset>
-                    <fieldset className='result-box border-blue flex-around'>
-                        <legend className='text-center'>Zegarek</legend>
+                    <fieldset className='summary-table__item'>
+                        <legend className='summary-table__title'>Zegarek</legend>
                         ⏰{formatTime(params.time)}
                     </fieldset>
-                    <fieldset className='result-box border-green flex-around'>
-                        <legend className='text-center'>Punkty</legend>
-                        💯{params.points}%
+                    <fieldset className='summary-table__item'>
+                        <legend className='summary-table__title'>Punkty</legend>
+                        🏆{params.points}%
                     </fieldset>
                 </div>
             </section>
