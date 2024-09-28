@@ -1,3 +1,4 @@
 ﻿backend/.vs
 backend/*/obj
 backend/*/bin
+node_modules
