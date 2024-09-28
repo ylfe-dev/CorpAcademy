@@ -7,14 +7,20 @@ import { useNavigate, useParams } from "react-router-dom";
 import './game.scss';
 function Game() {
     const { categoryId } = useParams();
-    const last_sentences = localStorage.getItem("sentences");
-    const sentences = (categoryId || !last_sentences) ? useAPI({url: "generate-sentences?categoryId="+categoryId}) : last_sentences;
+    const navigate = useNavigate();
+    const last_sentences = getGameplay();
+    console.log(last_sentences)
+
+    if(!categoryId && !last_sentences){
+        navigate('/menu');
+    }
+    const sentences =  categoryId ? useAPI({url: "generate-sentences?categoryId="+categoryId}) : last_sentences ? last_sentences : null;
     const [game, setGame] = useState(0);
     const [stage, setStage] = useState()
     const [progress, setProgress] = useState(0);
     const score = useRef({wins: 0, time: 0, score: 0})
 
-    const navigate = useNavigate();
+   
 
   useEffect(()=>{
     let audio = new Audio('/Onion.mp3');
@@ -30,14 +36,19 @@ function Game() {
   },[])
 
   useEffect(()=>{
-    if(sentences.sentences && game == sentences.sentences.length-1)
-        navigate('/summary/');
-    setProgress(game/5*100)
+    if(sentences.sentences && game == sentences.sentences.length){
+        const acc = score.current.wins / sentences.sentences.length;
+        let new_sentences = sentences.sentences.slice(1);
+        console.log(new_sentences)
+        localStorage.setItem("sentences", JSON.stringify({sentences: new_sentences}))
+        navigate('/summary/'+acc+'/74/100');
+    }
+    setProgress((game+1)/5*100)
   },[game])
 
   useEffect(()=>{
     if(sentences.sentences){
-        localStorage.setItem("sentences", sentences)
+        localStorage.setItem("sentences", JSON.stringify(sentences))
     }
   },[sentences])
 
@@ -51,7 +62,7 @@ function Game() {
   }
 
   const timeHandler = time => {
-
+    localStorage.setItem("sentences", JSON.stringify(sentences.sentences.splice(1)))
   }
   
   return (
@@ -64,7 +75,7 @@ function Game() {
         
         <section className='content'>
           {
-            sentences.sentences ? 
+            sentences.sentences && game < sentences.sentences.length ? 
             <>
               <LetterBoxInput 
                 sentence={sentences.sentences[game].content} 
@@ -100,3 +111,12 @@ function Game() {
 
 export default Game
 
+const getGameplay =() => {
+    try {
+        const last_sentences = JSON.parse(localStorage.getItem("sentences"));
+        return last_sentences
+    } catch(error){
+        console.error(error)
+        return null;
+    }
+}

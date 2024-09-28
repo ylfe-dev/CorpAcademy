@@ -5,7 +5,8 @@
     position: relative;
     transition: all .2s;
     box-sizing: border-box;
-    
+    animation: in .4s forwards;
+
     &.wrong {
         animation: wrong .5s forwards;
         background-color: $red;
@@ -65,7 +66,10 @@
 
 .non-writable {
     color: $black;
+    animation: in .4s forwards;
 }
+
+
 
 @keyframes fadein {
     from{ opacity:0;}
@@ -93,4 +97,8 @@
 @keyframes win {
     from{ transform: scale(1);}
     to{transform: scale(1.5); opacity:0}
+}
+@keyframes in {
+    from{ opacity:0; transform: scale(0);}
+    to{opacity: 1; transform: scale(1);}
 }

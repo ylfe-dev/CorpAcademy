@@ -9,6 +9,7 @@
         padding:1rem;
         box-sizing: border-box;
         width:100%;
+        
 
         .word {
             margin-inline: 1em;
@@ -17,6 +18,7 @@
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
+            
         }
 
         &+input {
@@ -27,3 +29,4 @@
         }
     }
 }
+
