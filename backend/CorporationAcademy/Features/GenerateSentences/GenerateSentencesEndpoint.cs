@@ -2,6 +2,7 @@ using CorporationAcademy.Features.GenerateSentences.Clients;
 using CorporationAcademy.Features.GenerateSentences.Models;
 using CorporationAcademy.Features.Shared;
 using CorporationAcademy.Features.Shared.Clients;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CorporationAcademy.Features.GenerateSentences;
 
@@ -14,8 +15,7 @@ public static class GenerateSentencesEndpoint
         endpointRouteBuilder.MapGet(
             "/api/generate-sentences",
             async (
-                [FromQuery]
-                string categoryName,
+                [FromQuery] string categoryName,
                 IUserAccessor userAccessor,
                 ISentencesGenerator sentencesGenerator,
                 IWordsClient wordsClient) =>
@@ -27,20 +27,9 @@ public static class GenerateSentencesEndpoint
                     learningWords,
                     "polski",
                     "angielski",
-                    categoryName
-                    );
+                    categoryName);
 
-                var convertedSentences = sentences.Sentences.Select(sentence =>
-                    new Sentence(
-                        sentence.Content,
-                        sentence.WordsToAsk.Select(word =>
-                            new Word(
-                                word.NativeLanguage,
-                                word.TargetLanguage
-                            )).ToList()
-                    )).ToList();
-
-                return Results.Ok(new GenerateSentencesResponse(convertedSentences));
+                return Results.Ok(new GenerateSentencesResponse(sentences));
             });
     }
 }

@@ -1,12 +1,85 @@
 ﻿using CorporationAcademy.Features.GenerateSentences.Clients;
 using CorporationAcademy.Features.GenerateSentences.Models;
+using CorporationAcademy.Infrastructure.OpenAi.DataStructures;
+using OpenAI.Chat;
+using System.Text.Json;
 
 namespace CorporationAcademy.Infrastructure.OpenAi;
 
 internal class OpenAiSentencesGenerator : ISentencesGenerator
 {
-    public Task<List<Sentence>> Generate(List<string> bannedWords)
+    public async Task<List<Sentence>> Generate(
+        List<string> learningWords,
+        string sourceLanguage,
+        string targetLanguage,
+        string topic)
     {
-        throw new NotImplementedException();
+        ChatClient client = new("gpt-4o-mini", Environment.GetEnvironmentVariable("OpenAi_Key"));
+
+        ChatCompletion chatCompletion = await client.CompleteChatAsync(
+        [
+            new UserChatMessage(
+                GetPrompt(sourceLanguage, targetLanguage, topic, learningWords)
+                ),
+        ]);
+
+        var content = chatCompletion.Content.ToString() ?? throw new ArgumentNullException("Body from openai");
+
+        GeneratedSentences? result = JsonSerializer.Deserialize<GeneratedSentences>(content);
+
+        if (result == null)
+            throw new Exception("Failed to deserialize generated sentences");
+
+        return result.Sentences;
+    }
+
+    private string GetPrompt(
+        string sourceLanguage,
+        string targetLanguage,
+        string topic,
+        List<string> wordsToLearn
+        )
+    {
+        var jsonObject = new
+        {
+            vocabulary = wordsToLearn
+        };
+
+        string jsonAsString = JsonSerializer.Serialize(jsonObject);
+
+        return $$"""
+            Zaproponuj zestaw zdań do nauki dla osoby uczącej się języka '{{targetLanguage}}'.
+            Natywnym językiem tej osoby jest '{{sourceLanguage}}'.
+            Uwzględniaj niżej wymienione słowa z planu nauki. 
+            Tematyka: "{{topic}}". 
+            Przy każdym zdaniu wypisz słowa z planu nauki, które się w nim znadują.
+            Możesz też dodać dodatkowo słowa których nie ma w planie nauki, ale mogą być przydatne w nauce tego tematu.
+
+            Słowa z planu nauki:
+            ```
+            {{jsonAsString}}
+            ```
+
+            Odpowiedź zwróć w formacie JSON. Format:
+            ```
+            {
+                "Sentences": [
+                {
+                    "Content": "[treść zdania]",
+                    "WordsToAsk": [
+                    {
+                        "TargetLanguage": "[słowo w języku '{{targetLanguage}}', które znajduje się w tym zdaniu]",
+                        "NativeLanguage": "[tłumaczenie słowa na język '{{sourceLanguage}}']"
+                    },
+                    {
+                        "TargetLanguage": "[słowo w języku '{{targetLanguage}}', które znajduje się w tym zdaniu]",
+                        "NativeLanguage": "[tłumaczenie słowa na język '{{sourceLanguage}}']"
+                    }
+                    ]
+                }
+                ]
+            }
+            ```
+            """;
     }
 }
