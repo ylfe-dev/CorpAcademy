@@ -5,6 +5,9 @@
     position: relative;
     transition: all .2s;
     
+    &.wrong {
+        animation: wrong .5s forwards;
+    }
 
     &__inner {
         display: block;
@@ -56,7 +59,14 @@
     from{ opacity:0;}
     to{opacity: 1;}
 }
+
 @keyframes scalein {
     from{ transform: scale(0);}
     to{transform: scale(1);}
+}
+
+@keyframes wrong {
+    0%{ transform: rotate(-20deg);}
+    66%{ transform: rotate(20deg);}
+    100%{transform: srotate(0deg);}
 }
