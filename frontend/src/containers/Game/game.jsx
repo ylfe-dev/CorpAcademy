@@ -8,10 +8,12 @@ import { UserContext } from '../../UserContext';
 import './game.scss';
 function Game() {
   const { categoryId } = useParams();
+  const last_sentences = localStorage.getItem("sentences");
   const user = useContext(UserContext);
 
-  const sentences = useAPI({ url: "generate-sentences?categoryId=" + categoryId + "&learningLanguage=" + user.state.learnedLanguage });
+  const sentences = (categoryId || !last_sentences) ? useAPI({ url: "generate-sentences?categoryId=" + categoryId + "&learningLanguage=" + user.state.learnedLanguage }) : last_sentences;
   const [game, setGame] = useState(0);
+  const [stage, setStage] = useState()
   const [progress, setProgress] = useState(0);
   const score = useRef({ wins: 0, time: 0, score: 0 })
 
@@ -35,6 +37,12 @@ function Game() {
       navigate('/summary/');
     setProgress(game / 5 * 100)
   }, [game])
+
+  useEffect(() => {
+    if (sentences.sentences) {
+      localStorage.setItem("sentences", sentences)
+    }
+  }, [sentences])
 
   const successHandler = () => {
     score.current = { ...score.current, wins: score.current.wins + 1 };
