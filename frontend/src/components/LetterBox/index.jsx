@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './style.scss'
 
-function LetterBox ({letter, cqSize, state}){
+function LetterBox ({letter, writable, cqSize, state}){
     const bottomPaddingRatio = state == "active" ? 4 : 6;
 
     const letter_container_style = {
@@ -18,13 +18,13 @@ function LetterBox ({letter, cqSize, state}){
     }
     
 
-    return (
-        <div className={"letter-box letter-box--"+state} style={letter_container_style}>
+    return writable ? (
+        <div className={"letter-box letter-box--" + state} style={letter_container_style}>
             <div style={letter_style} className='letter-box__inner'>
                 <span>{letter}</span>
             </div>
         </div>
-    )
+    ) : <span class="non-writable" style={{fontSize: letter_style.fontSize}}>{letter}</span>
 }
 
 export default LetterBox
