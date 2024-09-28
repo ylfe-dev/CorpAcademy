@@ -1,6 +1,7 @@
 ﻿using CorporationAcademy.Features.Shared.Clients;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
+using System;
 
 namespace CorporationAcademy.Infrastructure.Mongo.Features.LearningWords;
 
@@ -55,19 +56,16 @@ internal class MongoWordsClient(IMongoClientProvider mongoClientProvider) : Mong
             }
         }
 
-        while (result.Count() < numberOfWords && poolOfIdsToBeDrawn.Count() > 0)
+        var wordsById = allAvailableWords.ToDictionary(x => x.Id);
+
+        while (result.Count < numberOfWords && poolOfIdsToBeDrawn.Count > 0)
         {
             var randomIndex = _random.Next(poolOfIdsToBeDrawn.Count);
             var randomId = poolOfIdsToBeDrawn[randomIndex];
 
-            result.Add(
-                allAvailableWords
-                    .Where(x => x.Id == randomId)
-                    .Single()
-                    .Word
-                );
+            result.Add(wordsById[randomId].Word);
 
-            poolOfIdsToBeDrawn.RemoveAt(randomIndex);
+            poolOfIdsToBeDrawn.RemoveAll(id => id == randomId);
         }
 
         return result;
