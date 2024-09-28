@@ -38,11 +38,21 @@ function LetterBoxInput ({sentence, words, onSuccess, onFailure}){
     sentence_words = sentence_words.map(word => {
         const is_lesson_word = lesson_words.includes(word);
         to_input += is_lesson_word ? word : "";
+
         return [...word].map(letter => {
+            
+            const written = is_lesson_word && getLetterState(index) != "blank" ? input[index] : null;
             index += is_lesson_word ? 1 : 0;
-            return {writable: is_lesson_word, letter: letter, state: getLetterState(index)}
+
+            return {
+                writable: is_lesson_word, 
+                written: written,
+                letter: letter, 
+                state: getLetterState(index)
+            }
         })
     })
+    console.log(sentence_words)
     
     return (
         <div className='letter-box-input'>
@@ -50,7 +60,7 @@ function LetterBoxInput ({sentence, words, onSuccess, onFailure}){
                 {sentence_words.map((word, index) => <Word key={index} word={word} cqSize={font_size} />)}
             </label>
             <input 
-                autocomplete="off"
+                autoComplete="off"
                 id="LetterBoxInput"
                 type="text" 
                 className="letter-box-input" 
@@ -69,7 +79,8 @@ function Word({word, cqSize}){
         {[...word].map( (box, index) => 
         <LetterBox 
             key={index} 
-            letter={box.letter} 
+            letter={box.letter}
+            written={box.written}
             cqSize={cqSize} 
             state={box.state} 
             writable={box.writable}/> 

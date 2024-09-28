@@ -7,17 +7,18 @@ import Hint from '../../components/Hint/hint'
 
 
 function Game() {
-  const [lesson, setLesson] = useState({sentence: "gift", words: "gift for"});
+  const [lesson, setLesson] = useState({sentence: "This", words: "this for"});
 
   useEffect(()=>{
-    let audio = new Audio('/Onion.mp3');
+   /* let audio = new Audio('/Onion.mp3');
     audio.loop = true;
     audio.play();
+    */
 
     return () => {
-      audio.pause();
+      /*audio.pause();
       audio.currentTime = 0; 
-      audio.src = ''; 
+      audio.src = ''; */
     }
   },[])
 
