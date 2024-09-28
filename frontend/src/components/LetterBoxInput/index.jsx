@@ -5,7 +5,7 @@ import './style.scss'
 function LetterBoxInput ({sentence, words, onSuccess, onFailure}){ 
     const [input, setInput] = useState("")
     
-    const max_height_vh = 10;
+    const max_height_vh = 15;
     const min_height_vh = 8;
 
     const font_size_ratio = 0.65;
@@ -36,9 +36,10 @@ function LetterBoxInput ({sentence, words, onSuccess, onFailure}){
     let index = 0;
     
     sentence_words = sentence_words.map(word => {
-        is_lesson_word = lesson_words.findFirst(word) ? true : false;
+        const is_lesson_word = lesson_words.includes(word);
+        to_input += is_lesson_word ? word : "";
         return [...word].map(letter => {
-            ++index;
+            index += is_lesson_word ? 1 : 0;
             return {writable: is_lesson_word, letter: letter, state: getLetterState(index)}
         })
     })
@@ -46,13 +47,14 @@ function LetterBoxInput ({sentence, words, onSuccess, onFailure}){
     return (
         <div className='letter-box-input'>
             <label htmlFor="LetterBoxInput">
-                {words.map((word, index) => <Word key={index} word={word} cqSize={font_size} />)}
+                {sentence_words.map((word, index) => <Word key={index} word={word} cqSize={font_size} />)}
             </label>
             <input 
+                autocomplete="off"
                 id="LetterBoxInput"
                 type="text" 
                 className="letter-box-input" 
-                maxLength={sentence.length}
+                maxLength={to_input.length}
                 onChange={e => setInput(e.target.value)} /> 
         </div>)
 }
@@ -63,13 +65,17 @@ export default LetterBoxInput
 function Word({word, cqSize}){
 
     return (
-    <div className='word'>
+    <div className='word' style={{marginInline: buildCssMin(cqSize, 6)}}>
         {[...word].map( (box, index) => 
         <LetterBox 
             key={index} 
             letter={box.letter} 
             cqSize={cqSize} 
-            state={box.state} /> 
+            state={box.state} 
+            writable={box.writable}/> 
         )}
     </div>)
 }
+
+
+const buildCssMin = (size, ratio=1) => "min("+(size.w/ratio)+"cqw, "+ (size.h /ratio)+"cqh)";

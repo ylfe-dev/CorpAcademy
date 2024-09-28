@@ -7,7 +7,7 @@ import Hint from '../../components/Hint'
 
 
 function Game() {
-  const [lesson, setLesson] = useState({sentence: "This gift is for you", words: "gift for"});
+  const [lesson, setLesson] = useState({sentence: "gift", words: "gift for"});
 
   useEffect(()=>{
     let audio = new Audio('/Onion.mp3');
@@ -31,7 +31,7 @@ function Game() {
       </header>
 
       <main>
-        <LetterBoxInput sentence={lesson.sentece} words={lesson.words}/>
+        <LetterBoxInput sentence={lesson.sentence} words={lesson.words}/>
         <div><span className=''>{lesson.sentence}</span></div>
         <Hint text="Nakurwiaj szybko!" character="rat" />
       </main>
