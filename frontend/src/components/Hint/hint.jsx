@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import './style.scss'
+import './hint.scss'
 
 function Hint ({text, character, right=false}){
 

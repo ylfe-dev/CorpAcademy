@@ -1,6 +1,6 @@
-import Hint from '../../components/Hint'
+import Hint from '../../components/Hint/hint'
 import { Outlet, Link } from "react-router-dom";
-import Scene from '../../components/Scene';
+import Scene from '../../components/Scene/scene';
 
 function NotFound (){
     

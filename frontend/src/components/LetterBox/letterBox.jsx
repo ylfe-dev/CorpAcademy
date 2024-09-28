@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import './style.scss'
+import './letter-box.scss'
 
 function LetterBox ({letter, writable, written, cqSize, state}){
     const bottomPaddingRatio = state == "active" ? 4 : 6;

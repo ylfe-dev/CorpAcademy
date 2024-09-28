@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import LetterBox from '../LetterBox'
-import './style.scss'
+import LetterBox from '../LetterBox/letterBox'
+import './letter-box-input.scss'
 
 function LetterBoxInput ({sentence, words, onSuccess, onFailure}){ 
     const [input, setInput] = useState("")
