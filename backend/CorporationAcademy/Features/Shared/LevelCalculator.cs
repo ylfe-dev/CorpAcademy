@@ -7,5 +7,5 @@ internal interface ILevelCalculator
 
 internal class LevelCalculator : ILevelCalculator
 {
-    public int CalculateLevel(int experience) => experience / 100 + 1;
+    public int CalculateLevel(int experience) => experience / 500 + 1;
 }
