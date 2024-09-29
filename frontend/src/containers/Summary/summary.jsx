@@ -6,9 +6,6 @@ import Hint from "../../components/Hint/hint";
 function Summary() {
   const params = useParams();
 
-  function formatPercentage(value) {
-    return `${parseInt(value * 100)} %`;
-  }
 
   function formatTime(time) {
     const minutes = Math.floor(time / 60);
@@ -29,7 +26,7 @@ function Summary() {
         <div className="summary-table">
           <fieldset className="summary-table__item">
             <legend className="summary-table__title">Dokładność</legend>
-            🎯{formatPercentage(params.accuracy)}%
+            🎯{params.accuracy}%
           </fieldset>
           <fieldset className="summary-table__item">
             <legend className="summary-table__title">Zegarek</legend>⏰

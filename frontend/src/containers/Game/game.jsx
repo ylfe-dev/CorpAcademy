@@ -55,7 +55,7 @@ function Game() {
 
   useEffect(()=>{ console.log(data)
     
-    if(!data?.sentences && gameplay.current.sentences){
+    if(!data?.sentences && gameplay.current.sentences && !categoryId){
         setData(gameplay.current)
     }
     if(data?.sentences?.length && !finished){
@@ -126,6 +126,7 @@ function Game() {
                 onSuccess={successHandler}
                 onFailure={errorHandler}
                 onFinish={timeHandler}
+                noMistakes={(game < stages.length)}
                 helpers={helpers}/>
               <span className="translate-section">{stages[game].native}</span>
             </>

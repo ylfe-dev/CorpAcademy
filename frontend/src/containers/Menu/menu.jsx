@@ -68,7 +68,7 @@ function Menu() {
                 name="language"
                 id="gb"
               /> 
-            <label for="gb">
+            <label htmlfor="gb">
               🇬🇧
             </label>
             <input
@@ -79,7 +79,7 @@ function Menu() {
                 name="language"
                 id="fr"
               />
-            <label for="fr">
+            <label htmlfor="fr">
               🇫🇷
             </label>
             <input
@@ -90,7 +90,7 @@ function Menu() {
                 name="language"
                 id="es"
               />
-            <label for="es">
+            <label htmlfor="es">
               🇪🇸
             </label>
             <input
@@ -101,7 +101,7 @@ function Menu() {
                 name="language"
                 id="de"
               />
-            <label for="de">
+            <label htmlfor="de">
               🇩🇪
             </label>
           </div>

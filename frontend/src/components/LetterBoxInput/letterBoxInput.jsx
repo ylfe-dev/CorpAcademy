@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import LetterBox from '../LetterBox/letterBox'
 import './letter-box-input.scss'
 
-function LetterBoxInput ({sentence, words, noMistakes=true, onSuccess, onFailure, onTime=null, helpers}){ 
+function LetterBoxInput ({sentence, words, noMistakes=false, onSuccess, onFailure, onTime=null, helpers}){ 
     const [input, setInput] = useState("")
     const [mistakes, setMistakes] = useState(0)
     const isMistake = useRef(false);
