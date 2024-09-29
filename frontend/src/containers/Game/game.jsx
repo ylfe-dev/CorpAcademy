@@ -17,7 +17,7 @@ function Game() {
     const gameplay = useRef(getGameplay());
     const user = useContext(UserContext);
     
-    const [data, setData] = useAPI({url: "generate-sentences?categoryId="+categoryId+"&learningLanguage="+user.current.learnedLanguage, 
+    const [data, setData] = useAPI({url: categoryId ? "generate-sentences?categoryId="+categoryId+"&learningLanguage="+user.current.learnedLanguage : null, 
         data: {learningLanguage: user.current.learnedLanguage}});
     const [game, setGame] = useState(0);
     const [finished, setFinished] = useState(false);
@@ -145,7 +145,7 @@ function Game() {
       
         <section className='info'>
           <div className="progress-section">
-            <progress id="file"  className={(isWholeSentence() ? "reverse" : "")} value={progress} max="100"> </progress>
+            <progress id="file"  className="reverse" value={progress} max="100"> </progress>
             <div className={"clock "+(isWholeSentence() ? "" : "hidden")} >
               <img width="40" src="/img/clock.svg" alt="clock" />
               <b noise="tic"></b>
