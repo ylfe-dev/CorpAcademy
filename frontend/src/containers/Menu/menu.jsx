@@ -11,7 +11,7 @@ import './menu.scss'
 function Menu() {
     const [data, setData] = useAPI({ url: "categories" });
     const user = useContext(UserContext);
-    const [language, setLanguage] = useState(user.state.learnedLanguage);
+    const [language, setLanguage] = useState(user.current.learnedLanguage);
     const gameplay = useRef(getGameplay());
 
 
@@ -21,10 +21,9 @@ function Menu() {
     },[data])
 
     const handleChange = (event) => {
-    setLanguage(event.target.value);
-
-    user.state.learnedLanguage = event.target.value;
-  };
+        setLanguage(event.target.value);
+        user.current.learnedLanguage = event.target.value;
+    };
 
   async function deleteCategory(id) {
     await fetchFromApi({ url: "categories/" + id, user, method: "DELETE" });

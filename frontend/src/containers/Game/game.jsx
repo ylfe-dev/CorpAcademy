@@ -2,17 +2,23 @@ import { useEffect, useState, useRef, useContext } from 'react';
 import LetterBoxInput from '../../components/LetterBoxInput/letterBoxInput';
 import Scene from '../../components/Scene/scene';
 import useAPI from '/src/useAPI';
+import {fetchFromApi} from '/src/useAPI';
+
 import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from '../../UserContext';
+
 
 import './game.scss';
 function Game() {
     const timer = useRef({interval:null, time: 20, maxTime: 20});
     const { categoryId } = useParams();
+    const category = localStorage.getItem("category")
     const navigate = useNavigate();
     const gameplay = useRef(getGameplay());
-
-    const [data, setData] = useAPI({url: categoryId ? "generate-sentences?categoryId="+categoryId : null});
+    const user = useContext(UserContext);
+    
+    const [data, setData] = useAPI({url: "generate-sentences?categoryId="+categoryId+"&learningLanguage="+user.current.learnedLanguage, 
+        data: {learningLanguage: user.current.learnedLanguage}});
     const [game, setGame] = useState(0);
     const [finished, setFinished] = useState(false);
     const [stages, setStages] = useState()
@@ -102,8 +108,14 @@ function Game() {
     setGame(game + 1)
   }
 
-  const errorHandler = () => {
-    console.log("errorhandler")
+  const errorHandler = async () => {
+    const word = stages[game].words[0];
+    const catid= categoryId ? categoryId : category;
+    console.log("add word:")
+    console.log(word)
+    console.log(catid)
+    await fetchFromApi({ url: "learning-word" , user, method: "POST",  data: { learningWord: word, categoryId: catid} });
+    console.log("error send")
     setGame(game + 1)
   }
 

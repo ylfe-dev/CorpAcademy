@@ -11,17 +11,17 @@ export async function fetchFromApi({ url, user, data = null, method = "GET" }) {
     url: url,
     baseURL: endpoint,
     headers: {
-      userId: user.state.guid,
+      userId: user.current.guid,
     },
     data,
   });
 }
 
-const useAPI = ({ url, data = null, method = "GET" }) => {
+const useAPI = ({ url, data = null, method = "GET"}) => {
   const [response, setResponse] = useState(null);
 
   const user = useContext(UserContext);
-
+  console.log(user)
   useEffect(() => {
     const fetchData = async () => {
       if(url){
@@ -32,7 +32,7 @@ const useAPI = ({ url, data = null, method = "GET" }) => {
               url: url,
               baseURL: endpoint,
               headers: {
-                userId: user.state.guid,
+                userId: user.current.guid,
               },
               data,
             });
@@ -47,7 +47,7 @@ const useAPI = ({ url, data = null, method = "GET" }) => {
     };
 
     fetchData();
-  }, [url, data]);
+  }, [url]);
 
   const setData = data => {setResponse(data)}
 

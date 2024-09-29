@@ -1,6 +1,29 @@
 .categories {
     a {
+        position: relative;
         text-decoration: none;
+
+        &.level::after {
+            content: attr(level);
+            color:white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            font-size:.9rem;
+            font-weight:bold;
+            top:0;
+            left:0;
+            padding:.25rem;
+            border-radius:50%;
+            aspect-ratio: 1;
+            height:1rem;
+            background-color: $primary;
+            margin-top: -.5rem;
+            margin-left: -.5rem;
+
+        }
     }
 
     &__list {

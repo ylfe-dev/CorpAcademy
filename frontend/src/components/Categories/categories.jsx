@@ -5,7 +5,7 @@ function Categories({ title = "Kategorie", categories, onCategoryDelete }) {
   function deleteCategory(e, id) {
     e.preventDefault();
     onCategoryDelete(id);
-  }
+  }console.log(categories)
 
   return (
     <>
@@ -15,6 +15,8 @@ function Categories({ title = "Kategorie", categories, onCategoryDelete }) {
           {categories
             ? categories.map((category) => (
                 <Link
+                  level={category.currentLevel}
+                  className={category.currentLevel>1 ? "level" : ""}
                   key={category.id}
                   to={"/game/" + category.id}
                   style={{ position: "relative" }}

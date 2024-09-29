@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useRef } from 'react';
 export const UserContext = createContext();
 
 
@@ -10,14 +10,14 @@ export const UserContextProvider = ({ children }) => {
     localStorage.setItem("guid", local_guid)
   }
 
-  const [state, setState] = useState({ 
+  const state = useRef({ 
     guid: local_guid,
     learnedLanguage: "angielski"
    });
 
 
   return (
-    <UserContext.Provider value={{ state, setState }}>
+    <UserContext.Provider value={ state }>
       {children}
     </UserContext.Provider>
   );
