@@ -1,4 +1,4 @@
-.fat-cat, .smart-rat, .smart-rat-face, .fat-cat-face, .pikarzyki {
+.fat-cat, .smart-rat, .smart-rat-face, .fat-cat-face, .pikarzyki, .monstera, .pizza {
     width: calc(20 * 1em);
     min-width: calc(20 * 1em);
     position: relative;
@@ -140,6 +140,28 @@
 
 .pikarzyki {
     font-size: 1em;
+
+    &::before {
+        bottom: 1em;
+        right: 1.5em;
+        width: 16em;
+        height: 10em;
+    }
+}
+
+.monstera {
+    font-size: .5em;
+
+    &::before {
+        bottom: 1em;
+        left: 1.5em;
+        width: 16em;
+        height: 10em;
+    }
+}
+
+.pizza {
+    font-size: .3em;
 
     &::before {
         bottom: 1em;

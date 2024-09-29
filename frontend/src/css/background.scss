@@ -43,4 +43,18 @@
         bottom: 0;
         z-index: 3;
     }
+
+    .pizza {
+        position: absolute;
+        left: calc(7rem + var(--padding));
+        bottom: calc(5rem + 10%);
+        z-index: 1;
+    }
+
+    .monstera {
+        position: absolute;
+        right: calc(3rem + var(--padding));
+        bottom: calc(2rem + 10%);
+        z-index: 1;
+    }
 }

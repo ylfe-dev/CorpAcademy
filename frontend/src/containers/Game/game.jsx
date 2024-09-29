@@ -123,6 +123,12 @@ function Game() {
           <b noise="tap"></b>
           <b noise="bam"></b>
         </div>
+        <div className="pizza">
+          <img src="/img/pizza.png" alt="pizza" />
+        </div>
+        <div className="monstera">
+          <img src="/img/monstera.png" alt="monstera" />
+        </div>
         <div className="smart-rat shadow">
           <img src="/img/smart%20rat.png" alt="smart rat" />
           <b noise="click"></b>
