@@ -2,16 +2,22 @@ import { useEffect, useState, useRef } from 'react';
 import LetterBox from '../LetterBox/letterBox'
 import './letter-box-input.scss'
 
-function LetterBoxInput ({sentence, words, noMistakes=true, onSuccess, onFailure, onTime=null}){ 
+function LetterBoxInput ({sentence, words, noMistakes=true, onSuccess, onFailure, onTime=null, helpers}){ 
     const [input, setInput] = useState("")
     const [mistakes, setMistakes] = useState(0)
     const isMistake = useRef(false);
     const toInput = useRef("");
     
-   
+    document.addEventListener('keydown', (ev) => {
+        if(ev.key.length == 1){
+            document.getElementById("LetterBoxInput").focus()
+        }
+    });
+
     useEffect(()=>{
         if(noMistakes && mistakes>1){
-            setTimeout(()=>onFailure(), 600)
+            console.log("call api")
+            setTimeout(()=>onFailure(), 2000)
         }
     }, [mistakes])
 
@@ -101,7 +107,7 @@ function LetterBoxInput ({sentence, words, noMistakes=true, onSuccess, onFailure
     return (
         <div className='letter-box-input'>
             <label htmlFor="LetterBoxInput">
-                {sentence_words.map((word, index) => <Word key={index} word={word} cqSize={font_size} />)} 
+                {sentence_words.map((word, index) => <Word key={index} word={word} cqSize={font_size} helpers={helpers} />)} 
             </label>
             <input 
                 autoFocus
@@ -112,16 +118,17 @@ function LetterBoxInput ({sentence, words, noMistakes=true, onSuccess, onFailure
                 maxLength={toInput.current.length}
                 onChange={handleInput}
                 onBeforeInput={handleBeforeInput}
-                value={input} /> 
+                value={input} />
         </div>)
 }
 
 export default LetterBoxInput
 
 
-function Word({word, cqSize}){
+function Word({word, cqSize, helpers}){
+    console.log(helpers)
     return (
-    <div className='word' style={{marginInline: buildCssMin(cqSize, 6)}}>
+    <div className={'word'} style={{marginInline: buildCssMin(cqSize, 6)}}>
         {[...word].map( (box, index) => 
         <LetterBox 
             key={index} 
@@ -129,7 +136,8 @@ function Word({word, cqSize}){
             written={box.written}
             cqSize={cqSize} 
             state={box.state} 
-            writable={box.writable}/> 
+            writable={box.writable}
+            helpers={helpers}/> 
         )}
     </div>)
 }

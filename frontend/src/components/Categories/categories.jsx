@@ -21,12 +21,12 @@ function Categories({ title = "Kategorie", categories, onCategoryDelete }) {
                 >
                   <li className="categories__item">{category.icon}</li>
                   {category.isUserDefinedCategory && (
-                    <button
+                    <div
                       onClick={(e) => deleteCategory(e, category.id)}
-                      style={{ position: "absolute", top: "0", right: "0" }}
+                      className="categories__delete"
                     >
-                      X
-                    </button>
+                    +
+                    </div>
                   )}
                 </Link>
               ))

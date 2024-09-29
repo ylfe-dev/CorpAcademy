@@ -96,6 +96,12 @@ function Game() {
     localStorage.setItem("sentences", JSON.stringify(data.sentences.splice(1)))
   }
 
+  const [helpers, setHelpers] = useState(true);
+
+  const toggleHelpers = () => {
+    setHelpers(!helpers);
+  };
+
   return (
     <Scene type="typ" onClick={handleSceneClick}>
       
@@ -119,7 +125,8 @@ function Game() {
                 words={stages[game].words}
                 onSuccess={successHandler}
                 onFailure={errorHandler}
-                onFinish={timeHandler} />
+                onFinish={timeHandler}
+                helpers={helpers}/>
               <span className="translate-section">{stages[game].native}</span>
             </>
             : finished ? <SaveGameplay sentences={data.sentences.slice(1)} score={buildScore()}/>
@@ -128,6 +135,9 @@ function Game() {
       </section>
 
       <section className='action'>
+        <button className="button" onClick={toggleHelpers}>
+          {helpers ? 'Wyłącz podpowiedzi' : 'Włącz podpowiedzi'}
+        </button>
         {/* {<Hint text="Nakurwiaj szybko!" character="rat" />} */}
       </section>
 
@@ -136,6 +146,12 @@ function Game() {
           <img src="/img/fat%20cat.png" alt="fat cat" />
           <b noise="tap"></b>
           <b noise="bam"></b>
+        </div>
+        <div className="pizza">
+          <img src="/img/pizza.png" alt="pizza" />
+        </div>
+        <div className="monstera">
+          <img src="/img/monstera.png" alt="monstera" />
         </div>
         <div className="smart-rat shadow">
           <img src="/img/smart%20rat.png" alt="smart rat" />

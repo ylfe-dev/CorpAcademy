@@ -1,56 +1,54 @@
 import { Link, useParams } from "react-router-dom";
-import Scene from '../../components/Scene/scene';
-import './summary.scss';
-import Hint from '../../components/Hint/hint'
+import Scene from "../../components/Scene/scene";
+import "./summary.scss";
+import Hint from "../../components/Hint/hint";
 
 function Summary() {
+  const params = useParams();
 
-    const params = useParams();
+  function formatPercentage(value) {
+    return `${parseInt(value * 100)} %`;
+  }
 
-    console.log(params);
+  function formatTime(time) {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    return `${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
+  }
 
-    function formatTime(time) {
-        const minutes = Math.floor(time / 60);
-        const seconds = time % 60;
-        return `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`
-    }
+  return (
+    <Scene type="basic">
+      <section className="content">
+        <Hint character="cat" text="To było szybkie" />
+        <Hint character="rat" delay="4" text="Można lepiej" />
+      </section>
 
+      <section>
+        <h2 className="title">Wyzwanie ukończone!</h2>
 
-    return (
-        <Scene type="basic">
+        <div className="summary-table">
+          <fieldset className="summary-table__item">
+            <legend className="summary-table__title">Dokładność</legend>
+            🎯{formatPercentage(params.accuracy)}%
+          </fieldset>
+          <fieldset className="summary-table__item">
+            <legend className="summary-table__title">Zegarek</legend>⏰
+            {formatTime(params.time)}
+          </fieldset>
+          <fieldset className="summary-table__item">
+            <legend className="summary-table__title">Punkty</legend>
+            🏆{params.points}
+          </fieldset>
+        </div>
+      </section>
 
-            <section className='content'>
-                <Hint character="cat" text="To było szybkie" />
-                <Hint character="rat" delay="4" text="Można lepiej" />
-            </section>
-
-            <section>
-                <h2 className="title">Wyzwanie ukończone!</h2>
-
-                <div className='summary-table'>
-                    
-                    <fieldset className='summary-table__item'>
-                        <legend className='summary-table__title'>
-                            Dokładność
-                        </legend>
-                        🎯{params.accuracy}%
-                    </fieldset>
-                    <fieldset className='summary-table__item'>
-                        <legend className='summary-table__title'>Zegarek</legend>
-                        ⏰{formatTime(params.time)}
-                    </fieldset>
-                    <fieldset className='summary-table__item'>
-                        <legend className='summary-table__title'>Punkty</legend>
-                        🏆{params.points}
-                    </fieldset>
-                </div>
-            </section>
-
-            <section className='action'>
-                <Link className="button" to={'/game'}>Kontynuuj rozgrywkę</Link>
-            </section>
-        </Scene>
-    )
+      <section className="action">
+        <Link className="button" to={"/game"}>
+          Kontynuuj rozgrywkę
+        </Link>
+      </section>
+    </Scene>
+  );
 }
 
-export default Summary
+export default Summary;
