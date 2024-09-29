@@ -8,13 +8,10 @@ function LetterBoxInput ({sentence, words, noMistakes=false, onSuccess, onFailur
     const isMistake = useRef(false);
     const toInput = useRef("");
     
-    document.addEventListener('keydown', (ev) => {
-        if(ev.key.length == 1){
-            const inputEl=document.getElementById("LetterBoxInput")
-            if(inputEl != document.activeElement)
-                inputEl.focus();
-        }
-    });
+    
+    useEffect(()=>{
+        document.getElementById("LetterBoxInput").focus();
+    }, [])
 
     useEffect(()=>{
         if(noMistakes && mistakes>1){
