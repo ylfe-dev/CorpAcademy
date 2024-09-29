@@ -145,7 +145,7 @@ function Game() {
       
         <section className='info'>
           <div className="progress-section">
-            <progress id="file"  className="reverse" value={progress} max="100"> </progress>
+            <progress id="file"  className={(isWholeSentence() ? "reverse" : "")} value={progress} max="100"> </progress>
             <div className={"clock "+(isWholeSentence() ? "" : "hidden")} >
               <img width="40" src="/img/clock.svg" alt="clock" />
               <b noise="tic"></b>
