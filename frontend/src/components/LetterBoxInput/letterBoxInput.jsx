@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import LetterBox from '../LetterBox/letterBox'
 import './letter-box-input.scss'
 
-function LetterBoxInput ({sentence, words, noMistakes=false, onSuccess, onFailure, onTime=null, helpers}){ 
+function LetterBoxInput ({sentence, words, noMistakes=false, onSuccess, onFailure, onTime, helpers}){ 
     const [input, setInput] = useState("")
     const [mistakes, setMistakes] = useState(0)
     const isMistake = useRef(false);
@@ -28,8 +28,13 @@ function LetterBoxInput ({sentence, words, noMistakes=false, onSuccess, onFailur
     }, [sentence])
 
     useEffect(()=>{
-        if( input === toInput.current) {
-            setTimeout(()=>onSuccess(), 2000)
+        if( input.length === toInput.current.length) {
+            setTimeout(()=>{
+                if(noMistakes)
+                   onSuccess()
+                else
+                    onTime({acc: getMistakes(toInput.current, input)})
+            }, 2000)
         }
     }, [input])
 
@@ -48,7 +53,7 @@ function LetterBoxInput ({sentence, words, noMistakes=false, onSuccess, onFailur
     }
 
     const getLetterState = index => {
-        if(toInput.current.length && input === toInput.current)
+        if(toInput.current.length && input.length === toInput.current.length)
             return "win";
         if(noMistakes && mistakes>1)
             return "allwrong";
@@ -65,10 +70,10 @@ function LetterBoxInput ({sentence, words, noMistakes=false, onSuccess, onFailur
     }
 
     const handleBeforeInput = ev => {
-        if(input == toInput.current){
+        if(input == toInput.current || input.length == toInput.current.length){
             ev.stopPropagation()
             ev.preventDefault()
-        } else if(ev.data != toInput.current[input.length]){
+        } else if(ev.data != toInput.current[input.length] && noMistakes){
             setMistakes(mistakes+1)
             isMistake.current = true;
             ev.stopPropagation()
@@ -78,8 +83,7 @@ function LetterBoxInput ({sentence, words, noMistakes=false, onSuccess, onFailur
             setMistakes(0)
         }
     }
-    console.log("words:")
-    console.log(words)
+
     let sentence_words = filterString(sentence).toLowerCase().split(" ")
     let lesson_words = words.map(word => word.toLowerCase())
 
@@ -149,3 +153,8 @@ function filterString(str) {
     return str.replace(/[^a-zA-Z\s]/g, '');
   }
   
+const getMistakes = (a, b) =>{
+    let mistakes = 0;
+    [...a].forEach((letter, index) => mistakes += letter==b[index] ? 0 : 1 )
+    return Math.round((a.length-mistakes)/a.length*100);
+}

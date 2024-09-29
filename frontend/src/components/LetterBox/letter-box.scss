@@ -10,7 +10,7 @@
     
     &.wrong {
         animation: wrong .5s forwards;
-        background-color: $red;
+        background-color: $primary;
     }
 
     &__inner {
@@ -41,10 +41,10 @@
     }
     &--win{
         color: $black;
-        animation: win 1.5s .5s cubic-bezier(.9,-0.4,.31,1) forwards;
+        animation: win 1.5s .5s cubic-bezier(.9,-0.4,.31,1) forwards !important;
     }
     &--raw {
-        color: $red;
+        color: $primary;
     }
     &--done {
         color: $black;

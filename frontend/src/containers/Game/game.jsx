@@ -7,11 +7,12 @@ import { UserContext } from '../../UserContext';
 
 import './game.scss';
 function Game() {
+    const timer = useRef({interval:null, time: 20, maxTime: 20});
     const { categoryId } = useParams();
     const navigate = useNavigate();
     const gameplay = useRef(getGameplay());
 
-    const [data, setData] = useAPI({url: "generate-sentences?categoryId="+categoryId});
+    const [data, setData] = useAPI({url: categoryId ? "generate-sentences?categoryId="+categoryId : null});
     const [game, setGame] = useState(0);
     const [finished, setFinished] = useState(false);
     const [stages, setStages] = useState()
@@ -19,11 +20,12 @@ function Game() {
     const score = useRef({wins: 0, time: 0, score: 0})
 
    const buildScore = () => {
-    console.log(Math.round(score.current.wins / stages.length *100))
+    const acc = Math.round(((score.current.wins / stages.length *100) + score.current.score*2)/3);
+    console.log(score.current.score)
     return {
-        acc: Math.round(score.current.wins / stages.length *100),
-        time: 74,
-        points: 99
+        acc: acc,
+        time: score.current.time,
+        points: Math.round(((timer.current.maxTime-score.current.time)/timer.current.maxTime*100+acc)/2)
     }}
    
 
@@ -44,13 +46,30 @@ function Game() {
     }
   }, [])
 
-  useEffect(()=>{console.log(game)
+  useEffect(()=>{
 
     if(stages && game == stages.length){
         setFinished(true);
     }
     if(stages)
-        setProgress((game+1)/stages.length*100)
+        setProgress((game)/(stages.length-1)*100)
+
+    if(isWholeSentence()) {
+
+        console.log("timer start")
+        console.log(game)
+        console.log(stages)
+        timer.current.interval=setInterval(()=>{
+            timer.current.time -= 1;
+            if(timer.current.time <=0){
+                timer.current.time = 0
+                clearInterval(timer.current.interval);
+            }
+            setProgress(timer.current.time/20*100)
+        }, 1000)
+    }
+
+    return () => clearInterval(timer.current.interval)
   },[game])
 
   useEffect(()=>{ console.log(data)
@@ -77,7 +96,21 @@ function Game() {
   }, [data])
 
   const successHandler = () => {
-    score.current = { ...score.current, wins: score.current.wins + 1 };
+    console.log("successhandler")
+
+    score.current.wins +=1;
+    setGame(game + 1)
+  }
+
+  const errorHandler = () => {
+    console.log("errorhandler")
+    setGame(game + 1)
+  }
+
+  const timeHandler = ({acc}) => {
+    score.current.time= timer.current.maxTime - timer.current.time;
+    score.current.score= acc;
+
     setGame(game + 1)
   }
 
@@ -87,20 +120,13 @@ function Game() {
     }
   };
 
-  const errorHandler = () => {
-    setGame(game + 1)
-  }
-
-  const timeHandler = time => {
-    console.log("srututut")
-    localStorage.setItem("sentences", JSON.stringify(data.sentences.splice(1)))
-  }
-
   const [helpers, setHelpers] = useState(true);
 
   const toggleHelpers = () => {
     setHelpers(!helpers);
   };
+
+  const isWholeSentence = () => stages && (game+1 == stages.length)
 
   return (
     <Scene type="typ" onClick={handleSceneClick}>
@@ -108,7 +134,7 @@ function Game() {
         <section className='info'>
           <div className="progress-section">
             <progress id="file"  className="reverse" value={progress} max="100"> </progress>
-            <div className="clock">
+            <div className={"clock "+(isWholeSentence() ? "" : "hidden")} >
               <img width="40" src="/img/clock.svg" alt="clock" />
               <b noise="tic"></b>
               <b noise="tac"></b>
@@ -125,8 +151,8 @@ function Game() {
                 words={stages[game].words}
                 onSuccess={successHandler}
                 onFailure={errorHandler}
-                onFinish={timeHandler}
-                noMistakes={(game < stages.length)}
+                onTime={timeHandler}
+                noMistakes={!isWholeSentence()}
                 helpers={helpers}/>
               <span className="translate-section">{stages[game].native}</span>
             </>
@@ -181,7 +207,7 @@ const getGameplay =() => {
 const SaveGameplay = ({score, sentences}) => {
     const navigate = useNavigate();
     const category = localStorage.getItem("category")
-    const saved = useAPI({url: "level", data: { "categoryId": category,  "experience": 0}})
+    const saved = useAPI({url: "level", data: { "categoryId": category,  "experience":score.points}, method:"POST"})
 
     useEffect(()=>{
         console.log("saving")

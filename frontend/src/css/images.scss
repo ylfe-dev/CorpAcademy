@@ -176,6 +176,9 @@
     img {
         animation: rotate 1s linear infinite;
     }
+    &.hidden {
+        display: none;
+    }
     [noise="tic"] {
         
         left: 0em;

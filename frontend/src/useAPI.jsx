@@ -24,24 +24,26 @@ const useAPI = ({ url, data = null, method = "GET" }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      do {
-        try {
-          const result = await axios({
-            method: method,
-            url: url,
-            baseURL: endpoint,
-            headers: {
-              userId: user.state.guid,
-            },
-            data,
-          });
-          console.log("✅ data fetched");
-          console.log(result.data);
-          setResponse(result.data);
-        } catch (error) {
-          console.error(error);
-        }
-      } while (false);
+      if(url){
+        do {
+          try {
+            const result = await axios({
+              method: method,
+              url: url,
+              baseURL: endpoint,
+              headers: {
+                userId: user.state.guid,
+              },
+              data,
+            });
+            console.log("✅ data fetched");
+            console.log(result.data);
+            setResponse(result.data);
+          } catch (error) {
+            console.error(error);
+          }
+        } while (false);
+      }else setResponse(null)
     };
 
     fetchData();
