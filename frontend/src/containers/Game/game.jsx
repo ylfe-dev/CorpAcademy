@@ -41,7 +41,7 @@ function Game() {
     audio.loop = true;
     audio.play();
 
-    if(!categoryId &&  !gameplay.current?.sentences?.length  && !data?.sentences?.length){
+    if(!categoryId &&  !gameplay?.current?.sentences?.length  && !data?.sentences?.length){
         navigate('/menu');
     }
 
@@ -80,8 +80,8 @@ function Game() {
 
   useEffect(()=>{ console.log(data)
     
-    if(!data?.sentences && gameplay.current.sentences && !categoryId){
-        setData(gameplay.current)
+    if(!data?.sentences && gameplay?.current?.sentences && !categoryId){
+        setData(gameplay?.current)
     }
     if(data?.sentences?.length && !finished){
         localStorage.setItem("sentences", JSON.stringify(data))

@@ -134,9 +134,9 @@ function Menu() {
       </section>
 
       <section className="action">
-        {gameplay.current.sentences && gameplay.current.sentences.length ? 
+        {gameplay?.current?.sentences && gameplay?.current?.sentences?.length ? 
             <Link className="button" to={"/game"}>
-            Dokończ {gameplay.current.sentences.length} gry!
+            Dokończ {gameplay?.current?.sentences?.length} gry!
             </Link>
         : null}
       </section>
