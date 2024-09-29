@@ -179,7 +179,7 @@
     &.hidden {
         display: none;
     }
-    [noise="tic"] {
+    [noise="tac"] {
         
         left: 0em;
         bottom: 1em;
@@ -193,7 +193,7 @@
             animation-duration: 1s;
         }
     }
-    [noise="tac"] {
+    [noise="tic"] {
         right: 1em;
         top: -1.5em;
         transform: rotate(20deg);
