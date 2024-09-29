@@ -68,7 +68,7 @@ function Menu() {
                 id="gb"
               /> 
             <label htmlFor="gb">
-              🇬🇧
+              <img src="./img/flags/gb.svg" width="40" alt="gb" />
             </label>
             <input
                 type="radio"
@@ -79,7 +79,7 @@ function Menu() {
                 id="fr"
               />
             <label htmlFor="fr">
-              🇫🇷
+              <img src="./img/flags/fr.svg" width="40" alt="fr" />
             </label>
             <input
                 type="radio"
@@ -90,7 +90,7 @@ function Menu() {
                 id="es"
               />
             <label htmlFor="es">
-              🇪🇸
+              <img src="./img/flags/es.svg" width="40" alt="es" />
             </label>
             <input
                 type="radio"
@@ -101,7 +101,7 @@ function Menu() {
                 id="de"
               />
             <label htmlFor="de">
-              🇩🇪
+              <img src="./img/flags/de.svg" width="40" alt="de" />
             </label>
           </div>
         </div>
