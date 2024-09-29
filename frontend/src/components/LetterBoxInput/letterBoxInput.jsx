@@ -16,7 +16,6 @@ function LetterBoxInput ({sentence, words, noMistakes=false, onSuccess, onFailur
 
     useEffect(()=>{
         if(noMistakes && mistakes>1){
-            console.log("call api")
             setTimeout(()=>onFailure(), 2000)
         }
     }, [mistakes])
@@ -130,7 +129,6 @@ export default LetterBoxInput
 
 
 function Word({word, cqSize, helpers}){
-    console.log(helpers)
     return (
     <div className={'word'} style={{marginInline: buildCssMin(cqSize, 6)}}>
         {[...word].map( (box, index) => 

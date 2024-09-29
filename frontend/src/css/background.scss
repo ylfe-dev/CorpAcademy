@@ -46,15 +46,15 @@
 
     .pizza {
         position: absolute;
-        left: calc(7rem + var(--padding));
-        bottom: calc(5rem + 10%);
+        left: calc(40em + var(--padding));
+        bottom: calc(20em + 10%);
         z-index: 1;
     }
 
     .monstera {
         position: absolute;
-        right: calc(3rem + var(--padding));
-        bottom: calc(2rem + 10%);
+        right: calc(10em + var(--padding));
+        bottom: calc(6em + 10%);
         z-index: 1;
     }
 }
