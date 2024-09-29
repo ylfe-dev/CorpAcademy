@@ -6,6 +6,7 @@ import useAPI from "/src/useAPI";
 import { useContext, useState } from "react";
 import { UserContext } from "../../UserContext";
 import { fetchFromApi } from "../../useAPI";
+import './menu.scss'
 
 function Menu() {
   const categories = useAPI({ url: "categories" });
@@ -49,15 +50,54 @@ function Menu() {
   return (
     <Scene type="basic">
       <section className="info">
-        <div>
-          <label htmlFor="language">Wybierz język: </label>
-          <select id="language" value={language} onChange={handleChange}>
-            <option value="">--Choose a language--</option>
-            <option value="angielski">Angielski</option>
-            <option value="francuski">Francuski</option>
-            <option value="hiszpański">Hiszpański</option>
-            <option value="niemiecki">Niemiecki</option>
-          </select>
+        <div className="change-language">
+          <h4>Wybierz język: </h4>
+          <div className="change-language__list">
+          <input
+                type="radio"
+                value="angielski"
+                checked={language === "angielski"}
+                onChange={handleChange}
+                name="language"
+                id="gb"
+              /> 
+            <label for="gb">
+              🇬🇧
+            </label>
+            <input
+                type="radio"
+                value="francuski"
+                checked={language === "francuski"}
+                onChange={handleChange}
+                name="language"
+                id="fr"
+              />
+            <label for="fr">
+              🇫🇷
+            </label>
+            <input
+                type="radio"
+                value="hiszpański"
+                checked={language === "hiszpański"}
+                onChange={handleChange}
+                name="language"
+                id="es"
+              />
+            <label for="es">
+              🇪🇸
+            </label>
+            <input
+                type="radio"
+                value="niemiecki"
+                checked={language === "niemiecki"}
+                onChange={handleChange}
+                name="language"
+                id="de"
+              />
+            <label for="de">
+              🇩🇪
+            </label>
+          </div>
         </div>
       </section>
 
@@ -69,7 +109,7 @@ function Menu() {
               onCategoryDelete={deleteCategory}
             />
 
-            {userDefinedCategories && (
+            {userDefinedCategories.length > 0 && (
               <Categories
                 title={"Twoje kategorie"}
                 categories={userDefinedCategories}
@@ -78,7 +118,7 @@ function Menu() {
             )}
 
             <button className="button" onClick={() => addCategory()}>
-              Dodaj własną kategorie
+              + Dodaj
             </button>
           </>
         ) : (
@@ -88,10 +128,16 @@ function Menu() {
       </section>
 
       <section className="action">
-        <Link className="button" to={"/game"}>
+        {/* <Link className="button" to={"/game"}>
           Start Gry
-        </Link>
+        </Link> */}
       </section>
+
+      <div className="background">
+      <div className="pikarzyki shadow">
+          <img src="/img/pikarzyki.png" alt="smart rat" />
+        </div>
+      </div>
     </Scene>
   );
 }

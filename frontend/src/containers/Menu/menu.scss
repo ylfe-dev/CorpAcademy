@@ -1,0 +1,30 @@
+.change-language {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    justify-content: center;
+    align-items: center;
+
+    h4 {
+        margin: 0;
+    }
+
+    &__list {
+        display: flex;
+        gap: .5rem;
+    }
+
+    input {
+        display: none;
+        &:checked + label {
+            border: 2px solid $contrast;
+        }
+    }
+
+    label {
+        padding: .5rem;
+        cursor: pointer;
+        border-radius: .5rem;
+
+    }
+}

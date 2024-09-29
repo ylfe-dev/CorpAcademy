@@ -11,6 +11,10 @@
     display: inline-block;
     margin-block: 1rem;
     cursor: pointer;
+    
+    appearance: none;
+    border: none;
+    outline: none;
 
     &:hover {
         background-color: $light;

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './letter-box.scss'
 
-function LetterBox ({letter, writable, written, cqSize, state}){
+function LetterBox ({letter, writable, written, cqSize, state, helpers}) {
     const bottomPaddingRatio = state == "active" ? 3 : 6;
    
 
@@ -13,7 +13,7 @@ function LetterBox ({letter, writable, written, cqSize, state}){
     const letter_style = {
         fontSize: buildCssMin(cqSize),
         paddingInline:  buildCssMin(cqSize, 2.5),
-        paddingBottom: buildCssMin(cqSize, bottomPaddingRatio),
+        // paddingBottom: buildCssMin(cqSize, bottomPaddingRatio),
         marginBottom: buildCssMin(cqSize, 6),
         borderRadius: buildCssMin(cqSize, 6)
     }
@@ -26,7 +26,7 @@ function LetterBox ({letter, writable, written, cqSize, state}){
 
 
     return writable ? (
-        <div className={"letter-box letter-box--" + state + (is_wrong ? " wrong" : "")} style={letter_container_style}>
+        <div className={"letter-box letter-box--" + state + (is_wrong ? " wrong" : "") + (helpers ? " letter-box--helpers" : "")} style={letter_container_style}>
             <div style={letter_style} className='letter-box__inner'>
                 <span>{written ? written : letter}</span>
             </div>

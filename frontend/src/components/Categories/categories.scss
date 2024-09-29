@@ -29,7 +29,16 @@
             box-shadow: 0 5px 15px 0 $gray-2;
             transform: scale(1.1);
         }
-    } 
+    }
+
+    &__delete {
+        position: absolute;
+        top: -.5rem;
+        right: 0rem;
+        transform: rotate(45deg);
+        font-size: 1.5rem;
+        color: $gray;
+    }
 }
 
 @keyframes fly-in {

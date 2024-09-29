@@ -17,6 +17,8 @@ function Game() {
   const [progress, setProgress] = useState(0);
   const score = useRef({ wins: 0, time: 0, score: 0 })
 
+  // let helpers = true; // Removed redundant declaration
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -63,6 +65,12 @@ function Game() {
 
   }
 
+  const [helpers, setHelpers] = useState(true);
+
+  const toggleHelpers = () => {
+    setHelpers(!helpers);
+  };
+
   return (
     <Scene type="typ" onClick={handleSceneClick}>
       
@@ -86,7 +94,8 @@ function Game() {
                 words={sentences.sentences[game].words}
                 onSuccess={successHandler}
                 onFailure={errorHandler}
-                onFinish={timeHandler} />
+                onFinish={timeHandler}
+                helpers={helpers}/>
               <span className="translate-section">{sentences.sentences[game].translatedContent}</span>
             </>
             : <span className="loader loader--medium"></span>
@@ -94,6 +103,9 @@ function Game() {
       </section>
 
       <section className='action'>
+        <button className="button" onClick={toggleHelpers}>
+          {helpers ? 'Wyłącz podpowiedzi' : 'Włącz podpowiedzi'}
+        </button>
         {/* {<Hint text="Nakurwiaj szybko!" character="rat" />} */}
       </section>
 

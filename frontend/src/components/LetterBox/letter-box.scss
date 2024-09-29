@@ -1,10 +1,12 @@
 .letter-box{
+    $root: &;
     display: inline-block;
     background-color: $gray-2;
-    color: $black;
+    color: transparent;
     position: relative;
     transition: all .2s;
     box-sizing: border-box;
+    
     
     &.wrong {
         animation: wrong .5s forwards;
@@ -16,6 +18,8 @@
         line-height: 1.3;
         border-radius: 15%;
         background-color: $contrast;
+        padding-bottom: .5rem;
+        transition: transform .2s ease-in-out;
     }
     
     span {
@@ -24,18 +28,20 @@
     }
 
     &--allwrong{
-        color: $gray;
-        animation: allwrong .4s forwards;
+        animation: allwrong 1.5s cubic-bezier(.9,-0.4,.31,1) forwards;
     }
     &--wrong{
-        color: $gray;
         animation: wrong .5s forwards;
     }
-    &--win{
-        animation: win 1.5s cubic-bezier(.9,-0.4,.31,1) forwards;
-    }
     &--blank {
+        color: transparent;
+    }
+    &--helpers {
         color: $gray;
+    }
+    &--win{
+        color: $black;
+        animation: win 1.5s .5s cubic-bezier(.9,-0.4,.31,1) forwards;
     }
     &--raw {
         color: $red;
@@ -44,9 +50,6 @@
         color: $black;
     }
     &--active, &--wrong{
-        color: $gray;
-            top: -.4rem;
-        
             &::after{
                 content: "";
                 display: block;
@@ -59,8 +62,11 @@
                 background-color: $primary;
                 animation: scalein .5s forwards;
             }
-        
-
+    }
+    &--active{
+        #{$root}__inner{
+            transform: scale(1.1);
+        }
     }
 }
 
@@ -83,16 +89,15 @@
 }
 
 @keyframes wrong {
-    0%{ transform: rotate(0deg);}
-    33%{ transform: rotate(-20deg);}
-    66%{ transform: rotate(20deg);}
-    100%{transform: srotate(0deg);}
+    0%{ transform: rotate(0deg) scale(1.1);}
+    33%{ transform: rotate(-20deg) scale(1);}
+    66%{ transform: rotate(20deg) scale(1);}
+    100%{transform: rotate(0deg) scale(1.1);}
 }
 
 @keyframes allwrong {
-    0%{ transform: translateY(0) rotate(-20deg); opacity: 1}
-    50%{ transform: translateY(-1rem) rotate(20deg); opacity: .5}
-    100%{transform: translateY(-2rem) srotate(-20deg); opacity: 0}
+    from { transform: translateY(0) rotate(0); opacity: 1}
+    to {transform: translateY(2rem) rotate(-20deg); opacity: 0}
 }
 
 @keyframes win {
