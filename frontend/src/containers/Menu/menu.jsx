@@ -3,16 +3,23 @@ import { Link } from "react-router-dom";
 import Scene from "../../components/Scene/scene";
 import Categories from "../../components/Categories/categories";
 import useAPI from "/src/useAPI";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import { UserContext } from "../../UserContext";
 import { fetchFromApi } from "../../useAPI";
 
 function Menu() {
-  const categories = useAPI({ url: "categories" });
-  const user = useContext(UserContext);
-  const [language, setLanguage] = useState(user.state.learnedLanguage);
+    const [data, setData] = useAPI({ url: "categories" });
+    const user = useContext(UserContext);
+    const [language, setLanguage] = useState(user.state.learnedLanguage);
+    const gameplay = useRef(getGameplay());
 
-  const handleChange = (event) => {
+
+    useEffect(()=>{
+        console.log(data)
+        console.log("❌");
+    },[data])
+
+    const handleChange = (event) => {
     setLanguage(event.target.value);
 
     user.state.learnedLanguage = event.target.value;
@@ -41,10 +48,10 @@ function Menu() {
   }
 
   const predefinedCategories =
-    categories.categories?.filter((c) => !c.isUserDefinedCategory) ?? [];
+  data?.categories?.filter((c) => !c.isUserDefinedCategory) ?? [];
 
   const userDefinedCategories =
-    categories.categories?.filter((c) => c.isUserDefinedCategory) ?? [];
+  data?.categories?.filter((c) => c.isUserDefinedCategory) ?? [];
 
   return (
     <Scene type="basic">
@@ -62,7 +69,7 @@ function Menu() {
       </section>
 
       <section className="content">
-        {categories.categories ? (
+        {data?.categories ? (
           <>
             <Categories
               categories={predefinedCategories}
@@ -88,12 +95,26 @@ function Menu() {
       </section>
 
       <section className="action">
-        <Link className="button" to={"/game"}>
-          Start Gry
-        </Link>
+        {gameplay.current.sentences && gameplay.current.sentences.length ? 
+            <Link className="button" to={"/game"}>
+            Dokończ {gameplay.current.sentences.length} gry!
+            </Link>
+        : null}
       </section>
     </Scene>
   );
 }
 
 export default Menu;
+
+
+
+const getGameplay = () => {
+    try {
+        const last_sentences = JSON.parse(localStorage.getItem("sentences"));
+        return last_sentences
+    } catch(error){
+        console.error(error)
+        return null;
+    }
+}

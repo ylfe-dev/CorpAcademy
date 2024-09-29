@@ -47,7 +47,9 @@ const useAPI = ({ url, data = null, method = "GET" }) => {
     fetchData();
   }, [url, data]);
 
-  return { ...response };
+  const setData = data => {setResponse(data)}
+
+  return [response, setData ];
 };
 
 export default useAPI;

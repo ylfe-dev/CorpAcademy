@@ -9,31 +9,31 @@ import './game.scss';
 function Game() {
     const { categoryId } = useParams();
     const navigate = useNavigate();
-    const last_sentences = getGameplay();
+    const gameplay = useRef(getGameplay());
 
-    const sentences =  categoryId ? useAPI({url: "generate-sentences?categoryId="+categoryId}) 
-        : (last_sentences &&  last_sentences.sentences && last_sentences.sentences.length) ? last_sentences : {sentences: null};
+    const [data, setData] = useAPI({url: "generate-sentences?categoryId="+categoryId});
     const [game, setGame] = useState(0);
     const [finished, setFinished] = useState(false);
-    const [stage, setStage] = useState()
+    const [stages, setStages] = useState()
     const [progress, setProgress] = useState(0);
     const score = useRef({wins: 0, time: 0, score: 0})
 
    const buildScore = () => {
-    console.log(Math.round(score.current.wins / sentences.sentences.length *100))
+    console.log(Math.round(score.current.wins / stages.length *100))
     return {
-        acc: Math.round(score.current.wins / sentences.sentences.length *100),
+        acc: Math.round(score.current.wins / stages.length *100),
         time: 74,
         points: 99
     }}
    
 
   useEffect(() => {
+    
     let audio = new Audio('/Onion.mp3');
     audio.loop = true;
     audio.play();
 
-    if(!categoryId && last_sentences.sentences && !last_sentences.sentences.length){
+    if(!categoryId &&  !gameplay.current?.sentences?.length  && !data?.sentences?.length){
         navigate('/menu');
     }
 
@@ -44,20 +44,37 @@ function Game() {
     }
   }, [])
 
-  useEffect(()=>{
-    if(sentences.sentences && game == sentences.sentences.length){
+  useEffect(()=>{console.log(game)
+
+    if(stages && game == stages.length){
         setFinished(true);
-        
     }
-    setProgress((game+1)/5*100)
+    if(stages)
+        setProgress((game+1)/stages.length*100)
   },[game])
 
-  useEffect(()=>{
-    if(sentences.sentences && !finished)
-        localStorage.setItem("sentences", JSON.stringify(sentences))
+  useEffect(()=>{ console.log(data)
+    
+    if(!data?.sentences && gameplay.current.sentences){
+        setData(gameplay.current)
+    }
+    if(data?.sentences?.length && !finished){
+        localStorage.setItem("sentences", JSON.stringify(data))
+        const words = data.sentences[0].words.map(word=>({
+            text: word.learnedLanguage, 
+            words: word.learnedLanguage.split(" "),
+            native: word.nativeLanguage
+        }))
+        const sentence = {
+            text: data.sentences[0].content, 
+            words: data.sentences[0].words.map(word=> word.learnedLanguage),
+            native: data.sentences[0].translatedContent
+        }
+        setStages([...words, sentence])
+    }
     if(categoryId)
         localStorage.setItem("category", categoryId)
-  }, [sentences])
+  }, [data])
 
   const successHandler = () => {
     score.current = { ...score.current, wins: score.current.wins + 1 };
@@ -76,7 +93,7 @@ function Game() {
 
   const timeHandler = time => {
     console.log("srututut")
-    localStorage.setItem("sentences", JSON.stringify(sentences.sentences.splice(1)))
+    localStorage.setItem("sentences", JSON.stringify(data.sentences.splice(1)))
   }
 
   return (
@@ -84,7 +101,7 @@ function Game() {
       
         <section className='info'>
           <div className="progress-section">
-            <progress id="file"  className="reverse" value={progress} max="100"> 32% </progress>
+            <progress id="file"  className="reverse" value={progress} max="100"> </progress>
             <div className="clock">
               <img width="40" src="/img/clock.svg" alt="clock" />
               <b noise="tic"></b>
@@ -95,17 +112,17 @@ function Game() {
         
         <section className='content'>
           {
-            sentences.sentences &&  game != sentences.sentences.length ? 
+            stages && stages.length &&  game != stages.length ? 
             <>
               <LetterBoxInput
-                sentence={sentences.sentences[game].content}
-                words={sentences.sentences[game].words}
+                sentence={stages[game].text}
+                words={stages[game].words}
                 onSuccess={successHandler}
                 onFailure={errorHandler}
                 onFinish={timeHandler} />
-              <span className="translate-section">{sentences.sentences[game].translatedContent}</span>
+              <span className="translate-section">{stages[game].native}</span>
             </>
-            : finished ? <SaveGameplay sentences={sentences.sentences.slice(1)} score={buildScore()}/>
+            : finished ? <SaveGameplay sentences={data.sentences.slice(1)} score={buildScore()}/>
             : <span className="loader loader--small"></span>
         }
       </section>
@@ -160,7 +177,7 @@ const SaveGameplay = ({score, sentences}) => {
 
     useEffect(()=>{
         if(saved) {
-            console.log("saving")
+            console.log("score Saved!")
             navigate('/summary/'+score.acc+'/'+score.time+'/'+score.points);
         }
     },[saved])
@@ -168,3 +185,4 @@ const SaveGameplay = ({score, sentences}) => {
     return <span className="loader loader--medium"></span>
 
 }
+

@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import LetterBox from '../LetterBox/letterBox'
 import './letter-box-input.scss'
 
-function LetterBoxInput ({sentence, words, noMistakes=true, onSuccess, onFailure}){ 
+function LetterBoxInput ({sentence, words, noMistakes=true, onSuccess, onFailure, onTime=null}){ 
     const [input, setInput] = useState("")
     const [mistakes, setMistakes] = useState(0)
     const isMistake = useRef(false);
@@ -72,9 +72,10 @@ function LetterBoxInput ({sentence, words, noMistakes=true, onSuccess, onFailure
             setMistakes(0)
         }
     }
-    
+    console.log("words:")
+    console.log(words)
     let sentence_words = filterString(sentence).toLowerCase().split(" ")
-    let lesson_words = words.map(word => word.learnedLanguage.toLowerCase())
+    let lesson_words = words.map(word => word.toLowerCase())
 
     let to_input = ""; 
     let index = 0;

@@ -33,7 +33,7 @@ function Summary() {
                         <legend className='summary-table__title'>
                             Dokładność
                         </legend>
-                        🎯{params.accuracy}
+                        🎯{params.accuracy}%
                     </fieldset>
                     <fieldset className='summary-table__item'>
                         <legend className='summary-table__title'>Zegarek</legend>
@@ -41,7 +41,7 @@ function Summary() {
                     </fieldset>
                     <fieldset className='summary-table__item'>
                         <legend className='summary-table__title'>Punkty</legend>
-                        🏆{params.points}%
+                        🏆{params.points}
                     </fieldset>
                 </div>
             </section>
