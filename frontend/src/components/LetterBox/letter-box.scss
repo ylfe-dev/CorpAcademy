@@ -72,6 +72,7 @@
 
 .non-writable {
     color: $black;
+    animation: in .4s forwards;
 
     &--win {
         animation: win 1.5s cubic-bezier(.9,-0.4,.31,1) forwards;

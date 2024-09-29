@@ -29,7 +29,7 @@ function Summary() {
         <div className="summary-table">
           <fieldset className="summary-table__item">
             <legend className="summary-table__title">Dokładność</legend>
-            🎯{formatPercentage(params.accuracy)}
+            🎯{formatPercentage(params.accuracy)}%
           </fieldset>
           <fieldset className="summary-table__item">
             <legend className="summary-table__title">Zegarek</legend>⏰
