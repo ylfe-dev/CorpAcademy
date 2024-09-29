@@ -10,7 +10,9 @@ function LetterBoxInput ({sentence, words, noMistakes=false, onSuccess, onFailur
     
     document.addEventListener('keydown', (ev) => {
         if(ev.key.length == 1){
-            document.getElementById("LetterBoxInput").focus()
+            const inputEl=document.getElementById("LetterBoxInput")
+            if(inputEl != document.activeElement)
+                inputEl.focus();
         }
     });
 
@@ -148,7 +150,7 @@ function Word({word, cqSize, helpers}){
 const buildCssMin = (size, ratio=1) => "max("+(size.w/ratio)+"cqw, "+ (size.h /ratio)+"cqh)";
 
 function filterString(str) {
-    return str.replace(/[^a-zA-Z\s]/g, '');
+    return str.replace(/[,.]/g, '');
   }
   
 const getMistakes = (a, b) =>{
