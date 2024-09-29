@@ -12,7 +12,6 @@
 
     &__list {
         display: flex;
-        gap: .5rem;
     }
 
     input {
@@ -24,6 +23,7 @@
     }
 
     label {
+        display: flex;
         padding: .5rem;
         cursor: pointer;
         border-radius: .5rem;
