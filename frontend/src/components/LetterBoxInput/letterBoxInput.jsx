@@ -11,7 +11,6 @@ function LetterBoxInput ({sentence, words, noMistakes=true, onSuccess, onFailure
    
     useEffect(()=>{
         if(noMistakes && mistakes>1){
-            console.log("call api")
             setTimeout(()=>onFailure(), 600)
         }
     }, [mistakes])
