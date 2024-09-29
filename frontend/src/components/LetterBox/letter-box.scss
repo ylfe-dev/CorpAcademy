@@ -78,6 +78,8 @@
     }
 }
 
+
+
 @keyframes fadein {
     from{ opacity:0;}
     to{opacity: 1;}
@@ -103,4 +105,8 @@
 @keyframes win {
     from{ transform: scale(1);}
     to{transform: scale(1.5); opacity:0}
+}
+@keyframes in {
+    from{ opacity:0; transform: scale(0);}
+    to{opacity: 1; transform: scale(1);}
 }
