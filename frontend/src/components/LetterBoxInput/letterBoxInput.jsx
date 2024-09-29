@@ -64,14 +64,14 @@ function LetterBoxInput ({sentence, words, noMistakes=false, onSuccess, onFailur
 
     const handleInput = ev => {
         ev.preventDefault()
-        setInput(ev.target.value);
+        setInput(ev.target.value.toLowerCase());
     }
 
     const handleBeforeInput = ev => {
         if(input == toInput.current || input.length == toInput.current.length){
             ev.stopPropagation()
             ev.preventDefault()
-        } else if(ev.data != toInput.current[input.length] && noMistakes){
+        } else if(ev.data.toLowerCase() != toInput.current[input.length] && noMistakes){
             setMistakes(mistakes+1)
             isMistake.current = true;
             ev.stopPropagation()
