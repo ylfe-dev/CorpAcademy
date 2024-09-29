@@ -16,8 +16,8 @@ function Summary() {
   return (
     <Scene type="basic">
       <section className="content">
-        <Hint character="cat" text="To było szybkie" />
-        <Hint character="rat" delay="4" text="Można lepiej" />
+        <Hint character="cat" delay="1" text="To było szybkie" />
+        <Hint character="rat" delay="3" text="Można lepiej" />
       </section>
 
       <section>
